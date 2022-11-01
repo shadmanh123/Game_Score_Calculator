@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.cmpt276project.model.Game;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,11 @@ class GameTest {
 
     @Test
     public void testSimpleAchievementList() {
+        int minScore = testGame1.getMinScore();
+        int maxScore = testGame1.getMaxScore();
+        int score = 0;
+
+        assertEquals(0, score);
 
 
     }
