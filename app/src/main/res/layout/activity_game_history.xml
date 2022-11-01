@@ -7,4 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".GameHistoryActivity">
 
+    <TextView
+        android:id="@+id/tvHistoryTitle"
+        android:layout_width="297dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        android:gravity="center"
+        android:text="History"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
