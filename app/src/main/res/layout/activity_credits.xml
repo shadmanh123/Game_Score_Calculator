@@ -7,4 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".CreditsActivity">
 
+    <TextView
+        android:id="@+id/tvCredits"
+        android:layout_width="297dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        android:gravity="center"
+        android:text="@string/CreditsTitle"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCreditInfo"
+        android:layout_width="match_parent"
+        android:layout_height="624dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rectangle"
+        android:gravity="center"
+        android:text="Insert Credit Information"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCredits" />
 </androidx.constraintlayout.widget.ConstraintLayout>
