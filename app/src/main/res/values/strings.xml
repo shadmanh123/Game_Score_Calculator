@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CMPT 276 Project</string>
-    <string name="CreditsTitle">Credits</string>
-    <string name="GameHistoryInformationLabel">Game          Date          Total Players          Score          Achievement</string>
-    <string name="HistoryTitle">History</string>
+    <string name="credits_title">Credits</string>
+    <string name="game_history_information_label">Game          Date          Total Players          Score          Achievement</string>
+    <string name="history_title">History</string>
+    <string name="new_game_button_text">New Game</string>
 </resources>
