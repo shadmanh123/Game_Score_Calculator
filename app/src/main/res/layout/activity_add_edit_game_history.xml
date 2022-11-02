@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textColor="@color/black"
-        android:text="How many players will there be?"
+        android:text="@string/ask_total_players"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ivPurpleRectangle" />
