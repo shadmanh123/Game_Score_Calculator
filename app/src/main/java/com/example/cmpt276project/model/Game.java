@@ -19,18 +19,10 @@ public class Game {
     public void addPlay(Play play) {
         plays.add(play);
     }
-
-    // subdivide scores into 10 tiers
-    public List<String> calculateAchievement(int numPlayers) {
-        List<String> tiers = new ArrayList<>(); // Maybe will change to hashmap
-        if(minScore > 0) {
-
-        }
-
-        return null;
-
+    // TODO: change later
+    public void getPlay(int index) {
+        plays.get(index);
     }
-
 
     public String getName() {
         return name;
