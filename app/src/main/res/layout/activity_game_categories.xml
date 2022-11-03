@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img"
+    android:foregroundTint="@color/white"
     tools:context=".GameCategoriesActivity">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_height="37dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="96dp"
-        android:background="@drawable/rounded_corner"
+        android:background="@drawable/main_title"
         android:fontFamily="sans-serif"
         android:text="Games"
         android:textAlignment="center"
@@ -21,5 +22,39 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
+
+    <TextView
+        android:id="@+id/listViewMain"
+        android:layout_width="274dp"
+        android:layout_height="369dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/gamecategorieslist"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/gameCategories"
+        android:layout_width="219dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="92dp"
+
+        android:isScrollContainer="true"
+        android:keepScreenOn="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
