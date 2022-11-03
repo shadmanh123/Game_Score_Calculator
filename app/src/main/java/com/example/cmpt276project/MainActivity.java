@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        getSupportActionBar().hide();
 
+
         ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
