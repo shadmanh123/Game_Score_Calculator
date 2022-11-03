@@ -5,4 +5,5 @@
     <string name="history_title">History</string>
     <string name="new_game_text">New Game</string>
     <string name="ask_total_players">How many players will there be?</string>
+    <string name="edit_game_title">Edit Game</string>
 </resources>

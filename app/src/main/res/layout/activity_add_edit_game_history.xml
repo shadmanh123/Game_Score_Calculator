@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".AddEditGameHistoryActivity">
 
+
+    <Button
+        android:id="@+id/btnEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#71B3D8"
+        android:backgroundTintMode="add"
+        android:text="@string/new_game_text"
+        app:icon="@drawable/rounded_corner"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPurpleRectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/tvNewGameTitle"
         android:layout_width="297dp"
@@ -54,4 +68,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTotalPlayerQuestion" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
