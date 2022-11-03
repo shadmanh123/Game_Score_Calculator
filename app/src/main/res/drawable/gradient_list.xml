@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/openingbackgroundone"
+        android:duration="5000">
+    </item>
+
+    <item
+        android:drawable="@drawable/openingbackgroundtwo"
+        android:duration="5000">
+    </item>
+
+    <item
+        android:drawable="@drawable/openingbackgroundthree"
+        android:duration="5000">
+    </item>
+</animation-list>

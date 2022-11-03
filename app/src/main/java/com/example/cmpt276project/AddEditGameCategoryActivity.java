@@ -2,6 +2,8 @@ package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class AddEditGameCategoryActivity extends AppCompatActivity {
@@ -10,5 +12,10 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game);
+    }
+
+    public static Intent makeIntent(Context context) {
+        Intent intent = new Intent(context, AddEditGameCategoryActivity.class);
+        return intent;
     }
 }

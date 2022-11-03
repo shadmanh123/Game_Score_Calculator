@@ -20,20 +20,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddEditGameHistoryActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".GameHistoryActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".AddEditGameCategoryActivity"
             android:exported="false">
             <meta-data
