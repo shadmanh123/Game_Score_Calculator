@@ -5,13 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Play {
-    final int NUM_TIERS = 10;
-    final int NUM_TIERS_ABOVE_MIN = 8;
-    Game game;
-    int numPlayers;
-    int totalScore;
-    HashMap<Integer, String> achievements;
 
+    private final int NUM_TIERS_ABOVE_MIN = 8;
+    private Game game;
+    private int numPlayers;
+    private int totalScore;
+    private HashMap<Integer, String> achievements;
 
     public Play(Game game, int numPlayers, int totalScore) {
         this.game = game;
@@ -27,27 +26,23 @@ public class Play {
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
 
-        for (Tiers tier: tiers) {
+        for (Tiers tier : tiers) {
             max -= scoreInterval;
             achievements.put(max, tier.getLevel());
-           // System.out.println(" " + max);
-           // System.out.println(" " + tier.getLevel());
         }
     }
 
-    // TODO: Function returning null
     // subdivide scores into 10 tiers
     public String calculateAchievementForGroupScore() {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int i = 0;
-        while(i < totalScore) {
-            i += scoreInterval;
-            System.out.println(i);
-            System.out.println(achievements.get(i));
+        int i = max;
+
+        while (i >= totalScore) {
+            i -= scoreInterval;
         }
-        System.out.println(achievements.get(i - scoreInterval));
+
         return achievements.get(i - scoreInterval);
     }
 
@@ -75,5 +70,7 @@ public class Play {
         this.totalScore = totalScore;
     }
 
-
+    public int getNUM_TIERS_ABOVE_MIN() {
+        return NUM_TIERS_ABOVE_MIN;
+    }
 }

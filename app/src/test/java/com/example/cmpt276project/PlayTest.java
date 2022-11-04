@@ -1,15 +1,12 @@
 package com.example.cmpt276project;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.Play;
-import com.example.cmpt276project.model.Tiers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 
 class PlayTest {
 
@@ -25,10 +22,10 @@ class PlayTest {
     }
 
     @Test
-    public void testSimpleAchievementList() {
+    public void testSimpleAchievement() {
         Play play1 = new Play(testGame3, 2, 150);
         play1.achievementsAndScores();
-        play1.calculateAchievementForGroupScore();
-
+        String achievement = play1.calculateAchievementForGroupScore();
+        assertEquals("Bottlenose Dolphin", achievement);
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameManager {
-    List<Game> games;
+    private List<Game> games;
 
 
     public GameManager() {

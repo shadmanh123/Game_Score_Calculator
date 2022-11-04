@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    String name;
-    int minScore;
-    int maxScore;
-    List<Play> plays;
+    private String name;
+    private int minScore;
+    private int maxScore;
+    private List<Play> plays;
 
     public Game(String name, int minScore, int maxScore) {
         this.name = name;
