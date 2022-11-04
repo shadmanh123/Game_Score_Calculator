@@ -30,25 +30,29 @@ public class Play {
         for (Tiers tier: tiers) {
             max -= scoreInterval;
             achievements.put(max, tier.getLevel());
-           // System.out.println(" " + max);
-           // System.out.println(" " + tier.getLevel());
+//            System.out.println(" " + max);
+//            System.out.println(" " + tier.getLevel());
         }
     }
 
-    // TODO: Function returning null
     // subdivide scores into 10 tiers
     public String calculateAchievementForGroupScore() {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int i = 0;
-        while(i < totalScore) {
-            i += scoreInterval;
-            System.out.println(i);
-            System.out.println(achievements.get(i));
+        if (totalScore > max){
+            return achievements.get(max);
         }
-        System.out.println(achievements.get(i - scoreInterval));
-        return achievements.get(i - scoreInterval);
+        else{
+            int i = max;
+            while(i > totalScore) {
+                i -= scoreInterval;
+//                System.out.println(i);
+//                System.out.println(achievements.get(i));
+            }
+//            System.out.println(achievements.get(i - scoreInterval));
+            return achievements.get(i - scoreInterval);
+        }
     }
 
     public Game getGame() {
