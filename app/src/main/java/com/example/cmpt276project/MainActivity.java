@@ -33,7 +33,16 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 btn.startAnimation(bubble);
+                new Handler().postDelayed(new Runnable() {
+//            //this is the coolest thing I ever done
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
+//                        finish();
+                    }
+                },500);
             }
         });
 
