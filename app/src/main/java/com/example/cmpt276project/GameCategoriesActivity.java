@@ -32,20 +32,20 @@ public class GameCategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_categories);
 
-        gameManager = new GameManager();
-        theList = new ArrayList<Game>();
-
-        gameManager.addGame(new Game("Chess", 0, 100));
-        gameManager.addGame(new Game("BlackJack", 50, 200));
-        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+//        gameManager = new GameManager();
+//        theList = new ArrayList<Game>();
+//
+//        gameManager.addGame(new Game("Chess", 0, 100));
+//        gameManager.addGame(new Game("BlackJack", 50, 200));
+//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
 
         findViewById(R.id.btnAdd).setOnClickListener(v->onClick());
 
 
-        populateTheList();
-        populateListView();
-        registerClickCallback();
+//        populateTheList();
+//        populateListView();
+//        registerClickCallback();
 
 
     }
