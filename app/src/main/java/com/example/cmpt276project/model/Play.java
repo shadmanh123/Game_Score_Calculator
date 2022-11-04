@@ -1,5 +1,7 @@
 package com.example.cmpt276project.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,12 +9,14 @@ import java.util.List;
 public class Play {
 
     private final int NUM_TIERS_ABOVE_MIN = 8;
+    private LocalDateTime creationDate;
     private Game game;
     private int numPlayers;
     private int totalScore;
     private HashMap<Integer, String> achievements;
 
     public Play(Game game, int numPlayers, int totalScore) {
+        creationDate = LocalDateTime.now();
         this.game = game;
         this.numPlayers = numPlayers;
         this.totalScore = totalScore;
@@ -44,6 +48,11 @@ public class Play {
         }
 
         return achievements.get(i - scoreInterval);
+    }
+
+    public String getCreationDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("@yyyy-MM-dd HH:mm");
+        return creationDate.format(dtf);
     }
 
     public Game getGame() {
