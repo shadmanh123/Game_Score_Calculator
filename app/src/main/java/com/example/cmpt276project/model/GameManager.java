@@ -6,8 +6,17 @@ import java.util.List;
 public class GameManager {
     List<Game> games;
 
+    //making the singleton
+    private static GameManager instance;
+    public static GameManager getInstance(){
+        if (instance == null){
+            instance = new GameManager();
+        }
+        return instance;
+    }
 
-    public GameManager() {
+
+    private GameManager() {
         games = new ArrayList<>();
     }
 
