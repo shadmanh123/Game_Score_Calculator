@@ -6,4 +6,9 @@
     <string name="new_game_text">New Game</string>
     <string name="ask_total_players">How many players will there be?</string>
     <string name="edit_game_title">Edit Game</string>
+    <string name="max_score">Player Max Score</string>
+    <string name="min_score">Player Min Score</string>
+    <string name="game_name">Game Name</string>
+    <string name="save">Save</string>
+    <string name="game_configuration">Game Configuration</string>
 </resources>
