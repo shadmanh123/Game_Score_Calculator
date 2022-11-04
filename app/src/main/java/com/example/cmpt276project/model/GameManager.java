@@ -28,4 +28,12 @@ public class GameManager {
         games.set(index, game);
     }
 
+    public Game getGame(int index){
+        return games.get(index);
+    }
+
+    public int getNumbeOfGames(){
+        return games.size();
+    }
+
 }
