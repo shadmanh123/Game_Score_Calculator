@@ -24,6 +24,14 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
 
         //have a way to get to prev display if needed
 
+        Button back = findViewById(R.id.BackButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackClick();
+            }
+        });
+
 
         Button save = findViewById(R.id.SaveButton);
         save.setOnClickListener(new View.OnClickListener() {
@@ -38,11 +46,19 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         //has slots filled in already because we are editing that game
     }
 
+    private void onBackClick() {
+        //has a pop up saying that things are not saved
+    }
+
 
     private void onSaveClick() {
         EditText n = findViewById(R.id.GameName);
         String name = n.getText().toString();
-        //check if the name is empty
+        //checking if the name is empty
+        if ("" == name){
+            Toast.makeText(this,"Every slot must be filled", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         EditText min = findViewById(R.id.MinScore);
         String minimum = min.getText().toString();
