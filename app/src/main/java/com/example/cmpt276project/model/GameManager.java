@@ -2,6 +2,7 @@ package com.example.cmpt276project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class GameManager {
     private List<Game> games;
