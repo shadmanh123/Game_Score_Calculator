@@ -41,21 +41,25 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         clickedItems = new ArrayList<Integer>();
 
-        getState();
+
 //
-//        gameManager.addGame(new Game("Chess", 0, 100));
-//        gameManager.addGame(new Game("BlackJack", 50, 200));
-//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+        gameManager.addGame(new Game("Chess", 0, 100));
+        gameManager.addGame(new Game("BlackJack", 50, 200));
+        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
-
+        getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
-
+        findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
 
 //        populateTheList();
         populateListView();
         registerClickCallback();
 
 
+    }
+
+    private void onCredits() {
+        startActivity(new Intent(GameCategoriesActivity.this, CreditsActivity.class));
     }
 
     private void getState() {
@@ -181,7 +185,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void onHistory() {
-        startActivity(new Intent(GameCategoriesActivity.this, CreditsActivity.class));
+        startActivity(new Intent(GameCategoriesActivity.this, GameHistoryActivity.class));
         onStart();
         populateListView();
     }
