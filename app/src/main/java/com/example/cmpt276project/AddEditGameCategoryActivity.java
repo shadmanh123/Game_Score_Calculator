@@ -53,6 +53,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
 
     private void onBackClick() {
         //has a pop up saying that things are not saved
+        finish();
     }
 
 
@@ -60,7 +61,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         EditText n = findViewById(R.id.GameName);
         String name = n.getText().toString();
         //checking if the name is empty
-        if ("" == name){
+        if ("".equals(name)){
             Toast.makeText(this,"Every slot must be filled", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -85,7 +86,10 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             return;
         }
 
+        //needs to make it so that saves the specific game
+
         //save into game manager - new game
+        //this will be in an else
         Game game = new Game(name, minScore, maxScore);
         gameManager.getInstance().addGame(game);
 
