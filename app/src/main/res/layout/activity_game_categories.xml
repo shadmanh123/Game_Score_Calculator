@@ -41,6 +41,7 @@
         android:layout_marginStart="72dp"
         android:layout_marginTop="136dp"
         android:background="@drawable/gamecategorieslist"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,9 +54,9 @@
 
         android:isScrollContainer="true"
         android:keepScreenOn="true"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnCredits"
@@ -63,7 +64,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:text="Credits"
+        android:theme="@style/Theme.button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/emptyStateArrow"
+        android:layout_width="98dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
+
+    <TextView
+        android:id="@+id/emptyStateText"
+        android:layout_width="274dp"
+        android:layout_height="224dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginBottom="64dp"
+        android:text="You Game Manager is empty! Click here to add a game configuration!"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

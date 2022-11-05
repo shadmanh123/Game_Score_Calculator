@@ -27,36 +27,70 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private List<Game> theList;
     private GameManager gameManager;
 
+    private ArrayList<Integer> clickedItems;
+
+    ArrayAdapter<Game> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_categories);
 
-//        gameManager = new GameManager();
-//        theList = new ArrayList<Game>();
+        gameManager = GameManager.getInstance();
+        theList = new ArrayList<Game>();
+
+        clickedItems = new ArrayList<Integer>();
+
+        getState();
 //
 //        gameManager.addGame(new Game("Chess", 0, 100));
 //        gameManager.addGame(new Game("BlackJack", 50, 200));
 //        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
 
-
-        findViewById(R.id.btnAdd).setOnClickListener(v->onClick());
+        findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
 
 
 //        populateTheList();
-//        populateListView();
-//        registerClickCallback();
+        populateListView();
+        registerClickCallback();
 
 
     }
 
+    private void getState() {
+        if(gameManager.getNumbeOfGames() == 0){
+            View listBack = findViewById(R.id.listViewMain);
+            listBack.setVisibility(View.GONE);
+
+            View list = findViewById(R.id.gameCategoriesList);
+            list.setVisibility(View.GONE);
+
+            View text = findViewById(R.id.emptyStateText);
+            text.setVisibility(View.VISIBLE);
+
+            View arrow = findViewById(R.id.emptyStateArrow);
+            arrow.setVisibility(View.VISIBLE);
+        }else{
+            View listBack = findViewById(R.id.listViewMain);
+            listBack.setVisibility(View.VISIBLE);
+
+            View list = findViewById(R.id.gameCategoriesList);
+            list.setVisibility(View.VISIBLE);
+
+            View text = findViewById(R.id.emptyStateText);
+            text.setVisibility(View.GONE);
+
+            View arrow = findViewById(R.id.emptyStateArrow);
+            arrow.setVisibility(View.GONE);
+        }
+    }
+
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
-//        gameManager.addGame(new Game("BlackJack", 0, 100));
-//        theList.clear();
-//        populateTheList();
-//        populateListView();
+        gameManager.addGame(new Game("BlackJack", 0, 100));
+        onStart();
+
 
     }
 
@@ -65,53 +99,101 @@ public class GameCategoriesActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(GameCategoriesActivity.this,"this works", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
+//                Toast.makeText(GameCategoriesActivity.this, "this works", Toast.LENGTH_LONG).show();
+//                startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
+
+                clickedItems.add(i);
+                onStart();
+                populateListView();
             }
         });
     }
 
     private void populateListView() {
-        ArrayAdapter<Game> adapter= new MyListAdapter();
+        adapter = new MyListAdapter();
         ListView list = findViewById(R.id.gameCategoriesList);
         list.setAdapter(adapter);
     }
-    private class MyListAdapter extends ArrayAdapter<Game>{
-        public MyListAdapter(){
+
+    private class MyListAdapter extends ArrayAdapter<Game> {
+        public MyListAdapter() {
             super(GameCategoriesActivity.this, R.layout.gamecategoryitem, theList);
         }
+
         @Override
-        public View getView(int position, View convertView, ViewGroup parent){
+        public View getView(int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
-            if(itemView == null){
+            if (itemView == null) {
                 itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem, parent, false);
             }
             Game currentGame = theList.get(position);
+//            Toast.makeText(GameCategoriesActivity.this, "this", Toast.LENGTH_LONG).show();
+            if(clickedItems.contains(position)){
 
-            ImageView imageView = itemView.findViewById(R.id.item_img);
-            imageView.setImageResource(getIcon(currentGame.getName()));
+                itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem_two, parent, false);
+                ImageView imageView = itemView.findViewById(R.id.item_img);
+                imageView.setImageResource(getIcon(currentGame.getName()));
 
-            TextView name = itemView.findViewById(R.id.item_name);
-            name.setText(currentGame.getName());
+                TextView name = itemView.findViewById(R.id.item_name);
+                name.setText(currentGame.getName());
 
-            TextView maxScore = itemView.findViewById(R.id.item_max_score);
-            maxScore.setText("Max Score: " + currentGame.getMaxScore());
+                TextView maxScore = itemView.findViewById(R.id.item_max_score);
+                maxScore.setText("Max Score: " + currentGame.getMaxScore());
 
-            TextView minScore = itemView.findViewById(R.id.item_min_score);
-            minScore.setText("Min Score: " + currentGame.getMinScore());
+                TextView minScore = itemView.findViewById(R.id.item_min_score);
+                minScore.setText("Min Score: " + currentGame.getMinScore());
 
+                View btnHistory = itemView.findViewById(R.id.btnHistory);
+                btnHistory.setOnClickListener(v->onHistory());
+
+                View btnEdit = itemView.findViewById(R.id.btnEdit);
+                btnEdit.setOnClickListener(v->onEdit());
+
+                itemView.setOnClickListener(v->{
+                    clickedItems.remove(Integer.valueOf(position));
+                    onStart();
+                    populateListView();
+//                    registerClickCallback();
+                });
+
+            }else {
+
+                ImageView imageView = itemView.findViewById(R.id.item_img);
+                imageView.setImageResource(getIcon(currentGame.getName()));
+
+                TextView name = itemView.findViewById(R.id.item_name);
+                name.setText(currentGame.getName());
+
+                TextView maxScore = itemView.findViewById(R.id.item_max_score);
+                maxScore.setText("Max Score: " + currentGame.getMaxScore());
+
+                TextView minScore = itemView.findViewById(R.id.item_min_score);
+                minScore.setText("Min Score: " + currentGame.getMinScore());
+            }
             return itemView;
         }
     }
 
+    private void onEdit() {
+        startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
+        onStart();
+        populateListView();
+    }
+
+    private void onHistory() {
+        startActivity(new Intent(GameCategoriesActivity.this, CreditsActivity.class));
+        onStart();
+        populateListView();
+    }
+
     private int getIcon(String name) {
         name = name.toLowerCase().trim();
-        Toast.makeText(GameCategoriesActivity.this,"-"+ name +"-", Toast.LENGTH_LONG).show();
-        if(name.equals("chess")){
+//        Toast.makeText(GameCategoriesActivity.this, "-" + name + "-", Toast.LENGTH_LONG).show();
+        if (name.equals("chess")) {
             return R.drawable.chess;
-        }else if(name.equals("blackjack")){
+        } else if (name.equals("blackjack")) {
             return R.drawable.card;
-        }else{
+        } else {
             return R.drawable.gameboy;
         }
 
@@ -122,24 +204,22 @@ public class GameCategoriesActivity extends AppCompatActivity {
         return intent;
     }
 
-    private void populateTheList(){
-        for(int i = 0; i < gameManager.getNumbeOfGames(); i++){
+    private void populateTheList() {
+        for (int i = 0; i < gameManager.getNumbeOfGames(); i++) {
             theList.add(gameManager.getGame(i));
 
         }
     }
-//    private class MyListAdapter extends ArrayAdapter<String> {
-//        public MyListAdapter(){
-//            super(GameCategoriesActivity.this, R.layout.gamecategoryitem, myItems);
-//        }
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent){
-//            View itemView = convertView;
-//            if(itemView == null){
-//                itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem, parent, false);
-//            }
-//
-//            return itemView;
-//        }
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        theList.clear();
+        for(int i = 0; i < GameManager.getInstance().getNumbeOfGames(); i++){
+            theList.add(GameManager.getInstance().getGame(i));
+        }
+
+        populateListView();
+        adapter.notifyDataSetChanged();
+//        determineState();
+    }
 }
