@@ -47,7 +47,7 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
 
         //build the alert dialog
         return new AlertDialog.Builder(getActivity())
-                .setTitle("Back Button")
+                .setTitle("Back")
                 .setView(v)
                 .setPositiveButton(android.R.string.ok, listener)
                 .setNegativeButton(android.R.string.cancel, listener)

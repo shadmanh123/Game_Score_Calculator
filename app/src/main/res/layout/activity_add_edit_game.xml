@@ -59,6 +59,7 @@
         android:id="@+id/GameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/game_name"
         android:inputType="textPersonName"
@@ -67,8 +68,7 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.279"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.313" />
 
     <EditText
         android:id="@+id/MinScore"
@@ -83,12 +83,13 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.418" />
+        app:layout_constraintVertical_bias="0.467" />
 
     <EditText
         android:id="@+id/MaxScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/max_score"
         android:inputType="textPersonName"
@@ -97,8 +98,7 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.562"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.629" />
 
     <Button
         android:id="@+id/BackButton"
