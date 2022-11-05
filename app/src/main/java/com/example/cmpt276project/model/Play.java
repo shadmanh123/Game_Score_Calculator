@@ -1,10 +1,13 @@
 package com.example.cmpt276project.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Play {
+    private LocalDateTime creationDate;
     final int NUM_TIERS = 10;
     final int NUM_TIERS_ABOVE_MIN = 8;
     Game game;
@@ -12,14 +15,18 @@ public class Play {
     int totalScore;
     HashMap<Integer, String> achievements;
 
-
     public Play(Game game, int numPlayers, int totalScore) {
         this.game = game;
         this.numPlayers = numPlayers;
         this.totalScore = totalScore;
         achievements = new HashMap<>();
+        creationDate = LocalDateTime.now();
     }
 
+    public String getCreationDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("@yyyy-MM-dd HH:mm");
+        return creationDate.format(dtf);
+    }
     // subdivide scores into 10 tiers
     public void achievementsAndScores() {
         Tiers tiers[] = Tiers.values();
@@ -27,11 +34,9 @@ public class Play {
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
 
-        for (Tiers tier: tiers) {
+        for (Tiers tier : tiers) {
             max -= scoreInterval;
             achievements.put(max, tier.getLevel());
-//            System.out.println(" " + max);
-//            System.out.println(" " + tier.getLevel());
         }
     }
 
@@ -40,19 +45,13 @@ public class Play {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        if (totalScore > max){
-            return achievements.get(max);
+
+        int i = max;
+        while (i > totalScore) {
+            i -= scoreInterval;
         }
-        else{
-            int i = max;
-            while(i > totalScore) {
-                i -= scoreInterval;
-//                System.out.println(i);
-//                System.out.println(achievements.get(i));
-            }
-//            System.out.println(achievements.get(i - scoreInterval));
-            return achievements.get(i - scoreInterval);
-        }
+
+        return achievements.get(i - scoreInterval);
     }
 
     public Game getGame() {

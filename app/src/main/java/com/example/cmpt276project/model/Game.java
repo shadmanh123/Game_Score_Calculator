@@ -20,8 +20,8 @@ public class Game {
         plays.add(play);
     }
     // TODO: change later
-    public void getPlay(int index) {
-        plays.get(index);
+    public Play getPlay(int index) {
+        return plays.get(index);
     }
 
     public String getName() {
@@ -46,6 +46,30 @@ public class Game {
 
     public void setMaxScore(int maxScore) {
         this.maxScore = maxScore;
+    }
+
+    //TODO change 4 into constant
+    public String[][] displayGames(){
+        String[][] games = new String[plays.size()][4];
+        int numberOfPlays = 0;
+        for (int rows = 0; rows < plays.size(); rows++) {
+            for(int columns = 0; columns < 4; columns++){
+                Play play = plays.get(numberOfPlays);
+                if(columns == 0){
+                    games[rows][columns] = play.getCreationDate();
+                }
+                else if(columns == 1){
+                    games[rows][columns] = ""+play.getNumPlayers();
+                }
+                else if(columns == 2){
+                    games[rows][columns] = ""+play.getTotalScore();
+                } else{
+                    games[rows][columns] = play.calculateAchievementForGroupScore();
+                }
+            }
+            numberOfPlays++;
+        }
+        return null;
     }
 
 }
