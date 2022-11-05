@@ -51,11 +51,11 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void onClick() {
-//        startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
-        gameManager.addGame(new Game("BlackJack", 0, 100));
-        theList.clear();
-        populateTheList();
-        populateListView();
+        startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
+//        gameManager.addGame(new Game("BlackJack", 0, 100));
+//        theList.clear();
+//        populateTheList();
+//        populateListView();
 
     }
 

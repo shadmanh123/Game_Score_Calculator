@@ -1,16 +1,23 @@
 package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cmpt276project.model.Game;
+import com.example.cmpt276project.model.GameManager;
+
 public class AddEditGameCategoryActivity extends AppCompatActivity {
+
+    private GameManager gameManager;
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, AddEditGameCategoryActivity.class);
@@ -48,6 +55,12 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
 
     private void onBackClick() {
         //has a pop up saying that things are not saved
+        FragmentManager manager = getSupportFragmentManager();
+        BackPopUpGCFragment dialog = new BackPopUpGCFragment();
+        dialog.show(manager, "message");
+
+//        Log.i("TAG", "just show");
+//        finish();
     }
 
 
@@ -55,7 +68,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         EditText n = findViewById(R.id.GameName);
         String name = n.getText().toString();
         //checking if the name is empty
-        if ("" == name){
+        if ("".equals(name)){
             Toast.makeText(this,"Every slot must be filled", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -80,10 +93,15 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             return;
         }
 
-        //save into game manager - new game
+        //needs to make it so that saves the specific game
 
+        //save into game manager - new game
+        //this will be in an else
+        Game game = new Game(name, minScore, maxScore);
+        gameManager.getInstance().addGame(game);
 
         //go back to main page - I think it is Game Category activity
+        finish();
 
     }
 }
