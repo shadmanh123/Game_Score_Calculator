@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import java.text.BreakIterator;
+
 public class BackPopUpGCFragment extends AppCompatDialogFragment {
 
 //    @NonNull
@@ -31,7 +33,15 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 //                Log.i("Tag", "you clicked the dialog button");
-                getActivity().finish();
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        getActivity().finish();
+                        break;
+
+                    case    DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+//                getActivity().finish();
             }
         };
 
@@ -40,6 +50,7 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
                 .setTitle("Back Button")
                 .setView(v)
                 .setPositiveButton(android.R.string.ok, listener)
+                .setNegativeButton(android.R.string.cancel, listener)
                 .create();
     }
 }

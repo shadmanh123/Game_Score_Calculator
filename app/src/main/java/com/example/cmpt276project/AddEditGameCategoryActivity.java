@@ -59,7 +59,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         BackPopUpGCFragment dialog = new BackPopUpGCFragment();
         dialog.show(manager, "message");
 
-        Log.i("TAG", "just show");
+//        Log.i("TAG", "just show");
 //        finish();
     }
 
