@@ -10,7 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cmpt276project.model.Game;
+import com.example.cmpt276project.model.GameManager;
+
 public class AddEditGameCategoryActivity extends AppCompatActivity {
+
+    private GameManager gameManager;
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, AddEditGameCategoryActivity.class);
@@ -81,9 +86,11 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         }
 
         //save into game manager - new game
-
+        Game game = new Game(name, minScore, maxScore);
+        gameManager.getInstance().addGame(game);
 
         //go back to main page - I think it is Game Category activity
+        finish();
 
     }
 }
