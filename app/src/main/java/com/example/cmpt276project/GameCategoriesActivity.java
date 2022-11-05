@@ -40,6 +40,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 //        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
 
+
         findViewById(R.id.btnAdd).setOnClickListener(v->onClick());
 
 

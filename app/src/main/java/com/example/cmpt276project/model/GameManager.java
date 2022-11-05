@@ -2,9 +2,10 @@ package com.example.cmpt276project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class GameManager {
-    List<Game> games;
+    private List<Game> games;
 
     //making the singleton
     private static GameManager instance;

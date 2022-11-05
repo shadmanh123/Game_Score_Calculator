@@ -6,21 +6,17 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 public class MainActivity extends AppCompatActivity {
     Button btn;
     Animation bubble;
-    bubbleInterpolation bubbleInterpolation;
+    BubbleInterpolation bubbleInterpolation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn = findViewById(R.id.btn_start);
         bubble = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale);
-        bubbleInterpolation = new bubbleInterpolation(0.2, 20);
+        bubbleInterpolation = new BubbleInterpolation(0.2, 20);
         bubble.setInterpolator(bubbleInterpolation);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
+                        finish();
+//                        startActivity(new Intent(MainActivity.this,GameHistoryActivity.class));
 //                        finish();
                     }
                 },500);

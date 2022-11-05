@@ -1,11 +1,11 @@
 package com.example.cmpt276project;
 import android.view.animation.Interpolator;
 
-public class bubbleInterpolation implements Interpolator {
+public class BubbleInterpolation implements Interpolator {
 
     private double A = 1, f = 10;
 
-    public bubbleInterpolation(double a, double f) {
+    public BubbleInterpolation(double a, double f) {
         A = a;
         this.f = f;
     }

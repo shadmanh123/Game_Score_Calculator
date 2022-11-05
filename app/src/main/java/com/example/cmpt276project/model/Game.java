@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    String name;
-    int minScore;
-    int maxScore;
-    List<Play> plays;
+    private String name;
+    private int minScore;
+    private int maxScore;
+    private List<Play> plays;
 
     public Game(String name, int minScore, int maxScore) {
         this.name = name;
@@ -16,12 +16,15 @@ public class Game {
         plays = new ArrayList<>();
     }
 
+    public int playSize() {
+        return plays.size();
+    }
     public void addPlay(Play play) {
         plays.add(play);
     }
-    // TODO: change later
-    public void getPlay(int index) {
-        plays.get(index);
+
+    public Play getPlay(int index) {
+        return plays.get(index);
     }
 
     public String getName() {
@@ -46,6 +49,30 @@ public class Game {
 
     public void setMaxScore(int maxScore) {
         this.maxScore = maxScore;
+    }
+
+    public String displayPlayInfo(int playIndex, int column){
+        String display;
+        Play play = getPlay(playIndex);
+        switch(column) {
+            case 0:
+                display = play.getCreationDate();
+                break;
+            case 1:
+                display = "" + play.getNumPlayers();
+                break;
+            case 2:
+                display = "" + play.getTotalScore();
+                break;
+            case 3:
+                display = play.calculateAchievementForGroupScore();
+                break;
+            default:
+                display = "";
+                break;
+        }
+
+        return display;
     }
 
 }
