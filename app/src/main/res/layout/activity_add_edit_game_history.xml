@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".AddEditGameHistoryActivity">
 
-
     <Button
         android:id="@+id/btnEnter"
         android:layout_width="wrap_content"
