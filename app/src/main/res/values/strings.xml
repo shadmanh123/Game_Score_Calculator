@@ -12,4 +12,5 @@
     <string name="save">Save</string>
     <string name="game_configuration">Game Configuration</string>
     <string name="back">Back</string>
+    <string name="Back_Button_blerb">Your Changes Have Not Been Saved</string>
 </resources>
