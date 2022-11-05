@@ -20,18 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvHistoryLabels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="#51000000"
-        android:maxLines="1"
-        android:text="@string/game_history_information_label"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle" />
+
 
     <Button
         android:id="@+id/btnNewGame"
@@ -45,5 +34,50 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableForHistory"
+        android:layout_width="match_parent"
+        android:layout_height="553dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle"
+        app:layout_constraintVertical_bias="0.119">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#51000000">
+
+            <TextView
+                android:background="#51000000"
+                android:padding="5dip"
+                android:text="Date"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:background="#51000000"
+                android:padding="5dip"
+                android:text="Total Players"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:background="#51000000"
+                android:padding="5dip"
+                android:text="Score"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:background="#51000000"
+                android:padding="5dip"
+                android:text="Achievement"
+                android:textColor="@color/white" />
+        </TableRow>
+
+
+    </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
