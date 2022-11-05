@@ -16,10 +16,13 @@ public class Game {
         plays = new ArrayList<>();
     }
 
+    public int playSize() {
+        return plays.size();
+    }
     public void addPlay(Play play) {
         plays.add(play);
     }
-    // TODO: change later
+
     public Play getPlay(int index) {
         return plays.get(index);
     }
@@ -48,28 +51,28 @@ public class Game {
         this.maxScore = maxScore;
     }
 
-    //TODO change 4 into constant
-    public String[][] displayGames(){
-        String[][] games = new String[plays.size()][4];
-        int numberOfPlays = 0;
-        for (int rows = 0; rows < plays.size(); rows++) {
-            for(int columns = 0; columns < 4; columns++){
-                Play play = plays.get(numberOfPlays);
-                if(columns == 0){
-                    games[rows][columns] = play.getCreationDate();
-                }
-                else if(columns == 1){
-                    games[rows][columns] = ""+play.getNumPlayers();
-                }
-                else if(columns == 2){
-                    games[rows][columns] = ""+play.getTotalScore();
-                } else{
-                    games[rows][columns] = play.calculateAchievementForGroupScore();
-                }
-            }
-            numberOfPlays++;
+    public String displayPlayInfo(int playIndex, int column){
+        String display;
+        Play play = getPlay(playIndex);
+        switch(column) {
+            case 0:
+                display = play.getCreationDate();
+                break;
+            case 1:
+                display = "" + play.getNumPlayers();
+                break;
+            case 2:
+                display = "" + play.getTotalScore();
+                break;
+            case 3:
+                display = play.calculateAchievementForGroupScore();
+                break;
+            default:
+                display = "";
+                break;
         }
-        return null;
+
+        return display;
     }
 
 }
