@@ -3,20 +3,18 @@ package com.example.cmpt276project;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cmpt276project.model.Play;
 
-public class AddPlayGameHistoryActivity extends AppCompatActivity {
+public class AddEditGameHistoryActivity extends AppCompatActivity {
     Button enter = findViewById(R.id.btnEnter);
     public static Intent makeIntent(Context context){
-        return new Intent(context, AddPlayGameHistoryActivity.class);
+        return new Intent(context, AddEditGameHistoryActivity.class);
     }
 
     @Override
