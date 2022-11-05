@@ -26,29 +26,33 @@ class PlayTest {
         Play play1 = new Play(testGame1, 2, 150);
         play1.achievementsAndScores();
         String achievement = play1.calculateAchievementForGroupScore();
-        assertEquals("Bottlenose Dolphin", achievement);
+        assertEquals("Blue Whale", achievement);
     }
 
     @Test
-    public void testbelowMinAchievement() {
-        Play play1 = new Play(testGame1, 2, 150);
+    public void testBelowMinAchievement() {
+        Play play1 = new Play(testGame1, 2, 10);
         play1.achievementsAndScores();
         String achievement = play1.calculateAchievementForGroupScore();
-        assertEquals("Bottlenose Dolphin", achievement);
+        assertEquals("Blobfish", achievement);
     }
 
-    @Test
-    public void testMaxAchievement() {
-        Play play1 = new Play(testGame1, 2, 200);
-        play1.achievementsAndScores();
-        String achievement = play1.calculateAchievementForGroupScore();
-        assertEquals("Bottlenose Dolphin", achievement);
-    }
 
     @Test
     public void testAboveMaxAchievement() {
         Play play1 = new Play(testGame1, 2, 250);
         play1.achievementsAndScores();
+        String achievement = play1.calculateAchievementForGroupScore();
+        assertEquals("Blue Whale", achievement);
 
     }
+
+    @Test
+    public void testZeroAchievement() {
+        Play play1 = new Play(testGame1, 2, 0);
+        play1.achievementsAndScores();
+        String achievement = play1.calculateAchievementForGroupScore();
+        assertEquals("Bottlenose Dolphin", achievement);
+    }
+
 }

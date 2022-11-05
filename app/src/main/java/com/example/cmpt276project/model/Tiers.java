@@ -3,16 +3,16 @@ package com.example.cmpt276project.model;
 public enum Tiers {
     // Ocean Theme
 
-    LEVEL10("Blue Whale"),
-    LEVEL9("Great White Shark"),
-    LEVEL8("Colossal Squid"),
-    LEVEL7("Bottlenose Dolphin"),
-    LEVEL6("Lion's Mane Jellyfish"),
-    LEVEL5("Giant Pacific Octopus"),
-    LEVEL4("Peacock Mantis Shrimp"),
-    LEVEL3("Flamingo Tongue Snail"),
+    LEVEL1("Blobfish"),
     LEVEL2("Frogfish"),
-    LEVEL1("Blobfish");
+    LEVEL3("Flamingo Tongue Snail"),
+    LEVEL4("Peacock Mantis Shrimp"),
+    LEVEL5("Giant Pacific Octopus"),
+    LEVEL6("Lion's Mane Jellyfish"),
+    LEVEL7("Bottlenose Dolphin"),
+    LEVEL8("Colossal Squid"),
+    LEVEL9("Great White Shark"),
+    LEVEL10("Blue Whale");
 
     final String level;
 

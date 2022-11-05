@@ -27,11 +27,15 @@ public class Play {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
+        int score = 0;
 
-        for (Tiers tier : tiers) {
-            max -= scoreInterval;
-            achievements.put(max, tier.getLevel());
+        for (Tiers tier: tiers) {
+            achievements.put(score, tier.getLevel());
+            System.out.println(score);
+            score += scoreInterval;
         }
+
+        System.out.println("finish");
     }
 
     // subdivide scores into 10 tiers
@@ -39,13 +43,20 @@ public class Play {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int i = max;
+        int score = 0;
 
-        while (i >= totalScore) {
-            i -= scoreInterval;
+        while (score < totalScore) {
+            if(score > max + scoreInterval) {
+                break;
+            }
+            score += scoreInterval;
+            System.out.println(score);
         }
 
-        return achievements.get(i - scoreInterval);
+        System.out.println("After");
+        System.out.println(score);
+
+        return achievements.get(score);
     }
 
     public String getCreationDate() {
