@@ -199,6 +199,13 @@ public class GameCategoriesActivity extends AppCompatActivity {
         populateListView();
     }
 
+    private void onAdd(int index) {
+        Intent intent = AddEditGameHistoryActivity.makeIntent(GameCategoriesActivity.this, index);
+        startActivity(intent);
+        onStart();
+        populateListView();
+    }
+
     private int getIcon(String name) {
         name = name.toLowerCase().trim();
 //        Toast.makeText(GameCategoriesActivity.this, "-" + name + "-", Toast.LENGTH_LONG).show();
