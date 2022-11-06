@@ -22,91 +22,112 @@ class PlayTest {
     }
 
     @Test
-    public void testSimpleAchievement() {
-        Play play1 = new Play(testGame1, 2, 150);
-        play1.achievementsAndScores();
-        String achievement = play1.calculateAchievementForGroupScore();
-        assertEquals("Colossal Squid", achievement);
+    public void testSimpleAchievementP1() {
+        Play play1 = new Play(testGame1, 3, 150);
+        play1.getAchievementsAndScores();
+        String achievement = play1.getAchievements();
+        assertEquals("Giant Pacific Octopus", achievement);
 
-        Play play2 = new Play(testGame2, 2, 150);
-        play2.achievementsAndScores();
-        String achievement2 = play2.calculateAchievementForGroupScore();
-        assertEquals("Flamingo Tongue Snail", achievement2);
-    }
+        Play play2 = new Play(testGame2, 5, 700);
+        play2.getAchievementsAndScores();
+        String achievement2 = play2.getAchievements();
+        assertEquals("Lion's Mane Jellyfish", achievement2);
 
-    @Test
-    public void testBelowMinAchievement() {
-        Play play1 = new Play(testGame1, 2, 10);
-        play1.achievementsAndScores();
-        String achievement = play1.calculateAchievementForGroupScore();
-        assertEquals("Blobfish", achievement);
-
-        Play play2 = new Play(testGame2, 2, 50);
-        play2.achievementsAndScores();
-        String achievement2 = play2.calculateAchievementForGroupScore();
-        assertEquals("Blobfish", achievement2);
+        Play play3 = new Play(testGame3, 1, 3);
+        play3.getAchievementsAndScores();
+        String achievement3 = play3.getAchievements();
+        assertEquals("Peacock Mantis Shrimp", achievement3);
     }
 
 
     @Test
     public void testMaxAchievement() {
         Play play1 = new Play(testGame1, 2, 200);
-        play1.achievementsAndScores();
-        String achievement = play1.calculateAchievementForGroupScore();
+        play1.getAchievementsAndScores();
+        String achievement = play1.getAchievements();
         assertEquals("Blue Whale", achievement);
 
         Play play2 = new Play(testGame2, 2, 400);
-        play2.achievementsAndScores();
-        String achievement2 = play2.calculateAchievementForGroupScore();
+        play2.getAchievementsAndScores();
+        String achievement2 = play2.getAchievements();
         assertEquals("Blue Whale", achievement2);
+
+        Play play3 = new Play(testGame3, 2, 20);
+        play3.getAchievementsAndScores();
+        String achievement3 = play3.getAchievements();
+        assertEquals("Blue Whale", achievement3);
     }
 
     @Test
     public void testAboveMaxAchievement() {
         Play play1 = new Play(testGame1, 2, 250);
-        play1.achievementsAndScores();
-        String achievement = play1.calculateAchievementForGroupScore();
+        play1.getAchievementsAndScores();
+        String achievement = play1.getAchievements();
         assertEquals("Blue Whale", achievement);
 
         Play play2 = new Play(testGame2, 2, 450);
-        play2.achievementsAndScores();
-        String achievement2 = play2.calculateAchievementForGroupScore();
+        play2.getAchievementsAndScores();
+        String achievement2 = play2.getAchievements();
         assertEquals("Blue Whale", achievement2);
 
+        Play play3 = new Play(testGame3, 2, 25);
+        play3.getAchievementsAndScores();
+        String achievement3 = play3.getAchievements();
+        assertEquals("Blue Whale", achievement3);
     }
 
     @Test
     public void testZeroAchievement() {
         Play play1 = new Play(testGame1, 2, 0);
-        play1.achievementsAndScores();
-        String achievement = play1.calculateAchievementForGroupScore();
+        play1.getAchievementsAndScores();
+        String achievement = play1.getAchievements();
         assertEquals("Blobfish", achievement);
 
         Play play2 = new Play(testGame2, 2, 0);
-        play2.achievementsAndScores();
-        String achievement2 = play2.calculateAchievementForGroupScore();
+        play2.getAchievementsAndScores();
+        String achievement2 = play2.getAchievements();
         assertEquals("Blobfish", achievement2);
+
+        Play play3 = new Play(testGame3, 2, 0);
+        play3.getAchievementsAndScores();
+        String achievement3 = play3.getAchievements();
+        assertEquals("Blobfish", achievement3);
     }
 
     @Test
-    public void testBelowMin1Achievement() {
-        Play play1 = new Play(testGame1, 2, 16);
-        play1.achievementsAndScores();
-        String achievement = play1.calculateAchievementForGroupScore();
+    public void testBelowMinAchievementP1() {
+        Play play = new Play(testGame1, 2, 10);
+        play.getAchievementsAndScores();
+        String achievement = play.getAchievements();
         assertEquals("Blobfish", achievement);
 
-        Play play2 = new Play(testGame2, 2, 57);
-        play2.achievementsAndScores();
-        String achievement2 = play2.calculateAchievementForGroupScore();
-        assertEquals("Frogfish", achievement2);
-
-        Play play3 = new Play(testGame3, 2, 3);
-        play3.achievementsAndScores();
-        String achievement3 = play3.calculateAchievementForGroupScore();
-        assertEquals("Frogfish", achievement3);
-
-
+        play.setTotalScore(16);
+        achievement = play.getAchievements();
+        assertEquals("Blobfish", achievement);
     }
 
+    @Test
+    public void testBelowMinAchievementP2() {
+        Play play = new Play(testGame2, 2, 56);
+        play.getAchievementsAndScores();
+        String achievement = play.getAchievements();
+        assertEquals("Frogfish", achievement);
+
+        play.setTotalScore(55);
+        achievement = play.getAchievements();
+        assertEquals("Blobfish", achievement);
+    }
+
+    @Test
+    public void testBelowMinAchievementP3() {
+        Play play = new Play(testGame3, 2, 2);
+        play.getAchievementsAndScores();
+        String achievement = play.getAchievements();
+        assertEquals("Frogfish", achievement);
+
+        play.setTotalScore(1);
+        achievement = play.getAchievements();
+        assertEquals("Blobfish", achievement);
+    }
 
 }

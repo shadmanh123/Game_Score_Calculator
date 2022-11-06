@@ -43,7 +43,6 @@ public class GameHistoryActivity extends AppCompatActivity {
         int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         Game game = gameManager.getInstance().getGame(index);
 
-
         for (int row = 0; row < game.playSize(); row++) {
             TableRow tableRow = new TableRow(this);
             table.addView(tableRow);

@@ -2,7 +2,10 @@ package com.example.cmpt276project.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Game: Class that consists of a list of plays that can
+ *
+ */
 public class Game {
     private String name;
     private int minScore;
@@ -65,7 +68,7 @@ public class Game {
                 display = "" + play.getTotalScore();
                 break;
             case 3:
-                display = play.calculateAchievementForGroupScore();
+                display = play.getAchievements();
                 break;
             default:
                 display = "";
