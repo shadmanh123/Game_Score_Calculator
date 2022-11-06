@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+/**
+ * Play: Class for a single play through
+ */
 public class Play {
 
     private final int NUM_TIERS_ABOVE_MIN = 8;
@@ -22,13 +25,13 @@ public class Play {
     }
 
     // subdivide scores into 10 tiers
-    public void achievementsAndScores() {
+    public void getAchievementsAndScores() {
         Tiers tiers[] = Tiers.values();
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int minScore = max;
-        System.out.println("min"+min);
+        System.out.println("min" + min);
 
         for (Tiers tier: tiers){
             if(tier == Tiers.LEVEL1) {
@@ -37,7 +40,7 @@ public class Play {
                 if (minScore >= 0){
                     minScore /= 2;
                 }
-            } else{
+            } else {
                 minScore -= scoreInterval;
             }
             System.out.println("max: "+minScore);
@@ -48,30 +51,29 @@ public class Play {
     }
 
     // subdivide scores into 10 tiers
-    public String calculateAchievementForGroupScore() {
+    public String getAchievements() {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int score = max - scoreInterval;
         int i = 1;
 
-        System.out.println("totalscore: " + totalScore);
-        System.out.println("min: "+min);
+        System.out.println("total score: " + totalScore);
+        System.out.println("min: " + min);
 
-        while (score >= totalScore){
+        while (score > totalScore) {
             i++;
             if(i == 10) {
                 score = 0;
                 break;
-            }else if (score - scoreInterval <= min){
+            } else if (score - scoreInterval <= min){
                 if (score >= 0){
                     score /= 2;
                 }
-            }
-            else{
+            } else{
                 score -= scoreInterval;
             }
-            System.out.println("score: " +score);
+            System.out.println("score: " + score);
         }
 
         System.out.println("After");
@@ -102,7 +104,4 @@ public class Play {
         this.totalScore = totalScore;
     }
 
-    public int getNUM_TIERS_ABOVE_MIN() {
-        return NUM_TIERS_ABOVE_MIN;
-    }
 }
