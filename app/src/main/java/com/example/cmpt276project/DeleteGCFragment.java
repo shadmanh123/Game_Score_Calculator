@@ -9,7 +9,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.cmpt276project.model.GameManager;
+
 public class DeleteGCFragment extends AppCompatDialogFragment {
+    private GameManager gameManager;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //create the view to show - load the message
@@ -23,6 +26,7 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
 //                Log.i("Tag", "you clicked the dialog button");
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
+//                        gameManager.getInstance().getGame(index).remove();
                         getActivity().finish();
                         break;
 
