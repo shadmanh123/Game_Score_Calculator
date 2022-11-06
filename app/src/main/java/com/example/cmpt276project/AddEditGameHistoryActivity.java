@@ -14,7 +14,7 @@ import com.example.cmpt276project.model.Play;
 
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 //    int index;
-    public static Intent makeIntent(Context context){
+    public static Intent makeIntent(Context context, int gameIndex){
         Intent intent = new Intent(context, AddEditGameHistoryActivity.class);
         return intent;
     }
@@ -30,8 +30,6 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
     }
 
     private void onRegisterClick() {
-//        getNumberOfPlayers();
-//        getTotalScore();
         EditText etTotalPlayers = findViewById(R.id.etTotalPlayers);
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
