@@ -16,6 +16,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
 //    int index;
     public static Intent makeIntent(Context context, int gameIndex){
         Intent intent = new Intent(context, AddEditGameHistoryActivity.class);
+        intent.putExtra("index of selected game", gameIndex);
         return intent;
     }
 
@@ -41,7 +42,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         EditText etTotalScore = findViewById(R.id.etTotalScore);
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-//        Play play = new Play(GameManager.getInstance().getGame(index), totalPlayers,totalScore);
+//        Play play = new Play(GameManager.getInstance().getGame(gameIndex), totalPlayers,totalScore);
         finish();
     }
 

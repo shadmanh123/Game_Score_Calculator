@@ -34,13 +34,9 @@ public class MainActivity extends AppCompatActivity {
 //            //this is the coolest thing I ever done
                     @Override
                     public void run() {
-//                        startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
-//                        finish();
-                        startActivity(new Intent(MainActivity.this, GameHistoryActivity.class));
+                        startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
                         finish();
-//                        Intent intent = new Intent(MainActivity.this,AddEditGameHistoryActivity.class);
-//                        intent.putExtra("index", 0);
-//                        startActivity(intent);
+//                        startActivity(new Intent(MainActivity.this, GameHistoryActivity.class));
 //                        finish();
                     }
                 },500);
