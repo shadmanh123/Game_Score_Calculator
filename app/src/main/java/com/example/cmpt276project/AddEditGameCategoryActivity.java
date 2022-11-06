@@ -31,11 +31,21 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_game);
 
         //have a way to get to prev display
+        Button delete = findViewById(R.id.deleteButton);
         Intent intent = getIntent();
         int edit = intent.getIntExtra("edit", 0);
         if (edit == 100){
             prevDisplay();
+            delete.setVisibility(View.VISIBLE);
         }
+//        delete.setVisibility(View.VISIBLE);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDelete();
+            }
+        });
 
         Button back = findViewById(R.id.BackButton);
         back.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +63,12 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
                 onSaveClick();
             }
         });
+    }
+
+    private void onDelete() {
+        FragmentManager manager = getSupportFragmentManager();
+        DeleteGCFragment dialog = new DeleteGCFragment();
+        dialog.show(manager, "message");
     }
 
     private void prevDisplay(){
