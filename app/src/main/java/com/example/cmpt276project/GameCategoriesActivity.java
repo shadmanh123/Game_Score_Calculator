@@ -92,8 +92,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
-        gameManager.addGame(new Game("BlackJack", 0, 100));
+//        gameManager.addGame(new Game("BlackJack", 0, 100));
         onStart();
+
+        //TODO: add intent
 
 
     }
@@ -182,6 +184,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
         onStart();
         populateListView();
+        //TODO: add intent
     }
 
     private void onHistory() {
