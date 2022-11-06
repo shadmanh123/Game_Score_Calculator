@@ -42,9 +42,12 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
 
 //
-        gameManager.addGame(new Game("Chess", 0, 100));
-        gameManager.addGame(new Game("BlackJack", 50, 200));
-        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+//        gameManager.addGame(new Game("Chess", 0, 100));
+//        gameManager.addGame(new Game("BlackJack", 50, 200));
+//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+//        gameManager.addGame(new Game("Chess", 0, 100));
+//        gameManager.addGame(new Game("BlackJack", 50, 200));
+//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
@@ -227,8 +230,8 @@ public class GameCategoriesActivity extends AppCompatActivity {
         for(int i = 0; i < GameManager.getInstance().getNumbeOfGames(); i++){
             theList.add(GameManager.getInstance().getGame(i));
         }
-
-        populateListView();
+//
+//        populateListView();
         adapter.notifyDataSetChanged();
 //        determineState();
     }
