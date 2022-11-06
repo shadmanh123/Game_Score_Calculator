@@ -14,4 +14,19 @@
     <string name="Back_Button_blerb">Your Changes Have Not Been Saved</string>
     <string name="delete">Delete</string>
     <string name="delete_blerb">Are you sure you want to delete this game? Plays of this game will also be deleted.</string>
+    <string name="credit_Info">
+        \n
+        Welcome to the Game Score Collections App. This app was
+        created by Tiffanie, Sallin, Serena and Shadman.\n
+        We have used resources from the following sources to make
+        this game:\n
+        <a href = "https://www.flaticon.com/free-icon/game-boy_2094405">Game Boy Icon</a>
+        <a href = "https://www.flaticon.com/free-icon/playing-cards_261787">Playing Card Icon</a>
+        <a href = "https://thenounproject.com/browse/icons/term/chess-piece/?iconspage=1">Chess Piece Icon</a>
+        <a href = "https://www.youtube.com/watch?v=4lEnLTqsnaw">Animation Tutorial</a>
+        <a href = "https://www.youtube.com/watch?v=kYLIsVkwisU">Bubble Animation Tutorial</a>
+        <a href = "https://wallpaperaccess.com/underwater-ocean-iphone">Ocean Background</a>
+        \n
+        We would like to thank our special alpha testers:
+    </string>
 </resources>
