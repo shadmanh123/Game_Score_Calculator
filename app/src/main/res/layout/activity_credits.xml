@@ -40,6 +40,7 @@
         android:layout_height="482dp"
         android:layout_marginTop="16dp"
         android:background="@android:drawable/screen_background_dark_transparent"
+        android:gravity="center"
         android:textColor="@color/white"
         android:text="@string/credit_Info"
         app:layout_constraintEnd_toEndOf="parent"
