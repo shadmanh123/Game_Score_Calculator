@@ -44,9 +44,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
 
 //
-        gameManager.addGame(new Game("Chess", 0, 100));
-        gameManager.addGame(new Game("BlackJack", 50, 200));
-        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+//        gameManager.addGame(new Game("Chess", 0, 100));
+//        gameManager.addGame(new Game("BlackJack", 50, 200));
+//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 //        gameManager.addGame(new Game("Chess", 0, 100));
 //        gameManager.addGame(new Game("BlackJack", 50, 200));
 //        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
