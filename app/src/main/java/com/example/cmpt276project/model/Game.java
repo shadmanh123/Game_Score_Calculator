@@ -72,6 +72,7 @@ public class Game {
                 display = "" + play.getTotalScore();
                 break;
             case 3:
+                play.getListOfAchievements();
                 display = play.getAchievementScore();
                 break;
             default:

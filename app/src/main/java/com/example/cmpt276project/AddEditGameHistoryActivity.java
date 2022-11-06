@@ -9,13 +9,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
 
 public class AddEditGameHistoryActivity extends AppCompatActivity {
-//    int index;
-    public static Intent makeIntent(Context context, int gameIndex){
+
+    public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
+    public static Intent makeIntent(Context context, int gameIndex) {
         Intent intent = new Intent(context, AddEditGameHistoryActivity.class);
+        intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
         return intent;
     }
 
@@ -23,17 +26,16 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game_history);
-//        Intent intent = getIntent();
-//        String strIndex = intent.getStringExtra("index");
-//        int index = Integer.parseInt(strIndex);
-        findViewById(R.id.btnEnter).setOnClickListener(v -> onRegisterClick());
+        Intent intent = getIntent();
+        int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        findViewById(R.id.btnEnter).setOnClickListener(v -> onRegisterClick(index));
     }
 
-    private void onRegisterClick() {
+    private void onRegisterClick(int index) {
         EditText etTotalPlayers = findViewById(R.id.etTotalPlayers);
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
-        if(totalPlayers == 0){
+        if (totalPlayers == 0) {
             Toast.makeText(this, "Total Number of Players must be greater than 0",
                     Toast.LENGTH_SHORT).show();
             return;
@@ -41,8 +43,11 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         EditText etTotalScore = findViewById(R.id.etTotalScore);
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-//        Play play = new Play(GameManager.getInstance().getGame(index), totalPlayers,totalScore);
-        finish();
+        Game game = GameManager.getInstance().getGame(index);
+        Play play = new Play(game, totalPlayers, totalScore);
+        game.addPlay(play);
+        Intent intent = GameHistoryActivity.makeIntent(this, index);
+        startActivity(intent);
     }
 
 //    private int getNumberOfPlayers() {

@@ -71,22 +71,17 @@ public class Play {
                 score -= scoreInterval;
             }
         }
-
         return achievements.get(score);
     }
 
     public String getCreationDate() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("@yyyy-MM-dd HH:mm");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy MMM dd HH:mm");
         return creationDate.format(dtf);
     }
 
 
     public int getNumPlayers() {
         return numPlayers;
-    }
-
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
     }
 
     public int getTotalScore() {

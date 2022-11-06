@@ -2,7 +2,9 @@ package com.example.cmpt276project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -21,25 +23,24 @@ public class GameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private GameManager gameManager;
+    private final int COLUMN_SIZE = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_history);
-        populateButtons();
+        int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        Game game = gameManager.getInstance().getGame(index);
+        populateButtons(game);
         Button newGame = findViewById(R.id.btnNewGame);
         newGame.setOnClickListener(v -> {
-            Intent intent = new Intent(GameHistoryActivity.this, AddEditGameHistoryActivity.class);
-            //intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
+            Intent intent = AddEditGameHistoryActivity.makeIntent(GameHistoryActivity.this, index);
             startActivity(intent);
         });
     }
 
-    final int COLUMN_SIZE = 4;
-    private void populateButtons() {
+    private void populateButtons(Game game) {
         TableLayout table = findViewById(R.id.tableForHistory);
-        int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
-        Game game = gameManager.getInstance().getGame(index);
 
         for (int row = 0; row < game.playSize(); row++) {
             TableRow tableRow = new TableRow(this);
@@ -50,6 +51,8 @@ public class GameHistoryActivity extends AppCompatActivity {
                 tableRow.addView(tv);
                 String tvText = game.displayPlayInfo(row, col);
                 tv.setText(tvText);
+                tv.setBackgroundColor(Color.parseColor("#CBF4F1"));
+                tv.setGravity(Gravity.CENTER);
             }
         }
     }
