@@ -22,13 +22,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvCreditInfo"
-        android:layout_width="match_parent"
-        android:layout_height="624dp"
-        android:layout_marginTop="32dp"
+        android:id="@+id/tvCredits"
+        android:layout_width="416dp"
+        android:layout_height="618dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rectangle"
-        android:gravity="center"
-        android:text="Insert Credit Information"
+        android:text="@string/Credits"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
