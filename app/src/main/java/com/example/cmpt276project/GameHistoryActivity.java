@@ -1,5 +1,6 @@
 package com.example.cmpt276project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,10 +13,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,14 @@ public class GameHistoryActivity extends AppCompatActivity {
         Game game = gameManager.getInstance().getGame(index);
         populateButtons(game);
         Button newGame = findViewById(R.id.btnNewGame);
+        FloatingActionButton back = findViewById(R.id.floatingBackButton2);
+
+        // TODO: fix back button
+        back.setOnClickListener(v -> {
+            Intent i = GameCategoriesActivity.makeIntent(this);
+            startActivity(i);
+        });
+
         newGame.setOnClickListener(v -> {
             Intent intent = AddEditGameHistoryActivity.makeIntent(GameHistoryActivity.this, index);
             startActivity(intent);
@@ -56,6 +67,7 @@ public class GameHistoryActivity extends AppCompatActivity {
             }
         }
     }
+
 
     public static Intent makeIntent(Context context, int gameIndex){
         Intent intent = new Intent(context, GameHistoryActivity.class);

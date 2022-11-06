@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             prevDisplay();
         }
 
-        Button back = findViewById(R.id.BackButton);
+        FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

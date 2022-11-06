@@ -25,7 +25,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private List<Game> theList;
     private GameManager gameManager;
 
-    private ArrayList<Integer> clickedItems;
+    private List<Integer> clickedItems;
 
     ArrayAdapter<Game> adapter;
 
@@ -35,16 +35,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_categories);
 
         gameManager = GameManager.getInstance();
-        theList = new ArrayList<Game>();
+        theList = new ArrayList<>();
 
-        clickedItems = new ArrayList<Integer>();
+        clickedItems = new ArrayList<>();
 
-
-
-//
-//        gameManager.addGame(new Game("Chess", 0, 100));
-//        gameManager.addGame(new Game("BlackJack", 50, 200));
-//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
         gameManager.addGame(new Game("Chess", 0, 100));
         gameManager.addGame(new Game("BlackJack", 50, 200));
         gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
@@ -56,7 +50,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
 //        populateTheList();
         populateListView();
         registerClickCallback();
-
 
     }
 
@@ -223,6 +216,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();
