@@ -154,7 +154,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 minScore.setText("Min Score: " + currentGame.getMinScore());
 
                 View btnHistory = itemView.findViewById(R.id.btnHistory);
-                btnHistory.setOnClickListener(v->onHistory());
+                btnHistory.setOnClickListener(v->onHistory(position));
 
                 View btnEdit = itemView.findViewById(R.id.btnEdit);
                 btnEdit.setOnClickListener(v->onEdit());
@@ -191,8 +191,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
         //TODO: add intent
     }
 
-    private void onHistory() {
-        startActivity(new Intent(GameCategoriesActivity.this, GameHistoryActivity.class));
+    private void onHistory(int index) {
+        Intent intent = GameHistoryActivity.makeIntent(GameCategoriesActivity.this, index);
+        startActivity(intent);
         onStart();
         populateListView();
     }
