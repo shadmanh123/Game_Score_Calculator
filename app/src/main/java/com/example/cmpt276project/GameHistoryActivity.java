@@ -21,6 +21,7 @@ public class GameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private GameManager gameManager;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+                //int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
                 Intent intent = AddEditGameHistoryActivity.makeIntent(GameHistoryActivity.this, index);
                 startActivity(intent);
             }
@@ -41,7 +42,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     final int COLUMN_SIZE = 4;
     private void populateButtons() {
         TableLayout table = findViewById(R.id.tableForHistory);
-        int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         Game game = gameManager.getInstance().getGame(index);
 
         for (int row = 0; row < game.playSize(); row++) {

@@ -1,7 +1,5 @@
 package com.example.cmpt276project;
 
-import static com.example.cmpt276project.GameHistoryActivity.INDEX_OF_SELECTED_GAME;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,8 +25,8 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game_history);
 //        Intent intent = getIntent();
-//        String strIndex = intent.getStringExtra("index");
-//        int index = Integer.parseInt(strIndex);
+//        String strGameIndex = intent.getStringExtra(GameHistoryActivity.INDEX_OF_SELECTED_GAME);
+//        int gameIndex = Integer.parseInt(strGameIndex);
         findViewById(R.id.btnEnter).setOnClickListener(v -> onRegisterClick());
     }
 
@@ -44,7 +42,10 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         EditText etTotalScore = findViewById(R.id.etTotalScore);
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-        int gameIndex = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        //int gameIndex = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        Intent intent = getIntent();
+        String strGameIndex = intent.getStringExtra(GameHistoryActivity.INDEX_OF_SELECTED_GAME);
+        int gameIndex = Integer.parseInt(strGameIndex);
         Play play = new Play(GameManager.getInstance().getGame(gameIndex), totalPlayers,totalScore);
         finish();
     }
