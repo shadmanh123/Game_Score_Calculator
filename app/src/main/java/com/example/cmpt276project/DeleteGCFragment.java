@@ -4,29 +4,20 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.text.BreakIterator;
+import com.example.cmpt276project.model.GameManager;
 
-public class BackPopUpGCFragment extends AppCompatDialogFragment {
-
-//    @NonNull
-//    @Override
-//    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-//        return super.onCreateDialog(savedInstanceState);
-//    }
-
+public class DeleteGCFragment extends AppCompatDialogFragment {
+    private GameManager gameManager;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //create the view to show - load the message
         View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.backbutton_pop_up_gc, null);
+                .inflate(R.layout.delete_gc_fragement, null);
 
         //create a button listener
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -35,6 +26,7 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
 //                Log.i("Tag", "you clicked the dialog button");
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
+//                        gameManager.getInstance().getGame(index).remove();
                         getActivity().finish();
                         break;
 
@@ -44,10 +36,9 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
 //                getActivity().finish();
             }
         };
-
         //build the alert dialog
         return new AlertDialog.Builder(getActivity())
-                .setTitle("Back")
+                .setTitle("Delete")
                 .setView(v)
                 .setPositiveButton(android.R.string.ok, listener)
                 .setNegativeButton(android.R.string.cancel, listener)

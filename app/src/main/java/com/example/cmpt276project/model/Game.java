@@ -3,8 +3,7 @@ package com.example.cmpt276project.model;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Game: Class that consists of a list of plays that can
- *
+ * Game: Class of a single game that contains the play history
  */
 public class Game {
     private String name;
@@ -22,6 +21,11 @@ public class Game {
     public int playSize() {
         return plays.size();
     }
+
+    public void clearPlays() {
+        plays.clear();
+    }
+
     public void addPlay(Play play) {
         plays.add(play);
     }
@@ -54,7 +58,7 @@ public class Game {
         this.maxScore = maxScore;
     }
 
-    public String displayPlayInfo(int playIndex, int column){
+    public String displayPlayInfo(int playIndex, int column) {
         String display;
         Play play = getPlay(playIndex);
         switch(column) {
@@ -68,13 +72,13 @@ public class Game {
                 display = "" + play.getTotalScore();
                 break;
             case 3:
-                display = play.getAchievements();
+                play.getListOfAchievements();
+                display = play.getAchievementScore();
                 break;
             default:
                 display = "";
                 break;
         }
-
         return display;
     }
 
