@@ -31,8 +31,9 @@ public class GameHistoryActivity extends AppCompatActivity {
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = AddEditGameHistoryActivity.makeIntent(GameHistoryActivity.this, gameIndex);
-//                startActivity(intent);
+                int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+                Intent intent = AddEditGameHistoryActivity.makeIntent(GameHistoryActivity.this, index);
+                startActivity(intent);
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.cmpt276project;
 
+import static com.example.cmpt276project.GameHistoryActivity.INDEX_OF_SELECTED_GAME;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +44,8 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         EditText etTotalScore = findViewById(R.id.etTotalScore);
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-//        Play play = new Play(GameManager.getInstance().getGame(gameIndex), totalPlayers,totalScore);
+        int gameIndex = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        Play play = new Play(GameManager.getInstance().getGame(gameIndex), totalPlayers,totalScore);
         finish();
     }
 
