@@ -12,14 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class GameCategoriesActivity extends AppCompatActivity {
@@ -154,7 +152,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 btnHistory.setOnClickListener(v->onHistory(position));
 
                 View btnEdit = itemView.findViewById(R.id.btnEdit);
-                btnEdit.setOnClickListener(v->onEdit());
+                btnEdit.setOnClickListener(v->onEdit(position));
 
                 itemView.setOnClickListener(v->{
                     clickedItems.remove(Integer.valueOf(position));
@@ -181,11 +179,14 @@ public class GameCategoriesActivity extends AppCompatActivity {
         }
     }
 
-    private void onEdit() {
-        startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
+    private void onEdit(int position) {
+        //TODO: add intent
+        Intent intent = new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class);
+        intent.putExtra("edit", 100);
+        intent.putExtra("index", position);
+        startActivity(intent);
         onStart();
         populateListView();
-        //TODO: add intent
     }
 
     private void onHistory(int index) {
