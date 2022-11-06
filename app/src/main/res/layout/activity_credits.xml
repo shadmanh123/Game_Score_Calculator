@@ -21,21 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvCreditInfo"
-        android:layout_width="match_parent"
-        android:layout_height="629dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/rectangle"
-        android:gravity="center"
-        android:text="Insert Credit Information"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCreditsTitle"
-        app:layout_constraintVertical_bias="0.0" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBackButton"
         android:layout_width="wrap_content"
@@ -48,5 +33,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.955"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
+
+    <TextView
+        android:id="@+id/tvCredits"
+        android:layout_width="414dp"
+        android:layout_height="482dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:drawable/screen_background_dark_transparent"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="@string/credit_Info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreditsTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
