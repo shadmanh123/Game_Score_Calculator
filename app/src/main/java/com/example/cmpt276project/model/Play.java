@@ -27,12 +27,21 @@ public class Play {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int score = 0;
+        int minScore = max;
+        System.out.println("min"+min);
 
-        for (Tiers tier: tiers) {
-            achievements.put(score, tier.getLevel());
-            System.out.println(score);
-            score += scoreInterval;
+        for (Tiers tier: tiers){
+            if(tier == Tiers.LEVEL1) {
+                minScore = 0;
+            } else if (minScore - scoreInterval <= min){
+                if (minScore >= 0){
+                    minScore /= 2;
+                }
+            } else{
+                minScore -= scoreInterval;
+            }
+            System.out.println("max: "+minScore);
+            achievements.put(minScore, tier.getLevel());
         }
 
         System.out.println("finish");
@@ -43,14 +52,26 @@ public class Play {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int score = 0;
+        int score = max - scoreInterval;
+        int i = 1;
 
-        while (score < totalScore) {
-            if(score > max + scoreInterval) {
+        System.out.println("totalscore: " + totalScore);
+        System.out.println("min: "+min);
+
+        while (score >= totalScore){
+            i++;
+            if(i == 10) {
+                score = 0;
                 break;
+            }else if (score - scoreInterval <= min){
+                if (score >= 0){
+                    score /= 2;
+                }
             }
-            score += scoreInterval;
-            System.out.println(score);
+            else{
+                score -= scoreInterval;
+            }
+            System.out.println("score: " +score);
         }
 
         System.out.println("After");
