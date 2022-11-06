@@ -2,6 +2,7 @@ package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -67,9 +68,16 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
     }
 
     private void onDelete() {
+        Intent intent = getIntent();
+        int index = intent.getIntExtra("index", 0);
         FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction cash = manager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putInt("index", index);
         DeleteGCFragment dialog = new DeleteGCFragment();
+        dialog.setArguments(bundle);
         dialog.show(manager, "message");
+//        cash.replace(R.id.frameLayout, )
     }
 
     private void prevDisplay(){
