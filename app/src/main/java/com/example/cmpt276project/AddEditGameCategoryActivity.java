@@ -114,11 +114,20 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
 
         //save into game manager - new game
         //this will be in an else
-        Game game = new Game(name, minScore, maxScore);
-        gameManager.getInstance().addGame(game);
+        Intent intent = getIntent();
+        int edit = intent.getIntExtra("edit", 0);
+        if (edit == 100){
+            int index = intent.getIntExtra("index", 0);
+            gameManager.getInstance().getGame(index).setName(name);
+            gameManager.getInstance().getGame(index).setMinScore(minScore);
+            gameManager.getInstance().getGame(index).setMaxScore(maxScore);
+        }
+        else{
+            Game game = new Game(name, minScore, maxScore);
+            gameManager.getInstance().addGame(game);
+        }
 
         //go back to main page - I think it is Game Category activity
         finish();
-
     }
 }
