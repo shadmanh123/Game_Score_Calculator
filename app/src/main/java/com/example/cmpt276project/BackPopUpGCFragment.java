@@ -38,7 +38,7 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
                         getActivity().finish();
                         break;
 
-                    case    DialogInterface.BUTTON_NEGATIVE:
+                    case DialogInterface.BUTTON_NEGATIVE:
                         break;
                 }
 //                getActivity().finish();

@@ -25,7 +25,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private List<Game> theList;
     private GameManager gameManager;
 
-    private ArrayList<Integer> clickedItems;
+    private List<Integer> clickedItems;
 
     ArrayAdapter<Game> adapter;
 
@@ -35,19 +35,13 @@ public class GameCategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_categories);
 
         gameManager = GameManager.getInstance();
-        theList = new ArrayList<Game>();
+        theList = new ArrayList<>();
 
-        clickedItems = new ArrayList<Integer>();
+        clickedItems = new ArrayList<>();
 
-
-
-//
-//        gameManager.addGame(new Game("Chess", 0, 100));
-//        gameManager.addGame(new Game("BlackJack", 50, 200));
-//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
-//        gameManager.addGame(new Game("Chess", 0, 100));
-//        gameManager.addGame(new Game("BlackJack", 50, 200));
-//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+        gameManager.addGame(new Game("Chess", 0, 100));
+        gameManager.addGame(new Game("BlackJack", 50, 200));
+        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
@@ -57,7 +51,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
         populateListView();
         registerClickCallback();
 
-
     }
 
     private void onCredits() {
@@ -65,7 +58,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void getState() {
-        if(gameManager.getNumbeOfGames() == 0){
+        if (gameManager.getNumbeOfGames() == 0){
             View listBack = findViewById(R.id.listViewMain);
             listBack.setVisibility(View.GONE);
 
@@ -77,7 +70,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
             View arrow = findViewById(R.id.emptyStateArrow);
             arrow.setVisibility(View.VISIBLE);
-        }else{
+        } else{
             View listBack = findViewById(R.id.listViewMain);
             listBack.setVisibility(View.VISIBLE);
 
@@ -136,7 +129,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
             }
             Game currentGame = theList.get(position);
 //            Toast.makeText(GameCategoriesActivity.this, "this", Toast.LENGTH_LONG).show();
-            if(clickedItems.contains(position)){
+            if (clickedItems.contains(position)){
 
                 itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem_two, parent, false);
                 ImageView imageView = itemView.findViewById(R.id.item_img);
@@ -164,7 +157,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 //                    registerClickCallback();
                 });
 
-            }else {
+            } else {
 
                 ImageView imageView = itemView.findViewById(R.id.item_img);
                 imageView.setImageResource(getIcon(currentGame.getName()));
@@ -223,6 +216,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();

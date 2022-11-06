@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * GameManager: Singleton class that manages all the different games in the application
+ */
 public class GameManager {
     private List<Game> games;
 
@@ -15,7 +18,6 @@ public class GameManager {
         }
         return instance;
     }
-
 
     private GameManager() {
         games = new ArrayList<>();

@@ -1,39 +1,44 @@
 package com.example.cmpt276project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
+import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddEditGameHistoryActivity extends AppCompatActivity {
-//    int index;
-    public static Intent makeIntent(Context context, int gameIndex){
-        Intent intent = new Intent(context, AddEditGameHistoryActivity.class);
-        return intent;
-    }
+
+    public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game_history);
-//        Intent intent = getIntent();
-//        String strIndex = intent.getStringExtra("index");
-//        int index = Integer.parseInt(strIndex);
-        findViewById(R.id.btnEnter).setOnClickListener(v -> onRegisterClick());
+        Intent intent = getIntent();
+        int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        FloatingActionButton back = findViewById(R.id.floatingBackButton3);
+        back.setOnClickListener(v -> onBackClick());
+        findViewById(R.id.btnEnter).setOnClickListener(v -> onRegisterClick(index));
+
     }
 
-    private void onRegisterClick() {
+    private void onRegisterClick(int index) {
         EditText etTotalPlayers = findViewById(R.id.etTotalPlayers);
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
-        if(totalPlayers == 0){
+        if (totalPlayers == 0) {
             Toast.makeText(this, "Total Number of Players must be greater than 0",
                     Toast.LENGTH_SHORT).show();
             return;
@@ -41,57 +46,22 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         EditText etTotalScore = findViewById(R.id.etTotalScore);
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-//        Play play = new Play(GameManager.getInstance().getGame(index), totalPlayers,totalScore);
-        finish();
+        Game game = GameManager.getInstance().getGame(index);
+        Play play = new Play(game, totalPlayers, totalScore);
+        game.addPlay(play);
+        Intent intent = GameHistoryActivity.makeIntent(this, index);
+        startActivity(intent);
     }
 
-//    private int getNumberOfPlayers() {
-//        EditText etTotalPlayers = findViewById(R.id.etTotalPlayers);
-//        String players = etTotalPlayers.getText().toString();
-//        int totalPlayers = Integer.parseInt(players);
-//        if(totalPlayers == 0){
-//            Toast.makeText(this, "Total Number of Players must be greater than 0",
-//                    Toast.LENGTH_SHORT).show();
-//        }
-//        return totalPlayers;
-//    }
-//
-//    private boolean validateNumberOfPlayers(int numberOfPlayers) {
-//        if(numberOfPlayers <= 0){
-//            Toast.makeText(this, "Total Number of Players must be greater than 0",
-//                    Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//        else{
-//            return true;
-//        }
-//    }
-//
-//    private int getTotalScore() {
-//        EditText etTotalScore = findViewById(R.id.etTotalScore);
-//        String score = etTotalScore.getText().toString();
-//        int totalScore = Integer.parseInt(score);
-//        while(!validateTotalScore(totalScore)){
-//            score = etTotalScore.getText().toString();
-//            totalScore = Integer.parseInt(score);
-//        }
-//        return totalScore;
-//    }
-//
-//    private boolean validateTotalScore(int totalScore) {
-//        if(totalScore < 0){
-//            Toast.makeText(this, "Combined Score must be at least 0",
-//                    Toast.LENGTH_LONG).show();
-//            return false;
-//        }
-//        else{
-//            return true;
-//        }
-//    }
+    private void onBackClick() {
+        FragmentManager manager = getSupportFragmentManager();
+        BackPopUpGCFragment dialog = new BackPopUpGCFragment();
+        dialog.show(manager, "message");
+    }
 
-//    private void createPlay(int numberOfPlayers, int totalScore) {
-//        Play game;
-//
-//    }
-
+    public static Intent makeIntent(Context context, int gameIndex) {
+        Intent intent = new Intent(context, AddEditGameHistoryActivity.class);
+        intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
+        return intent;
+    }
 }

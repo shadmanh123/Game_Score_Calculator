@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             }
         });
 
-        Button back = findViewById(R.id.BackButton);
+        FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +102,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         EditText n = findViewById(R.id.GameName);
         String name = n.getText().toString();
         //checking if the name is empty
-        if ("".equals(name)){
+        if (name.equals("")) {
             Toast.makeText(this,"Every slot must be filled", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -109,9 +110,9 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         EditText min = findViewById(R.id.MinScore);
         String minimum = min.getText().toString();
         int minScore;
-        try{
+        try {
             minScore = Integer.parseInt(minimum);
-        }catch(NumberFormatException e){
+        } catch(NumberFormatException e){
             Toast.makeText(this,"Every slot must be filled", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -119,9 +120,9 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         EditText max = findViewById(R.id.MaxScore);
         String maximum = max.getText().toString();
         int maxScore;
-        try{
+        try {
             maxScore = Integer.parseInt(maximum);
-        }catch(NumberFormatException e){
+        } catch(NumberFormatException e){
             Toast.makeText(this, "Every slot must be filled", Toast.LENGTH_SHORT).show();
             return;
         }

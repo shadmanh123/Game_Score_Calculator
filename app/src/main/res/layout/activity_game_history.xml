@@ -25,79 +25,44 @@
         android:id="@+id/btnNewGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="#71B3D8"
         android:backgroundTintMode="add"
         android:text="@string/new_game_text"
         app:icon="@drawable/rounded_corner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/headerView"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingBackButton2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="36dp"
+        android:clickable="true"
+        android:rotation="180"
+        app:backgroundTint="#70B2D7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnNewGame"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="90dp"
-            android:stretchColumns="*"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle"
-            app:layout_constraintVertical_bias="0.119">
-
-            <!-- Row 1 with single column -->
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#51000000">
-
-                <TextView
-                    android:background="#51000000"
-                    android:padding="5dip"
-                    android:text="Date"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:background="#51000000"
-                    android:padding="5dip"
-                    android:text="Total Players"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:background="#51000000"
-                    android:padding="5dip"
-                    android:text="Score"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:background="#51000000"
-                    android:padding="5dip"
-                    android:text="Achievement"
-                    android:textColor="@color/white" />
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
     <ScrollView
         android:id="@+id/scrollableContent"
         android:layout_width="match_parent"
-        android:layout_height="525dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="30dp"
+        android:layout_height="548dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/btnNewGame"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerView">
+        app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle">
 
         <TableLayout
             android:id="@+id/tableForHistory"
@@ -110,6 +75,39 @@
             app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle"
             app:layout_constraintVertical_bias="0.119">
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#51000000">
+
+                <TextView
+                    android:background="#51000000"
+                    android:padding="5dip"
+                    android:gravity="center"
+                    android:text="Date"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:background="#51000000"
+                    android:padding="5dip"
+                    android:gravity="center"
+                    android:text="# of Players"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:background="#51000000"
+                    android:padding="5dip"
+                    android:gravity="center"
+                    android:text="Score"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:background="#51000000"
+                    android:padding="5dip"
+                    android:gravity="center"
+                    android:text="Achievement"
+                    android:textColor="@color/white" />
+            </TableRow>
 
         </TableLayout>
     </ScrollView>

@@ -31,37 +31,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 btn.startAnimation(bubble);
                 new Handler().postDelayed(new Runnable() {
-//            //this is the coolest thing I ever done
+//            this is the coolest thing I ever done
                     @Override
                     public void run() {
                         startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
-//                        finish();
-//                        startActivity(new Intent(MainActivity.this, GameHistoryActivity.class));
                         finish();
-//                        Intent intent = new Intent(MainActivity.this,AddEditGameHistoryActivity.class);
-//                        intent.putExtra("index", 0);
-//                        startActivity(intent);
-//                        finish();
                     }
                 },500);
             }
         });
-
-
-
 
         ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
-//        new Handler().postDelayed(new Runnable() {
-//            //this is the coolest thing I ever done
-//            @Override
-//            public void run() {
-//                startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
-//                finish();
-//            }
-//        },4000);
+
     }
 }

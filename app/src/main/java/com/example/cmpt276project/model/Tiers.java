@@ -1,8 +1,11 @@
 package com.example.cmpt276project.model;
 
+/**
+ * Tiers: Class that contains the list of different achievements that can be obtained
+ */
+
 public enum Tiers {
     // Ocean Theme
-
     LEVEL10("Blue Whale"),
     LEVEL9("Great White Shark"),
     LEVEL8("Colossal Squid"),
