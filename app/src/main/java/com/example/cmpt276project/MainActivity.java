@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 btn.startAnimation(bubble);
                 new Handler().postDelayed(new Runnable() {
 //            //this is the coolest thing I ever done
@@ -37,8 +36,12 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
 //                        startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
 //                        finish();
-                        startActivity(new Intent(MainActivity.this,AddEditGameHistoryActivity.class));
+                        startActivity(new Intent(MainActivity.this, AddEditGameHistoryActivity.class));
                         finish();
+//                        Intent intent = new Intent(MainActivity.this,AddEditGameHistoryActivity.class);
+//                        intent.putExtra("index", 0);
+//                        startActivity(intent);
+//                        finish();
                     }
                 },500);
             }
