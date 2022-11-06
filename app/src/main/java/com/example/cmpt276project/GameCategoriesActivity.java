@@ -42,6 +42,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         clickedItems = new ArrayList<Integer>();
 
 
+
 //
         gameManager.addGame(new Game("Chess", 0, 100));
         gameManager.addGame(new Game("BlackJack", 50, 200));
