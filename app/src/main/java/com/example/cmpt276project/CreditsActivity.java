@@ -7,12 +7,14 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CreditsActivity extends AppCompatActivity {
-    public static Intent makeIntent(Context context){
-        return new Intent(context, CreditsActivity.class);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
+    }
+
+    public static Intent makeIntent(Context context){
+        return new Intent(context, CreditsActivity.class);
     }
 }

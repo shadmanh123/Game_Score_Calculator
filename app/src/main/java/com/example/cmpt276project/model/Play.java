@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 /**
- * Play: Class for a single play through
+ * Play: Class for a single play through that takes in the number of Players and Total Score achieved
  */
 public class Play {
 
@@ -25,59 +25,52 @@ public class Play {
     }
 
     // subdivide scores into 10 tiers
-    public void getAchievementsAndScores() {
+    public void getListOfAchievements() {
         Tiers tiers[] = Tiers.values();
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int minScore = max;
-        System.out.println("min" + min);
 
-        for (Tiers tier: tiers){
+        for (Tiers tier: tiers) {
             if(tier == Tiers.LEVEL1) {
                 minScore = 0;
-            } else if (minScore - scoreInterval <= min){
+            } else if (minScore - scoreInterval <= min) {
                 if (minScore >= 0){
                     minScore /= 2;
+                } else {
+                    minScore = 0;
                 }
             } else {
                 minScore -= scoreInterval;
             }
-            System.out.println("max: "+minScore);
             achievements.put(minScore, tier.getLevel());
         }
-
-        System.out.println("finish");
     }
 
     // subdivide scores into 10 tiers
-    public String getAchievements() {
+    public String getAchievementScore() {
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int score = max - scoreInterval;
         int i = 1;
 
-        System.out.println("total score: " + totalScore);
-        System.out.println("min: " + min);
-
         while (score > totalScore) {
             i++;
-            if(i == 10) {
+            if (i == 10) {
                 score = 0;
                 break;
             } else if (score - scoreInterval <= min){
                 if (score >= 0){
                     score /= 2;
+                } else {
+                    score = 0;
                 }
-            } else{
+            } else {
                 score -= scoreInterval;
             }
-            System.out.println("score: " + score);
         }
-
-        System.out.println("After");
-        System.out.println(score);
 
         return achievements.get(score);
     }

@@ -11,11 +11,13 @@ public class CustomAdapter extends BaseAdapter {
     Context context;
     String[][] play;
     LayoutInflater inflater;
+
     public CustomAdapter(Context GameHistory, String[][]play){
         this.context = GameHistory;
         this.play = play;
         inflater = LayoutInflater.from(GameHistory);
     }
+
     @Override
     public int getCount() {
         return play.length;
