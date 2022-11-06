@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         startActivity(new Intent(MainActivity.this, GameCategoriesActivity.class));
+//                        finish();
+//                        startActivity(new Intent(MainActivity.this, GameHistoryActivity.class));
                         finish();
 //                        startActivity(new Intent(MainActivity.this, GameHistoryActivity.class));
 //                        finish();
