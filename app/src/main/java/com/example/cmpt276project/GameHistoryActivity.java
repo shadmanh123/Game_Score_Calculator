@@ -1,10 +1,13 @@
 package com.example.cmpt276project;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +30,9 @@ public class GameHistoryActivity extends AppCompatActivity {
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private GameManager gameManager;
     private final int COLUMN_SIZE = 4;
+    Dialog dialog;
+    Handler handler;
+    Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +40,12 @@ public class GameHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_history);
         int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         Game game = gameManager.getInstance().getGame(index);
+        checkEmptyState(game);
         populateButtons(game);
         Button newGame = findViewById(R.id.btnNewGame);
         FloatingActionButton back = findViewById(R.id.floatingBackButton2);
 
-        // TODO: fix back button
+
         back.setOnClickListener(v -> {
             Intent i = GameCategoriesActivity.makeIntent(this);
             startActivity(i);
@@ -48,6 +55,16 @@ public class GameHistoryActivity extends AppCompatActivity {
             Intent intent = AddEditGameHistoryActivity.makeIntent(GameHistoryActivity.this, index);
             startActivity(intent);
         });
+    }
+
+    private void checkEmptyState(Game game) {
+        if(game.playSize() == 0){
+            dialog = new Dialog(GameHistoryActivity.this);
+            dialog.setContentView(R.layout.adding_game_tutorial);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            dialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+            dialog.show();
+        }
     }
 
     private void populateButtons(Game game) {

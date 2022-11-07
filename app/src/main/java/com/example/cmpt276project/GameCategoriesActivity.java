@@ -1,9 +1,8 @@
 package com.example.cmpt276project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,30 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.persistence.JsonReader;
+import com.example.cmpt276project.persistence.JsonWriter;
 
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GameCategoriesActivity extends AppCompatActivity {
 
+    private static final String JSON_STORE = "/app/data/gameManager.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     private List<Game> theList;
     private GameManager gameManager;
-
     private List<Integer> clickedItems;
 
     ArrayAdapter<Game> adapter;
@@ -34,14 +45,13 @@ public class GameCategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_categories);
 
-        gameManager = GameManager.getInstance();
         theList = new ArrayList<>();
-
         clickedItems = new ArrayList<>();
 
-        gameManager.addGame(new Game("Chess", 0, 100));
-        gameManager.addGame(new Game("BlackJack", 50, 200));
-        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+        loadPreviousGameManager();
+//        gameManager.addGame(new Game("Chess", 0, 100));
+//        gameManager.addGame(new Game("BlackJack", 50, 200));
+//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
@@ -53,12 +63,39 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     }
 
+    private void loadPreviousGameManager() {
+        File f = new File(JSON_STORE);
+        if (f.exists()) {
+
+            // Show if the file exists
+            System.out.println("Exists");
+        } else {
+
+            // Show if the file does not exists
+            System.out.println("Does not Exists");
+        }
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
+        try {
+            gameManager = jsonReader.read();
+            System.out.println("Loaded " + " from " + JSON_STORE);
+        } catch (IOException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (JSONException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("JSON Problem: " + JSON_STORE);
+        }
+    }
+
     private void onCredits() {
         startActivity(new Intent(GameCategoriesActivity.this, CreditsActivity.class));
     }
 
     private void getState() {
-        if (gameManager.getNumbeOfGames() == 0){
+        if (gameManager.getNumbeOfGames() == 0) {
             View listBack = findViewById(R.id.listViewMain);
             listBack.setVisibility(View.GONE);
 
@@ -70,7 +107,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
             View arrow = findViewById(R.id.emptyStateArrow);
             arrow.setVisibility(View.VISIBLE);
-        } else{
+        } else {
             View listBack = findViewById(R.id.listViewMain);
             listBack.setVisibility(View.VISIBLE);
 
@@ -87,10 +124,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
-//        gameManager.addGame(new Game("BlackJack", 0, 100));
-        onStart();
+//        gameManager.getInstance().addGame(new Game("mario kart", 0, 10));
 
-        //TODO: add intent
+        onStart();
 
 
     }
@@ -196,6 +232,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         Intent intent = AddEditGameHistoryActivity.makeIntent(GameCategoriesActivity.this, index);
         startActivity(intent);
         onStart();
+        getState();
         populateListView();
     }
 
@@ -228,13 +265,52 @@ public class GameCategoriesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         theList.clear();
-        for(int i = 0; i < GameManager.getInstance().getNumbeOfGames(); i++){
+        for (int i = 0; i < GameManager.getInstance().getNumbeOfGames(); i++){
             theList.add(GameManager.getInstance().getGame(i));
         }
-//
-//        populateListView();
+
         adapter.notifyDataSetChanged();
-//        determineState();
+        getState();
     }
+
+    @Override
+    public void onBackPressed() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(gameManager);
+            jsonWriter.close();
+            System.out.println("Saved " + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        } catch (JSONException e) {
+            System.out.println("JSON Problem: " + JSON_STORE);
+        } finally {
+            super.onBackPressed();
+        }
+    }
+
+
+//    private Game getPrevGameManager() {
+//        SharedPreferences prefs = getSharedPreferences("manager", MODE_PRIVATE);
+//        //GameManager oldManager = (GameManager) prefs.getAll();
+//        Gson gson = new Gson();
+//        String json = prefs.getString("Game", "");
+//        Game game = gson.fromJson(json, Game.class);
+//        System.out.println(game.getName());
+//
+//        return game;
+//    }
+//
+//    private void StoreGameManager() {
+//        SharedPreferences prefs = getSharedPreferences("manager", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        Gson gson = new Gson();
+//        for (Game game: gameManager.gamesList()) {
+//            String json = gson.toJson(game);
+//            editor.putString("Game", json);
+//            boolean test = editor.commit();
+//            System.out.println(test);
+//        }
+//    }
 
 }

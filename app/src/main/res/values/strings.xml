@@ -31,4 +31,10 @@
         We would like to thank our special and cool alpha testers:\n
         Alisha Dhillon and Sonia Dhillon
     </string>
+    <string name="adding_tutorial_message">
+        On this screen, we will add a play of a
+        game. Just tap on the "New Game" button
+        and input the number of players and total
+        score followed by tapping "Enter" button.
+    </string>
 </resources>

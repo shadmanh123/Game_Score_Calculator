@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/img"
+    android:background="@drawable/img2"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddEditGameCategoryActivity">
-
 
     <TextView
         android:id="@+id/textView2"
@@ -23,16 +22,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/floatingActionButton2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        android:clickable="true"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:srcCompat="@drawable/ic_baseline_add_24" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/floatingActionButton2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:layout_marginBottom="16dp"-->
+    <!--        android:clickable="true"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:srcCompat="@drawable/ic_baseline_add_24" />-->
 
     <TextView
         android:id="@+id/listViewMain2"
@@ -49,6 +48,7 @@
         android:layout_width="92dp"
         android:layout_height="49dp"
         android:text="@string/save"
+        android:backgroundTint="#71B3D8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.893"
@@ -114,7 +114,8 @@
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.905" />
+        app:layout_constraintVertical_bias="0.905"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_24"/>
 
     <Button
         android:id="@+id/deleteButton"
@@ -122,6 +123,7 @@
         android:layout_height="49dp"
         android:text="@string/delete"
         android:visibility="invisible"
+        android:backgroundTint="#71B3D8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -131,15 +133,15 @@
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
     <!--    <ListView-->
-<!--        android:id="@+id/gameCategories"-->
-<!--        android:layout_width="219dp"-->
-<!--        android:layout_height="330dp"-->
-<!--        android:layout_marginTop="156dp"-->
-<!--        android:layout_marginEnd="92dp"-->
+    <!--        android:id="@+id/gameCategories"-->
+    <!--        android:layout_width="219dp"-->
+    <!--        android:layout_height="330dp"-->
+    <!--        android:layout_marginTop="156dp"-->
+    <!--        android:layout_marginEnd="92dp"-->
 
-<!--        android:isScrollContainer="true"-->
-<!--        android:keepScreenOn="true"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:visibility="visible" />-->
+    <!--        android:isScrollContainer="true"-->
+    <!--        android:keepScreenOn="true"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        tools:visibility="visible" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
