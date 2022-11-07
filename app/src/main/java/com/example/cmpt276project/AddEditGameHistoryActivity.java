@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +22,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
-
+    private Button enter;
+    private EditText etTotalPlayers;
+    private EditText etTotalScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +34,34 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
-        findViewById(R.id.btnEnter).setOnClickListener(v -> onRegisterClick(index));
+        enter = findViewById(R.id.btnEnter);
+        etTotalPlayers = findViewById(R.id.etTotalPlayers);
+        enter.setOnClickListener(v -> onRegisterClick(index));
+        etTotalScore = findViewById(R.id.etTotalScore);
+        etTotalPlayers.addTextChangedListener(inputTextWatcher);
+        etTotalScore.addTextChangedListener(inputTextWatcher);
 
     }
 
+    private TextWatcher inputTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String players = etTotalPlayers.getText().toString().trim();
+            String score = etTotalScore.getText().toString().trim();
+            enter.setEnabled(!players.isEmpty() && !score.isEmpty());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
     private void onRegisterClick(int index) {
-        EditText etTotalPlayers = findViewById(R.id.etTotalPlayers);
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
         if (totalPlayers == 0) {
@@ -43,7 +69,6 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        EditText etTotalScore = findViewById(R.id.etTotalScore);
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
         Game game = GameManager.getInstance().getGame(index);
@@ -51,6 +76,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         game.addPlay(play);
         Intent intent = GameHistoryActivity.makeIntent(this, index);
         startActivity(intent);
+        finish();
     }
 
     private void onBackClick() {
