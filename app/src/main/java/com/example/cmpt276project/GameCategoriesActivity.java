@@ -1,11 +1,13 @@
 package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.fragment.app.FragmentManager;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,7 +25,7 @@ import java.util.List;
 
 
 public class GameCategoriesActivity extends AppCompatActivity {
-
+    Dialog dialog;
     private List<Game> theList;
     private GameManager gameManager;
 
@@ -40,7 +42,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         theList = new ArrayList<>();
 
         clickedItems = new ArrayList<>();
-
+//
 //        gameManager.addGame(new Game("Chess", 0, 100));
 //        gameManager.addGame(new Game("BlackJack", 50, 200));
 //        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
@@ -151,6 +153,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 View btnEdit = itemView.findViewById(R.id.btnEdit);
                 btnEdit.setOnClickListener(v->onEdit(position));
 
+                View btnTiers = itemView.findViewById(R.id.btnTiers);
+                btnTiers.setOnClickListener(v->onTiers(position));
+
                 itemView.setOnClickListener(v->{
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
@@ -174,6 +179,13 @@ public class GameCategoriesActivity extends AppCompatActivity {
             }
             return itemView;
         }
+    }
+
+    private void onTiers(int pos) {
+        FragmentManager manager = getSupportFragmentManager();
+        TiersFragment dialog = TiersFragment.newInstance(pos);
+        dialog.show(manager, "MessageDialog");
+        Log.i("Tag", "Just showed the dialog");
     }
 
     private void onEdit(int position) {
