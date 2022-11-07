@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
+    android:background="@drawable/img2"
     tools:context=".GameHistoryActivity">
 
     <TextView
@@ -82,29 +82,29 @@
 
                 <TextView
                     android:background="#51000000"
-                    android:padding="5dip"
                     android:gravity="center"
+                    android:padding="5dip"
                     android:text="Date"
                     android:textColor="@color/white" />
 
                 <TextView
                     android:background="#51000000"
-                    android:padding="5dip"
                     android:gravity="center"
+                    android:padding="5dip"
                     android:text="# of Players"
                     android:textColor="@color/white" />
 
                 <TextView
                     android:background="#51000000"
-                    android:padding="5dip"
                     android:gravity="center"
+                    android:padding="5dip"
                     android:text="Score"
                     android:textColor="@color/white" />
 
                 <TextView
                     android:background="#51000000"
-                    android:padding="5dip"
                     android:gravity="center"
+                    android:padding="5dip"
                     android:text="Achievement"
                     android:textColor="@color/white" />
             </TableRow>
