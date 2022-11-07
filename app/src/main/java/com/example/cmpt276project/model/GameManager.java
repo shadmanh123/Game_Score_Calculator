@@ -23,6 +23,10 @@ public class GameManager {
         games = new ArrayList<>();
     }
 
+    public List<Game> gamesList() {
+        return games;
+    }
+
     public void addGame(Game game) {
         games.add(game);
     }

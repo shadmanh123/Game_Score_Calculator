@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +41,16 @@ public class GameCategoriesActivity extends AppCompatActivity {
         theList = new ArrayList<>();
 
         clickedItems = new ArrayList<>();
+        try {
+            getPrevGameManager();
+        } catch (Exception e) {
+            System.out.println("Nothing!");
+        }
 
-        gameManager.addGame(new Game("Chess", 0, 100));
-        gameManager.addGame(new Game("BlackJack", 50, 200));
-        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+
+//        gameManager.addGame(new Game("Chess", 0, 100));
+//        gameManager.addGame(new Game("BlackJack", 50, 200));
+//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
@@ -236,4 +245,34 @@ public class GameCategoriesActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 //        determineState();
     }
+
+    @Override
+    public void onBackPressed() {
+        StoreGameManager();
+        super.onBackPressed();
+    }
+
+    private Game getPrevGameManager() {
+        SharedPreferences prefs = getSharedPreferences("manager", MODE_PRIVATE);
+        //GameManager oldManager = (GameManager) prefs.getAll();
+        Gson gson = new Gson();
+        String json = prefs.getString("Game", "");
+        Game game = gson.fromJson(json, Game.class);
+        System.out.println(game.getName());
+
+        return game;
+    }
+
+    private void StoreGameManager() {
+        SharedPreferences prefs = getSharedPreferences("manager", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        for (Game game: gameManager.gamesList()) {
+            String json = gson.toJson(game);
+            editor.putString("Game", json);
+            boolean test = editor.commit();
+            System.out.println(test);
+        }
+    }
+
 }
