@@ -90,7 +90,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
 //        gameManager.getInstance().addGame(new Game("mario kart", 0, 10));
+
         onStart();
+
+
     }
 
     private void registerClickCallback() {
@@ -179,6 +182,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         intent.putExtra("edit", 100);
         intent.putExtra("index", position);
         startActivity(intent);
+        getState();
         onStart();
         populateListView();
     }
@@ -194,6 +198,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         Intent intent = AddEditGameHistoryActivity.makeIntent(GameCategoriesActivity.this, index);
         startActivity(intent);
         onStart();
+        getState();
         populateListView();
     }
 
@@ -229,10 +234,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
         for(int i = 0; i < GameManager.getInstance().getNumbeOfGames(); i++){
             theList.add(GameManager.getInstance().getGame(i));
         }
-//
-//        populateListView();
+
+
         adapter.notifyDataSetChanged();
-//        determineState();
+        getState();
     }
 
 //    private GameManager getPrevGameManager(){

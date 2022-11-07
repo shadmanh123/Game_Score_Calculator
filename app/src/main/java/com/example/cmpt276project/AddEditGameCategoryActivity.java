@@ -151,6 +151,8 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
 //            Toast.makeText(this, "saving game", Toast.LENGTH_SHORT).show();
             Game game = new Game(name, minScore, maxScore);
             gameManager.getInstance().addGame(game);
+
+//            gameManager.getInstance().addGame(new Game("mario kart", 0, 10));
         }
 
         //go back to main page - I think it is Game Category activity
