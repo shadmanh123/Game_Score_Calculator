@@ -51,6 +51,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         game.addPlay(play);
         Intent intent = GameHistoryActivity.makeIntent(this, index);
         startActivity(intent);
+        finish();
     }
 
     private void onBackClick() {

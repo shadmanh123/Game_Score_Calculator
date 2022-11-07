@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,12 +89,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
-//        gameManager.addGame(new Game("BlackJack", 0, 100));
         onStart();
-
-        //TODO: add intent
-
-
     }
 
     private void registerClickCallback() {
@@ -236,4 +233,19 @@ public class GameCategoriesActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 //        determineState();
     }
+
+//    private GameManager getPrevGameManager(){
+////        SharedPreferences prefs = getSharedPreferences("manager", MODE_PRIVATE);
+////        GameManager oldManager = (GameManager) prefs.getAll();
+////        return oldManager;
+//        return null;
+//    }
+////
+//    private void StoreGameManager(){
+////        SharedPreferences prefs = getSharedPreferences("manager", MODE_PRIVATE);
+////        SharedPreferences.Editor editor = prefs.edit();
+////        editor.putStringSet("manager", gameManager.getInstance());
+//        File file = new File(getFilesDir(), "Previous Game Manager");
+//    }
+
 }
