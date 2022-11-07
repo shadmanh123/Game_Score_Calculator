@@ -45,6 +45,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         Button newGame = findViewById(R.id.btnNewGame);
         FloatingActionButton back = findViewById(R.id.floatingBackButton2);
 
+
         // TODO: fix back button
         back.setOnClickListener(v -> {
             Intent i = GameCategoriesActivity.makeIntent(this);
