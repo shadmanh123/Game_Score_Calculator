@@ -89,6 +89,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
+//        gameManager.getInstance().addGame(new Game("mario kart", 0, 10));
         onStart();
     }
 

@@ -148,6 +148,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             gameManager.getInstance().getGame(index).setMaxScore(maxScore);
         }
         else{
+//            Toast.makeText(this, "saving game", Toast.LENGTH_SHORT).show();
             Game game = new Game(name, minScore, maxScore);
             gameManager.getInstance().addGame(game);
         }
