@@ -8,7 +8,6 @@
     android:foregroundTint="@color/white"
     tools:context=".GameCategoriesActivity">
 
-    <!--    android:background="@drawable/img"-->
 
     <TextView
         android:id="@+id/textView"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/img2"
     tools:context=".GameHistoryActivity">
-    <!--    android:background="@drawable/img"-->
+
     <TextView
         android:id="@+id/tvHistoryTitle"
         android:layout_width="297dp"

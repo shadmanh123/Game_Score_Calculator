@@ -1,5 +1,11 @@
 package com.example.cmpt276project.model;
 
+import com.example.cmpt276project.persistence.Writable;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -7,7 +13,7 @@ import java.util.HashMap;
 /**
  * Play: Class for a single play through that takes in the number of Players and Total Score achieved
  */
-public class Play {
+public class Play implements Writable {
 
     private final int NUM_TIERS_ABOVE_MIN = 8;
     private LocalDateTime creationDate;
@@ -90,6 +96,15 @@ public class Play {
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
+    }
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("Game", game);
+        json.put("NumPlayers", numPlayers);
+        json.put("TotalScore", totalScore);
+        return json;
     }
 
 }
