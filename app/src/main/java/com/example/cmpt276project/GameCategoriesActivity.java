@@ -95,7 +95,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void getState() {
-        if (gameManager.getNumbeOfGames() == 0) {
+        if (gameManager.getNumberOfGames() == 0) {
             View listBack = findViewById(R.id.listViewMain);
             listBack.setVisibility(View.GONE);
 
@@ -256,7 +256,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void populateTheList() {
-        for (int i = 0; i < gameManager.getNumbeOfGames(); i++) {
+        for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
             theList.add(gameManager.getGame(i));
 
         }
@@ -266,7 +266,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         theList.clear();
-        for (int i = 0; i < GameManager.getInstance().getNumbeOfGames(); i++){
+        for (int i = 0; i < GameManager.getInstance().getNumberOfGames(); i++){
             theList.add(GameManager.getInstance().getGame(i));
         }
 
