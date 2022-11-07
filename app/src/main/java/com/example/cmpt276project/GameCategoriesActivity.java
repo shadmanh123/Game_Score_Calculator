@@ -236,4 +236,5 @@ public class GameCategoriesActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 //        determineState();
     }
+
 }
