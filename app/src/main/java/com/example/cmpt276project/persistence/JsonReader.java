@@ -6,15 +6,16 @@ import android.util.Log;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,45 +23,44 @@ import java.util.stream.Stream;
 
 // Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
+
     private String source;
 
     public JsonReader(String source) {
         this.source = source;
     }
 
-    public GameManager read(Context context, String fileName) throws IOException, JSONException {
-        GameManager gm;
-        String jsonFileString = Utils.getJsonFromAssets(context, fileName);
-        Log.i("data", jsonFileString);
+    // Code based on: https://medium.com/@nayantala259/android-how-to-read-and-write-parse-data-from-json-file-226f821e957a
+    public GameManager read(Context context) throws JSONException, IOException {
+        File file = new File(context.getFilesDir(), source);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        StringBuilder stringBuilder = new StringBuilder();
+        String line = bufferedReader.readLine();
 
-        Gson gson = new Gson();
-        Type listUserType = new TypeToken<GameManager>() { }.getType();
+        while (line != null) {
+            stringBuilder.append(line).append("\n");
+            line = bufferedReader.readLine();
+        }
 
-        gm = gson.fromJson(jsonFileString, listUserType);
+        bufferedReader.close();
 
-//        String jsonData = readFile(source);
-//        JSONObject jsonObject = new JSONObject(jsonData);
-        return gm;
+        String jsonData = stringBuilder.toString();
+        JSONObject jsonObject = new JSONObject(jsonData);
+        Log.i("data", jsonData);
+
+        return parseWorkRoom(jsonObject);
     }
-
-//    private String readFile(String source) throws IOException {
-//        StringBuilder contentBuilder = new StringBuilder();
-//
-//        try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
-//            stream.forEach(s -> contentBuilder.append(s));
-//        }
-//
-//        return contentBuilder.toString();
-//    }
 
     private GameManager parseWorkRoom(JSONObject jsonObject) throws JSONException {
         GameManager gm = new GameManager();
         addGames(gm, jsonObject);
+        System.out.println("Size: " + gm.gamesList().size());
         return gm;
     }
 
     private void addGames(GameManager gm, JSONObject jsonObject) throws JSONException {
-        JSONArray jsonArray = jsonObject.getJSONArray("Game");
+        JSONArray jsonArray = jsonObject.getJSONArray("Games");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject json = jsonArray.getJSONObject(i);
             JSONObject nextGame = json;
