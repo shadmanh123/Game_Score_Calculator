@@ -47,5 +47,6 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.cedarsoftware:json-io:4.10.1'
+    implementation 'com.google.code.gson:gson:2.8.8'
 }
 

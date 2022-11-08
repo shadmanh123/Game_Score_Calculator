@@ -1,6 +1,8 @@
 package com.example.cmpt276project;
 
+import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Play;
 import com.example.cmpt276project.persistence.JsonWriter;
 
 import org.json.JSONException;
@@ -10,11 +12,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class PersistenceTest {
-    private static final String JSON_STORE = "./data/gameManager.json";
+    private static final String JSON_STORE = "./gameManager.json";
     private JsonWriter jsonWriter;
 
     @Test
     public void test() {
+        //File path = this.getExternalFilesDir(null);
         File f = new File(JSON_STORE);
         if (f.exists()) {
             // Show if the file exists
@@ -27,6 +30,11 @@ public class PersistenceTest {
         jsonWriter = new JsonWriter(JSON_STORE);
 
         GameManager gm = new GameManager();
+        Game g = new Game("Chess", 0, 100);
+        Play p = new Play(g, 2, 323);
+        g.addPlay(p);
+        gm.addGame(g);
+
         try {
             jsonWriter.open();
             jsonWriter.write(gm);

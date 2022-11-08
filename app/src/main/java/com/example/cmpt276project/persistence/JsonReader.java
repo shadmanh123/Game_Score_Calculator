@@ -1,14 +1,20 @@
 package com.example.cmpt276project.persistence;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,21 +28,30 @@ public class JsonReader {
         this.source = source;
     }
 
-    public GameManager read() throws IOException, JSONException {
-        String jsonData = readFile(source);
-        JSONObject jsonObject = new JSONObject(jsonData);
-        return parseWorkRoom(jsonObject);
+    public GameManager read(Context context, String fileName) throws IOException, JSONException {
+        GameManager gm;
+        String jsonFileString = Utils.getJsonFromAssets(context, fileName);
+        Log.i("data", jsonFileString);
+
+        Gson gson = new Gson();
+        Type listUserType = new TypeToken<GameManager>() { }.getType();
+
+        gm = gson.fromJson(jsonFileString, listUserType);
+
+//        String jsonData = readFile(source);
+//        JSONObject jsonObject = new JSONObject(jsonData);
+        return gm;
     }
 
-    private String readFile(String source) throws IOException {
-        StringBuilder contentBuilder = new StringBuilder();
-
-        try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s));
-        }
-
-        return contentBuilder.toString();
-    }
+//    private String readFile(String source) throws IOException {
+//        StringBuilder contentBuilder = new StringBuilder();
+//
+//        try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
+//            stream.forEach(s -> contentBuilder.append(s));
+//        }
+//
+//        return contentBuilder.toString();
+//    }
 
     private GameManager parseWorkRoom(JSONObject jsonObject) throws JSONException {
         GameManager gm = new GameManager();
@@ -48,7 +63,7 @@ public class JsonReader {
         JSONArray jsonArray = jsonObject.getJSONArray("Game");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject json = jsonArray.getJSONObject(i);
-            JSONObject nextGame = (JSONObject) json;
+            JSONObject nextGame = json;
             addGame(gm, nextGame);
         }
     }

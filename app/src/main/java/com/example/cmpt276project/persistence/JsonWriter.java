@@ -1,5 +1,7 @@
 package com.example.cmpt276project.persistence;
 
+import android.content.res.AssetManager;
+
 import com.example.cmpt276project.model.GameManager;
 
 import org.json.JSONException;
@@ -7,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 // Represents a writer that writes JSON representation of workroom to file
@@ -19,7 +22,9 @@ public class JsonWriter {
         this.destination = destination;
     }
 
-    public void open() throws FileNotFoundException {
+    public void open() throws IOException {
+        //AssetManager assetManager = getAssets();
+        //assetManager.open(destination);
         writer = new PrintWriter(new File(destination));
     }
 
