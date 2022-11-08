@@ -19,6 +19,10 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
+/**
+ * DeleteGCFragment: Displays a dialog when deleting a game config to the user
+ * asking if they are sure they want to delete
+ */
 public class DeleteGCFragment extends AppCompatDialogFragment {
     private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;

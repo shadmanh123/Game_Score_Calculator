@@ -87,7 +87,7 @@
         android:layout_height="224dp"
         android:layout_marginStart="120dp"
         android:layout_marginBottom="64dp"
-        android:text="You Game Manager is empty! Click here to add a game configuration!"
+        android:text="@string/empty_game_manager_text"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"

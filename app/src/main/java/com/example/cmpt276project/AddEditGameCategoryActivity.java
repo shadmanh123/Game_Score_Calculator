@@ -24,6 +24,12 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
+/**
+ * AddEditGameCategory: This activity allows users to add edit and
+ * delete game configs the game manage, with a custom game name,
+ * and min and max score
+ */
+
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
     private static final String JSON_STORE = "gameManager.json";

@@ -25,6 +25,11 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
+/**
+ * AddEditGameHistory: Class that allows game plays to be added
+ * of a particular game category
+ */
+
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";

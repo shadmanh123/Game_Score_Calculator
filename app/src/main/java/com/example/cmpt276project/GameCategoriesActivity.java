@@ -1,8 +1,12 @@
 package com.example.cmpt276project;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,8 +27,11 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-
+/**
+ * GameCategoriesActivity: This activity displays all saved game configs
+ * and offers navigation to; add and edit game config, tiers for that
+ * config, the configs history and the apps credits
+ */
 public class GameCategoriesActivity extends AppCompatActivity {
 
     private static final String JSON_STORE = "gameManager.json";
@@ -108,6 +115,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
         onStart();
+
+/**
+ * Class obtains information about Game categories
+ */
     }
 
     private void registerClickCallback() {
@@ -160,6 +171,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 btnEdit.setOnClickListener(v -> onEdit(position));
 
                 itemView.setOnClickListener(v -> {
+                View btnTiers = itemView.findViewById(R.id.btnTiers);
+                btnTiers.setOnClickListener(v->onTiers(position));
+
+                itemView.setOnClickListener(v->{
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
                 });
@@ -180,6 +195,13 @@ public class GameCategoriesActivity extends AppCompatActivity {
             }
             return itemView;
         }
+    }
+
+    private void onTiers(int pos) {
+        FragmentManager manager = getSupportFragmentManager();
+        TiersFragment dialog = TiersFragment.newInstance(pos);
+        dialog.show(manager, "MessageDialog");
+        Log.i("Tag", "Just showed the dialog");
     }
 
     private void onEdit(int position) {

@@ -9,7 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+/**
+ * CreditsActivity: Links to all images we used and tutorials we followed,
+ * as well as authors of app
+ *
+ */
 public class CreditsActivity extends AppCompatActivity {
 
     @Override
