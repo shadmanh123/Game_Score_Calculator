@@ -22,6 +22,7 @@ public class Play implements Writable {
     private int totalScore;
     private HashMap<Integer, String> achievements;
 
+
     public Play(Game game, int numPlayers, int totalScore) {
         creationDate = LocalDateTime.now();
         this.game = game;
@@ -77,6 +78,7 @@ public class Play implements Writable {
                 score -= scoreInterval;
             }
         }
+
         return achievements.get(score);
     }
 
@@ -97,6 +99,7 @@ public class Play implements Writable {
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
+
 
     @Override
     public JSONObject toJson() throws JSONException {

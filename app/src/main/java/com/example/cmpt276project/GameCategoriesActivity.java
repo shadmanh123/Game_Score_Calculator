@@ -2,8 +2,9 @@ package com.example.cmpt276project;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,19 +19,21 @@ import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
+import com.example.cmpt276project.persistence.Utils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GameCategoriesActivity extends AppCompatActivity {
 
-    private static final String JSON_STORE = "/app/data/gameManager.json";
+    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -49,45 +52,41 @@ public class GameCategoriesActivity extends AppCompatActivity {
         clickedItems = new ArrayList<>();
 
         loadPreviousGameManager();
-//        gameManager.addGame(new Game("Chess", 0, 100));
-//        gameManager.addGame(new Game("BlackJack", 50, 200));
-//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
         findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
 
-//        populateTheList();
         populateListView();
         registerClickCallback();
 
     }
 
     private void loadPreviousGameManager() {
-        File f = new File(JSON_STORE);
-        if (f.exists()) {
-
-            // Show if the file exists
-            System.out.println("Exists");
+//        jsonWriter = new JsonWriter(String.valueOf(assetManager.open(JSON_STORE)));
+//        jsonReader = new JsonReader(JSON_STORE);
+        String jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), JSON_STORE);
+        Log.i("data", jsonFileString);
+        if(jsonFileString.equals("")) {
+            gameManager = GameManager.getInstance();
         } else {
-
-            // Show if the file does not exists
-            System.out.println("Does not Exists");
+            Gson gson = new Gson();
+            Type listUserType = new TypeToken<GameManager>() { }.getType();
+            gameManager = gson.fromJson(jsonFileString, listUserType);
         }
-
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
-
-        try {
-            gameManager = jsonReader.read();
-            System.out.println("Loaded " + " from " + JSON_STORE);
-        } catch (IOException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Unable to read from file: " + JSON_STORE);
-        } catch (JSONException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("JSON Problem: " + JSON_STORE);
-        }
+//        try {
+//
+////            jsonWriter = new JsonWriter(JSON_STORE);
+////            jsonReader = new JsonReader(JSON_STORE);
+////            gameManager = jsonReader.read();
+////            System.out.println("Loaded " + " from " + JSON_STORE);
+//        } catch (IOException e) {
+//            gameManager = GameManager.getInstance();
+//            System.out.println("Unable to read from file: " + JSON_STORE);
+//        } catch (JSONException e) {
+//            gameManager = GameManager.getInstance();
+//            System.out.println("JSON Problem: " + JSON_STORE);
+//        }
     }
 
     private void onCredits() {
@@ -95,7 +94,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void getState() {
-        if (gameManager.getNumbeOfGames() == 0) {
+        if (gameManager.getNumberOfGames() == 0) {
             View listBack = findViewById(R.id.listViewMain);
             listBack.setVisibility(View.GONE);
 
@@ -165,7 +164,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
             }
             Game currentGame = theList.get(position);
 //            Toast.makeText(GameCategoriesActivity.this, "this", Toast.LENGTH_LONG).show();
-            if (clickedItems.contains(position)){
+            if (clickedItems.contains(position)) {
 
                 itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem_two, parent, false);
                 ImageView imageView = itemView.findViewById(R.id.item_img);
@@ -181,12 +180,12 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 minScore.setText("Min Score: " + currentGame.getMinScore());
 
                 View btnHistory = itemView.findViewById(R.id.btnHistory);
-                btnHistory.setOnClickListener(v->onHistory(position));
+                btnHistory.setOnClickListener(v -> onHistory(position));
 
                 View btnEdit = itemView.findViewById(R.id.btnEdit);
-                btnEdit.setOnClickListener(v->onEdit(position));
+                btnEdit.setOnClickListener(v -> onEdit(position));
 
-                itemView.setOnClickListener(v->{
+                itemView.setOnClickListener(v -> {
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
                     populateListView();
@@ -255,7 +254,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void populateTheList() {
-        for (int i = 0; i < gameManager.getNumbeOfGames(); i++) {
+        for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
             theList.add(gameManager.getGame(i));
 
         }
@@ -265,7 +264,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         theList.clear();
-        for (int i = 0; i < GameManager.getInstance().getNumbeOfGames(); i++){
+        for (int i = 0; i < GameManager.getInstance().getNumberOfGames(); i++) {
             theList.add(GameManager.getInstance().getGame(i));
         }
 
@@ -280,7 +279,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
             jsonWriter.write(gameManager);
             jsonWriter.close();
             System.out.println("Saved " + " to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         } catch (JSONException e) {
             System.out.println("JSON Problem: " + JSON_STORE);

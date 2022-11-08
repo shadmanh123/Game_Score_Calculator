@@ -54,7 +54,7 @@ public class GameManager implements Writable {
         return games.get(index);
     }
 
-    public int getNumbeOfGames(){
+    public int getNumberOfGames(){
         return games.size();
     }
 
