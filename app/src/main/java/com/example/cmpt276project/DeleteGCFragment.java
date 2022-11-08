@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 
 import org.json.JSONException;
@@ -21,6 +22,7 @@ import java.io.IOException;
 public class DeleteGCFragment extends AppCompatDialogFragment {
     private static final String JSON_STORE = "m.json";
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private GameManager gameManager;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,19 +30,20 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.delete_gc_fragement, null);
         jsonWriter = new JsonWriter(JSON_STORE);
-
+        jsonReader = new JsonReader(JSON_STORE);
         //create a button listener
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 //                Log.i("Tag", "you clicked the dialog button");
-                int index =  getArguments().getInt("index");
+                int index = getArguments().getInt("index");
 
 //                int index = intent.getIntExtra("index", 0);
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        Game game = gameManager.getInstance().getGame(index);
-                        gameManager.getInstance().removeGame(game);
+                        readFromJson();
+                        Game game = gameManager.getGame(index);
+                        gameManager.removeGame(game);
                         writeToJson();
                         getActivity().finish();
                         break;
@@ -48,7 +51,6 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
                     case DialogInterface.BUTTON_NEGATIVE:
                         break;
                 }
-//                getActivity().finish();
             }
         };
         //build the alert dialog
@@ -60,10 +62,27 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
                 .create();
     }
 
+    private void readFromJson() {
+        try {
+            gameManager = jsonReader.read(getActivity());
+            System.out.println("Loaded" + " from " + JSON_STORE);
+        } catch (JSONException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Had to make a new one");
+        } catch (IOException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Couldn't read file");
+        }
+    }
+
     private void writeToJson() {
         try {
             jsonWriter.open(getActivity());
-            jsonWriter.write(gameManager.getInstance());
+            if(gameManager == null) {
+                return;
+            } else {
+                jsonWriter.write(gameManager);
+            }
             jsonWriter.close();
             System.out.println("Saved" + " to " + JSON_STORE);
         } catch (IOException e) {

@@ -43,7 +43,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
 
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
-        gameManager = GameManager.getInstance();
+        readFromJson();
 
         Intent intent = getIntent();
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
@@ -56,6 +56,19 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
         etTotalScore.addTextChangedListener(inputTextWatcher);
 
+    }
+
+    private void readFromJson() {
+        try {
+            gameManager = jsonReader.read(getApplicationContext());
+            System.out.println("Loaded" + " from " + JSON_STORE);
+        } catch (JSONException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Had to make a new one");
+        } catch (IOException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Couldn't read file");
+        }
     }
 
     private TextWatcher inputTextWatcher = new TextWatcher() {
@@ -98,7 +111,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
     private void writeToJson() {
         try {
             jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager.getInstance());
+            jsonWriter.write(gameManager);
             jsonWriter.close();
             System.out.println("Saved" + " to " + JSON_STORE);
         } catch (IOException e) {

@@ -105,19 +105,18 @@ public class JsonReader {
         JSONArray jsonArray = jsonObject.getJSONArray("Plays");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject json = jsonArray.getJSONObject(i);
-            JSONObject nextPlay = (JSONObject) json;
+            JSONObject nextPlay = json;
             addPlay(game, nextPlay);
         }
     }
 
-    private void addPlay(Game gm, JSONObject nextPlay) throws JSONException {
+    private void addPlay(Game game, JSONObject nextPlay) throws JSONException {
         String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
         int totalScore = nextPlay.getInt("TotalScore");
-        Play play = new Play(gm, numPlayers, totalScore);
+        Play play = new Play(game, numPlayers, totalScore);
         play.setCreationDate(time);
-
-        gm.addPlay(play);
+        game.addPlay(play);
     }
 
 }

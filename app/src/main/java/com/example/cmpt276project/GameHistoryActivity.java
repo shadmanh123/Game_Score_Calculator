@@ -49,27 +49,18 @@ public class GameHistoryActivity extends AppCompatActivity {
         int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
-//        Game game = gameManager.getInstance().getGame(index);
-//        try {
-//            gameManager = jsonReader.read(getApplicationContext());
-//        } catch (JSONException e) {
-//            gameManager = GameManager.getInstance();
-//            System.out.println("Had to make a new one");
-//        } catch (IOException e) {
-//            gameManager = GameManager.getInstance();
-//            System.out.println("Couldn't read file");
-//        }
-//
-        Game game = gameManager.getInstance().getGame(index);
+        readFromJson();
+
+        Game game = gameManager.getGame(index);
         checkEmptyState(game);
         populateButtons(game);
         Button newGame = findViewById(R.id.btnNewGame);
         FloatingActionButton back = findViewById(R.id.floatingBackButton2);
 
         back.setOnClickListener(v -> {
-            writeToJson();
             Intent i = GameCategoriesActivity.makeIntent(this);
             startActivity(i);
+            finish();
         });
 
         newGame.setOnClickListener(v -> {
@@ -78,10 +69,23 @@ public class GameHistoryActivity extends AppCompatActivity {
         });
     }
 
+    private void readFromJson() {
+        try {
+            gameManager = jsonReader.read(getApplicationContext());
+            System.out.println("Loaded" + " from " + JSON_STORE);
+        } catch (JSONException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Had to make a new one");
+        } catch (IOException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Couldn't read file");
+        }
+    }
+
     private void writeToJson() {
         try {
             jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager.getInstance());
+            jsonWriter.write(gameManager);
             jsonWriter.close();
             System.out.println("Saved" + " to " + JSON_STORE);
         } catch (IOException e) {

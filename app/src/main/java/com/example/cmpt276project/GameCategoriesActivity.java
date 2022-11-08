@@ -48,34 +48,30 @@ public class GameCategoriesActivity extends AppCompatActivity {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
         adapter = new MyListAdapter();
-        gameManager = GameManager.getInstance();
 
         readFromJson();
+        //onStart();
+
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
         findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
 
-        populateListView();
         registerClickCallback();
-
     }
 
     private void readFromJson() {
         try {
             gameManager = jsonReader.read(getApplicationContext());
-            for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
-                Game game = new Game(gameManager.getGame(i).getName(), gameManager.getGame(i).getMinScore(), gameManager.getGame(i).getMaxScore());
-                gameManager.getInstance().addGame(game);
-            }
-            System.out.println("Loaded" + " from " + JSON_STORE);
             onStart();
-            populateListView();
+            System.out.println("Loaded" + " from " + JSON_STORE);
         } catch (JSONException e) {
             gameManager = GameManager.getInstance();
             System.out.println("Had to make a new one");
         } catch (IOException e) {
             gameManager = GameManager.getInstance();
             System.out.println("Couldn't read file");
+        } finally {
+            onStart();
         }
     }
 
@@ -129,7 +125,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
-
         ListView list = findViewById(R.id.gameCategoriesList);
         list.setAdapter(adapter);
     }
@@ -197,23 +192,14 @@ public class GameCategoriesActivity extends AppCompatActivity {
         intent.putExtra("index", position);
         startActivity(intent);
         onStart();
-        populateListView();
     }
 
     private void onHistory(int index) {
         Intent intent = GameHistoryActivity.makeIntent(GameCategoriesActivity.this, index);
         startActivity(intent);
         onStart();
-        populateListView();
     }
 
-    private void onAdd(int index) {
-        Intent intent = AddEditGameHistoryActivity.makeIntent(GameCategoriesActivity.this, index);
-        startActivity(intent);
-        onStart();
-        getState();
-        populateListView();
-    }
 
     private int getIcon(String name) {
         name = name.toLowerCase().trim();
@@ -238,12 +224,12 @@ public class GameCategoriesActivity extends AppCompatActivity {
         populateTheList();
         adapter.notifyDataSetChanged();
         getState();
+        populateListView();
     }
 
     private void populateTheList() {
-        for (int i = 0; i < gameManager.getInstance().getNumberOfGames(); i++) {
-            theList.add(gameManager.getInstance().getGame(i));
-
+        for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
+            theList.add(gameManager.getGame(i));
         }
     }
 
@@ -262,7 +248,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private void writeToJson() {
         try {
             jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager.getInstance());
+            jsonWriter.write(gameManager);
             jsonWriter.close();
             System.out.println("Saved" + " to " + JSON_STORE);
         } catch (IOException e) {

@@ -42,13 +42,13 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_game);
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
-        gameManager = GameManager.getInstance();
+        readFromJson();
 
         //have a way to get to prev display
         Button delete = findViewById(R.id.deleteButton);
         Intent intent = getIntent();
         int edit = intent.getIntExtra("edit", 0);
-        if (edit == 100){
+        if (edit == 100) {
             prevDisplay();
             delete.setVisibility(View.VISIBLE);
         }
@@ -78,11 +78,25 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         });
     }
 
+
+    private void readFromJson() {
+        try {
+            gameManager = jsonReader.read(getApplicationContext());
+            System.out.println("Loaded" + " from " + JSON_STORE);
+        } catch (JSONException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Had to make a new one");
+        } catch (IOException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Couldn't read file");
+        }
+    }
+
     private void onDelete() {
         Intent intent = getIntent();
         int index = intent.getIntExtra("index", 0);
         FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction cash = manager.beginTransaction();
+//        FragmentTransaction cash = manager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putInt("index", index);
         DeleteGCFragment dialog = new DeleteGCFragment();
@@ -95,15 +109,16 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         //has slots filled in already because we are editing that game
         Intent intent = getIntent();
         int index = intent.getIntExtra("index", 0);
+        Game game = gameManager.getGame(index);
 
         EditText name = (EditText)findViewById(R.id.GameName);
-        name.setText(""+ gameManager.getInstance().getGame(index).getName(), TextView.BufferType.EDITABLE);
+        name.setText(game.getName(), TextView.BufferType.EDITABLE);
 
         EditText min = (EditText)findViewById(R.id.MinScore);
-        min.setText(""+gameManager.getInstance().getGame(index).getMinScore(), TextView.BufferType.EDITABLE);
+        min.setText("" + game.getMinScore(), TextView.BufferType.EDITABLE);
 
         EditText max = (EditText)findViewById(R.id.MaxScore);
-        max.setText(""+gameManager.getInstance().getGame(index).getMaxScore(), TextView.BufferType.EDITABLE);
+        max.setText("" + game.getMaxScore(), TextView.BufferType.EDITABLE);
     }
 
     private void onBackClick() {
@@ -131,7 +146,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int minScore;
         try {
             minScore = Integer.parseInt(minimum);
-        } catch(NumberFormatException e){
+        } catch(NumberFormatException e) {
             Toast.makeText(this,"Every slot must be filled", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -141,7 +156,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int maxScore;
         try {
             maxScore = Integer.parseInt(maximum);
-        } catch(NumberFormatException e){
+        } catch(NumberFormatException e) {
             Toast.makeText(this, "Every slot must be filled", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -154,16 +169,15 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int edit = intent.getIntExtra("edit", 0);
         if (edit == 100){
             int index = intent.getIntExtra("index", 0);
-            gameManager.getInstance().getGame(index).setName(name);
-            gameManager.getInstance().getGame(index).setMinScore(minScore);
-            gameManager.getInstance().getGame(index).setMaxScore(maxScore);
-        }
-        else{
-            Game game = new Game(name, minScore, maxScore);
-            gameManager.getInstance().addGame(game);
-            writeToJson();
-        }
+            gameManager.getGame(index).setName(name);
+            gameManager.getGame(index).setMinScore(minScore);
+            gameManager.getGame(index).setMaxScore(maxScore);
 
+        } else {
+            Game game = new Game(name, minScore, maxScore);
+            gameManager.addGame(game);
+        }
+        writeToJson();
         //go back to main page - I think it is Game Category activity
         finish();
     }
@@ -171,7 +185,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
     private void writeToJson() {
         try {
             jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager.getInstance());
+            jsonWriter.write(gameManager);
             jsonWriter.close();
             System.out.println("Saved" + " to " + JSON_STORE);
         } catch (IOException e) {
