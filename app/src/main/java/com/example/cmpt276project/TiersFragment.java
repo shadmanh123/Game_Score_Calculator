@@ -15,7 +15,12 @@ import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Tiers;
+import com.example.cmpt276project.persistence.JsonReader;
+import com.example.cmpt276project.persistence.JsonWriter;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -23,9 +28,12 @@ import java.util.HashMap;
  * scores
  */
 public class TiersFragment extends AppCompatDialogFragment {
-    private HashMap<Integer, String> achievements;
+    private static final String JSON_STORE = "gameManager.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private static int pos;
-    public static TiersFragment newInstance (int position){
+    GameManager gameManager;
+    public static TiersFragment newInstance(int position) {
         TiersFragment tiersFragment = new TiersFragment();
         pos = position;
         return tiersFragment;
@@ -36,11 +44,14 @@ public class TiersFragment extends AppCompatDialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.tiers_layout, null);
 
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        readFromJson();
         setIntervals(v);
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which){
+            public void onClick(DialogInterface dialog, int which) {
 
             }
         };
@@ -52,8 +63,23 @@ public class TiersFragment extends AppCompatDialogFragment {
                 .create();
     }
 
+    private void readFromJson() {
+        try {
+            gameManager = jsonReader.read(getActivity());
+            onStart();
+            System.out.println("Loaded" + " from " + JSON_STORE);
+        } catch (JSONException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Had to make a new one");
+        } catch (IOException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Couldn't read file");
+        }
+    }
+
+
     public void setIntervals (View v){
-        Game game = GameManager.getInstance().getGame(pos);
+        Game game = gameManager.getGame(pos);
 
         TextView levelOne = v.findViewById(R.id.level1);
 

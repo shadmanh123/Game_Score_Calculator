@@ -118,10 +118,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private void onClick() {
         startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
         onStart();
-
-/**
- * Class obtains information about Game categories
- */
     }
 
     private void registerClickCallback() {
@@ -152,7 +148,8 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem, parent, false);
             }
             Game currentGame = theList.get(position);
-            if (clickedItems.contains(position)) {
+//            Toast.makeText(GameCategoriesActivity.this, "this", Toast.LENGTH_LONG).show();
+            if (clickedItems.contains(position)){
 
                 itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem_two, parent, false);
                 ImageView imageView = itemView.findViewById(R.id.item_img);
@@ -168,24 +165,19 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 minScore.setText("Min Score: " + currentGame.getMinScore());
 
                 View btnHistory = itemView.findViewById(R.id.btnHistory);
-                btnHistory.setOnClickListener(v -> onHistory(position));
+                btnHistory.setOnClickListener(v->onHistory(position));
 
                 View btnEdit = itemView.findViewById(R.id.btnEdit);
-                btnEdit.setOnClickListener(v -> onEdit(position));
+                btnEdit.setOnClickListener(v->onEdit(position));
 
-                View finalItemView = itemView;
-                itemView.setOnClickListener(v -> {
-                    View btnTiers = finalItemView.findViewById(R.id.btnTiers);
-                    btnTiers.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            onTiers(position);
-                        }
-                });});
+                View btnTiers = itemView.findViewById(R.id.btnTiers);
+                btnTiers.setOnClickListener(v->onTiers(position));
 
-                itemView.setOnClickListener(v -> {
+                itemView.setOnClickListener(v->{
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
+                    populateListView();
+//                    registerClickCallback();
                 });
 
             } else {
@@ -205,6 +197,8 @@ public class GameCategoriesActivity extends AppCompatActivity {
             return itemView;
         }
     }
+
+
 
     private void onTiers(int pos) {
         FragmentManager manager = getSupportFragmentManager();
@@ -227,7 +221,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
         onStart();
     }
 
-
     private int getIcon(String name) {
         name = name.toLowerCase().trim();
         if (name.equals("chess")) {
@@ -238,7 +231,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
             return R.drawable.gameboy;
         }
     }
-
 
     @Override
     protected void onStart() {
