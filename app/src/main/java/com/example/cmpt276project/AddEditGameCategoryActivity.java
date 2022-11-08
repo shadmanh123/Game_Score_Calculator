@@ -86,13 +86,13 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int index = intent.getIntExtra("index", 0);
 
         EditText name = (EditText)findViewById(R.id.GameName);
-        name.setText(""+ gameManager.getGame(index).getName(), TextView.BufferType.EDITABLE);
+        name.setText(""+ gameManager.getInstance().getGame(index).getName(), TextView.BufferType.EDITABLE);
 
         EditText min = (EditText)findViewById(R.id.MinScore);
-        min.setText(""+gameManager.getGame(index).getMinScore(), TextView.BufferType.EDITABLE);
+        min.setText(""+gameManager.getInstance().getGame(index).getMinScore(), TextView.BufferType.EDITABLE);
 
         EditText max = (EditText)findViewById(R.id.MaxScore);
-        max.setText(""+gameManager.getGame(index).getMaxScore(), TextView.BufferType.EDITABLE);
+        max.setText(""+gameManager.getInstance().getGame(index).getMaxScore(), TextView.BufferType.EDITABLE);
     }
 
     private void onBackClick() {
@@ -143,13 +143,13 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int edit = intent.getIntExtra("edit", 0);
         if (edit == 100){
             int index = intent.getIntExtra("index", 0);
-            gameManager.getGame(index).setName(name);
-            gameManager.getGame(index).setMinScore(minScore);
-            gameManager.getGame(index).setMaxScore(maxScore);
+            gameManager.getInstance().getGame(index).setName(name);
+            gameManager.getInstance().getGame(index).setMinScore(minScore);
+            gameManager.getInstance().getGame(index).setMaxScore(maxScore);
         }
         else{
             Game game = new Game(name, minScore, maxScore);
-            gameManager.addGame(game);
+            gameManager.getInstance().addGame(game);
         }
 
         //go back to main page - I think it is Game Category activity

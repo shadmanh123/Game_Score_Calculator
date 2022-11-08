@@ -51,6 +51,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         try {
             gameManager = jsonReader.read(getApplicationContext());
+            for (int i = 0; i < gameManager.getNumberOfGames(); i++){
+                Game game = new Game(gameManager.getGame(i).getName(), gameManager.getGame(i).getMinScore(),gameManager.getGame(i).getMaxScore());
+                gameManager.getInstance().addGame(game);
+            }
             System.out.println(gameManager.getGame(0).getName());
             System.out.println("Loaded" + " from " + JSON_STORE);
             onStart();
@@ -236,8 +240,8 @@ public class GameCategoriesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         theList.clear();
-        for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
-            theList.add(gameManager.getGame(i));
+        for (int i = 0; i < gameManager.getInstance().getNumberOfGames(); i++) {
+            theList.add(gameManager.getInstance().getGame(i));
         }
         getState();
     }
