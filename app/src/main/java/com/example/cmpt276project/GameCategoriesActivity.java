@@ -2,6 +2,7 @@ package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * GameCategoriesActivity: This activity displays all saved game configs
  * and offers navigation to; add and edit game config, tiers for that
@@ -43,6 +45,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private List<Integer> clickedItems;
 
     ArrayAdapter<Game> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,11 +173,17 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 View btnEdit = itemView.findViewById(R.id.btnEdit);
                 btnEdit.setOnClickListener(v -> onEdit(position));
 
+                View finalItemView = itemView;
                 itemView.setOnClickListener(v -> {
-                View btnTiers = itemView.findViewById(R.id.btnTiers);
-                btnTiers.setOnClickListener(v->onTiers(position));
+                    View btnTiers = finalItemView.findViewById(R.id.btnTiers);
+                    btnTiers.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onTiers(position);
+                        }
+                });});
 
-                itemView.setOnClickListener(v->{
+                itemView.setOnClickListener(v -> {
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
                 });
@@ -230,10 +239,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
         }
     }
 
-    public static Intent makeIntent(Context context) {
-        Intent intent = new Intent(context, GameCategoriesActivity.class);
-        return intent;
-    }
 
     @Override
     protected void onStart() {
@@ -270,5 +275,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
         }
     }
 
+    public static Intent makeIntent(Context context) {
+        Intent intent = new Intent(context, GameCategoriesActivity.class);
+        return intent;
+    }
 
 }

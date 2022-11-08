@@ -38,9 +38,6 @@ public class TiersFragment extends AppCompatDialogFragment {
 
         setIntervals(v);
 
-
-
-
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which){
@@ -102,6 +99,7 @@ public class TiersFragment extends AppCompatDialogFragment {
             ranges.add(minScore);
 
         }
+
         levelTen.setText(""+ranges.get(0) +"+");
         levelNine.setText(""+ranges.get(1)+ " - " + (ranges.get(0)-1));
         levelEight.setText(""+ranges.get(2)+" - " + (ranges.get(1)-1));
@@ -112,10 +110,5 @@ public class TiersFragment extends AppCompatDialogFragment {
         levelThree.setText(""+ranges.get(7)+" - " + (ranges.get(6)-1));
         levelTwo.setText(""+ranges.get(8)+" - " + (ranges.get(7)-1));
         levelOne.setText(""+ranges.get(9)+" - " + (ranges.get(8)-1));
-
-
-
-
-
     }
 }
