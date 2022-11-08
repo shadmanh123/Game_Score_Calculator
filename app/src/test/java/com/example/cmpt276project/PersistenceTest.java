@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class PersistenceTest {
-    private static final String JSON_STORE = "/data/gameManager.json";
+    private static final String JSON_STORE = "data/gameManager.json";
     private JsonWriter jsonWriter;
 
     @Test
