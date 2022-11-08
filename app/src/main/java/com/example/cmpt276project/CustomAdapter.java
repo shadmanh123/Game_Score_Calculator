@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+/**
+ * CustomAdapter: used to adapt the list of plays in a game config
+ */
 public class CustomAdapter extends BaseAdapter {
     Context context;
     String[][] play;

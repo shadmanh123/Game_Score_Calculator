@@ -19,7 +19,8 @@ import com.example.cmpt276project.model.Tiers;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * TiersFragment: Creates a dialog to view tiers and their corresponding scores
+ * TiersFragment: Creates a dialog to view tiers and their corresponding
+ * scores
  */
 public class TiersFragment extends AppCompatDialogFragment {
     private HashMap<Integer, String> achievements;

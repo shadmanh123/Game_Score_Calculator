@@ -17,7 +17,11 @@ import android.widget.Toast;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+/**
+ * AddEditGameCategory: This activity allows users to add edit and
+ * delete game configs the game manage, with a custom game name,
+ * and min and max score
+ */
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
     private GameManager gameManager;
