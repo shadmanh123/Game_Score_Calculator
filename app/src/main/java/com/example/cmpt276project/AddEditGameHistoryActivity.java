@@ -19,6 +19,9 @@ import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+/**
+ * Class that allows game plays to be added of a particular game category
+ */
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
