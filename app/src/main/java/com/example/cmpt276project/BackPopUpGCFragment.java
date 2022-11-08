@@ -13,7 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.text.BreakIterator;
+/**
+ * BackPopUpGCFragment: Creates a dialog when a user tries to go back
+ * without saving changes they made to a game config
+ */
 
+/**
+ * Class provides warning about unsaved changes
+ */
 public class BackPopUpGCFragment extends AppCompatDialogFragment {
 
 //    @NonNull

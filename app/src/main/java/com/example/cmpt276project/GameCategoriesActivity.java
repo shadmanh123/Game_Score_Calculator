@@ -22,8 +22,11 @@ import com.example.cmpt276project.model.GameManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-
+/**
+ * GameCategoriesActivity: This activity displays all saved game configs
+ * and offers navigation to; add and edit game config, tiers for that
+ * config, the configs history and the apps credits
+ */
 public class GameCategoriesActivity extends AppCompatActivity {
     Dialog dialog;
     private List<Game> theList;
@@ -45,7 +48,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 //
 //        gameManager.addGame(new Game("Chess", 0, 100));
 //        gameManager.addGame(new Game("BlackJack", 50, 200));
-//        gameManager.addGame(new Game("Snakes and Ladders", 50, 200));
+//        gameManager.addGame(new Game("Snakes and Ladders", 1, 200));
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
@@ -95,7 +98,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         onStart();
 
-
+/**
+ * Class obtains information about Game categories
+ */
     }
 
     private void registerClickCallback() {

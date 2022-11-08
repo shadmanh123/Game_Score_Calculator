@@ -20,7 +20,8 @@ import com.example.cmpt276project.model.Play;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
- * Class that allows game plays to be added of a particular game category
+ * AddEditGameHistory: Class that allows game plays to be added
+ * of a particular game category
  */
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 

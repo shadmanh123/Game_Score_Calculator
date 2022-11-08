@@ -13,10 +13,14 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+/**
+ * MainActivity: Opening activity that gives a warm welcome to the user
+ */
+
 public class MainActivity extends AppCompatActivity {
     Button btn;
     Animation bubble;
-    BubbleInterpolation bubbleInterpolation;
+    Bubblechange bubblechange;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         btn = findViewById(R.id.btn_start);
         bubble = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale);
-        bubbleInterpolation = new BubbleInterpolation(0.2, 20);
-        bubble.setInterpolator(bubbleInterpolation);
+        bubblechange = new Bubblechange(0.2, 20);
+        bubble.setInterpolator(bubblechange);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

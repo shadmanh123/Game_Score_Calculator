@@ -12,7 +12,10 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
-
+/**
+ * DeleteGCFragment: Displays a dialog when deleting a game config to the user
+ * asking if they are sure they want to delete
+ */
 public class DeleteGCFragment extends AppCompatDialogFragment {
     private GameManager gameManager;
     @Override
