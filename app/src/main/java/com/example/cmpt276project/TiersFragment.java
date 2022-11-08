@@ -18,7 +18,9 @@ import com.example.cmpt276project.model.Tiers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * TiersFragment: Creates a dialog to view tiers and their corresponding scores
+ */
 public class TiersFragment extends AppCompatDialogFragment {
     private HashMap<Integer, String> achievements;
     private static int pos;
@@ -99,7 +101,7 @@ public class TiersFragment extends AppCompatDialogFragment {
             ranges.add(minScore);
 
         }
-        levelTen.setText(""+ranges.get(0) + " - " + max);
+        levelTen.setText(""+ranges.get(0) +"+");
         levelNine.setText(""+ranges.get(1)+ " - " + (ranges.get(0)-1));
         levelEight.setText(""+ranges.get(2)+" - " + (ranges.get(1)-1));
         levelSeven.setText(""+ranges.get(3)+" - " + (ranges.get(2)-1));

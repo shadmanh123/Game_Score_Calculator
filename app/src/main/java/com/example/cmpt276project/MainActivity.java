@@ -13,6 +13,10 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+/**
+ * MainActivity: Opening activity that gives a warm welcome to the user
+ */
+
 public class MainActivity extends AppCompatActivity {
     Button btn;
     Animation bubble;
