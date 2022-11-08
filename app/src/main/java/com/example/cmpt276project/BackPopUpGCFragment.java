@@ -18,6 +18,9 @@ import java.text.BreakIterator;
  * without saving changes they made to a game config
  */
 
+/**
+ * Class provides warning about unsaved changes
+ */
 public class BackPopUpGCFragment extends AppCompatDialogFragment {
 
 //    @NonNull

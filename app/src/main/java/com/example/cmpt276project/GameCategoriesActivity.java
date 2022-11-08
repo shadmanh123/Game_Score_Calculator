@@ -98,7 +98,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         onStart();
 
-
+/**
+ * Class obtains information about Game categories
+ */
     }
 
     private void registerClickCallback() {
