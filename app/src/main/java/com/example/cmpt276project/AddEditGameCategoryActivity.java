@@ -31,6 +31,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game);
+        gameManager = GameManager.getInstance();
 
         //have a way to get to prev display
         Button delete = findViewById(R.id.deleteButton);
@@ -40,7 +41,6 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             prevDisplay();
             delete.setVisibility(View.VISIBLE);
         }
-//        delete.setVisibility(View.VISIBLE);
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,13 +86,13 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int index = intent.getIntExtra("index", 0);
 
         EditText name = (EditText)findViewById(R.id.GameName);
-        name.setText(""+ gameManager.getInstance().getGame(index).getName(), TextView.BufferType.EDITABLE);
+        name.setText(""+ gameManager.getGame(index).getName(), TextView.BufferType.EDITABLE);
 
         EditText min = (EditText)findViewById(R.id.MinScore);
-        min.setText(""+gameManager.getInstance().getGame(index).getMinScore(), TextView.BufferType.EDITABLE);
+        min.setText(""+gameManager.getGame(index).getMinScore(), TextView.BufferType.EDITABLE);
 
         EditText max = (EditText)findViewById(R.id.MaxScore);
-        max.setText(""+gameManager.getInstance().getGame(index).getMaxScore(), TextView.BufferType.EDITABLE);
+        max.setText(""+gameManager.getGame(index).getMaxScore(), TextView.BufferType.EDITABLE);
     }
 
     private void onBackClick() {
@@ -143,16 +143,13 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int edit = intent.getIntExtra("edit", 0);
         if (edit == 100){
             int index = intent.getIntExtra("index", 0);
-            gameManager.getInstance().getGame(index).setName(name);
-            gameManager.getInstance().getGame(index).setMinScore(minScore);
-            gameManager.getInstance().getGame(index).setMaxScore(maxScore);
+            gameManager.getGame(index).setName(name);
+            gameManager.getGame(index).setMinScore(minScore);
+            gameManager.getGame(index).setMaxScore(maxScore);
         }
         else{
-//            Toast.makeText(this, "saving game", Toast.LENGTH_SHORT).show();
             Game game = new Game(name, minScore, maxScore);
-            gameManager.getInstance().addGame(game);
-
-//            gameManager.getInstance().addGame(new Game("mario kart", 0, 10));
+            gameManager.addGame(game);
         }
 
         //go back to main page - I think it is Game Category activity

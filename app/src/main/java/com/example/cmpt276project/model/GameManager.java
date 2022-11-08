@@ -61,7 +61,7 @@ public class GameManager implements Writable {
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("Game", gamesToJson());
+        json.put("Games", gamesToJson());
         return json;
     }
 
