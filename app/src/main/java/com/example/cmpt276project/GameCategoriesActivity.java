@@ -27,7 +27,7 @@ import java.util.List;
 
 public class GameCategoriesActivity extends AppCompatActivity {
 
-    private static final String JSON_STORE = "m.json";
+    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -56,6 +56,8 @@ public class GameCategoriesActivity extends AppCompatActivity {
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
         findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
 
+        onStart();
+//        populateListView();
         registerClickCallback();
     }
 
@@ -70,8 +72,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
         } catch (IOException e) {
             gameManager = GameManager.getInstance();
             System.out.println("Couldn't read file");
-        } finally {
-            onStart();
         }
     }
 
@@ -119,7 +119,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 clickedItems.add(i);
                 onStart();
-                populateListView();
             }
         });
     }
@@ -165,7 +164,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 itemView.setOnClickListener(v -> {
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
-                    populateListView();
                 });
 
             } else {
@@ -231,12 +229,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
         for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
             theList.add(gameManager.getGame(i));
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        writeToJson();
-        super.onBackPressed();
     }
 
     @Override

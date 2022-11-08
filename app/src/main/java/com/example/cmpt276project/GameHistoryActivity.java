@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class GameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
-    private static final String JSON_STORE = "m.json";
+    private static final String JSON_STORE = "gameManager.json";
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
     private GameManager gameManager;

@@ -20,7 +20,7 @@ import org.json.JSONException;
 import java.io.IOException;
 
 public class DeleteGCFragment extends AppCompatDialogFragment {
-    private static final String JSON_STORE = "m.json";
+    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameManager gameManager;
@@ -45,10 +45,13 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
                         Game game = gameManager.getGame(index);
                         gameManager.removeGame(game);
                         writeToJson();
+                        Intent i = GameCategoriesActivity.makeIntent(getActivity());
+                        startActivity(i);
                         getActivity().finish();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
+                        getActivity().finish();
                         break;
                 }
             }

@@ -28,7 +28,7 @@ import java.io.IOException;
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
-    private static final String JSON_STORE = "m.json";
+    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameManager gameManager;
@@ -55,7 +55,6 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
         etTotalScore.addTextChangedListener(inputTextWatcher);
-
     }
 
     private void readFromJson() {

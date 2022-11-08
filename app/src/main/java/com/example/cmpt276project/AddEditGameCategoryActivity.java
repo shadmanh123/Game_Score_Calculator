@@ -26,7 +26,7 @@ import java.io.IOException;
 
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
-    private static final String JSON_STORE = "m.json";
+    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameManager gameManager;
@@ -102,6 +102,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         DeleteGCFragment dialog = new DeleteGCFragment();
         dialog.setArguments(bundle);
         dialog.show(manager, "message");
+
 //        cash.replace(R.id.frameLayout, )
     }
 
@@ -111,13 +112,13 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         int index = intent.getIntExtra("index", 0);
         Game game = gameManager.getGame(index);
 
-        EditText name = (EditText)findViewById(R.id.GameName);
+        EditText name = findViewById(R.id.GameName);
         name.setText(game.getName(), TextView.BufferType.EDITABLE);
 
-        EditText min = (EditText)findViewById(R.id.MinScore);
+        EditText min = findViewById(R.id.MinScore);
         min.setText("" + game.getMinScore(), TextView.BufferType.EDITABLE);
 
-        EditText max = (EditText)findViewById(R.id.MaxScore);
+        EditText max = findViewById(R.id.MaxScore);
         max.setText("" + game.getMaxScore(), TextView.BufferType.EDITABLE);
     }
 
@@ -162,7 +163,6 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         }
 
         //needs to make it so that saves the specific game
-
         //save into game manager - new game
         //this will be in an else
         Intent intent = getIntent();
@@ -172,13 +172,14 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             gameManager.getGame(index).setName(name);
             gameManager.getGame(index).setMinScore(minScore);
             gameManager.getGame(index).setMaxScore(maxScore);
-
         } else {
             Game game = new Game(name, minScore, maxScore);
             gameManager.addGame(game);
         }
         writeToJson();
         //go back to main page - I think it is Game Category activity
+        Intent i = GameCategoriesActivity.makeIntent(AddEditGameCategoryActivity.this);
+        startActivity(i);
         finish();
     }
 
