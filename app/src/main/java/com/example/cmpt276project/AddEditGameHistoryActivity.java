@@ -17,11 +17,21 @@ import androidx.fragment.app.FragmentManager;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
+import com.example.cmpt276project.persistence.JsonReader;
+import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
+    private static final String JSON_STORE = "m.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private GameManager gameManager;
     private Button enter;
     private EditText etTotalPlayers;
     private EditText etTotalScore;
@@ -30,6 +40,11 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game_history);
+
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        gameManager = GameManager.getInstance();
+
         Intent intent = getIntent();
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
@@ -71,12 +86,26 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         }
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-        Game game = GameManager.getInstance().getGame(index);
+        Game game = gameManager.getGame(index);
         Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
+        writeToJson();
         Intent intent = GameHistoryActivity.makeIntent(this, index);
         startActivity(intent);
         finish();
+    }
+
+    private void writeToJson() {
+        try {
+            jsonWriter.open(getApplicationContext());
+            jsonWriter.write(gameManager.getInstance());
+            jsonWriter.close();
+            System.out.println("Saved" + " to " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        } catch (JSONException e) {
+            System.out.println("JSON Problem: " + JSON_STORE);
+        }
     }
 
     private void onBackClick() {

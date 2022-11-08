@@ -16,10 +16,19 @@ import android.widget.Toast;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.persistence.JsonReader;
+import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
+    private static final String JSON_STORE = "m.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private GameManager gameManager;
 
     public static Intent makeIntent(Context context) {
@@ -31,6 +40,8 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
         gameManager = GameManager.getInstance();
 
         //have a way to get to prev display
@@ -150,9 +161,23 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         else{
             Game game = new Game(name, minScore, maxScore);
             gameManager.getInstance().addGame(game);
+            writeToJson();
         }
 
         //go back to main page - I think it is Game Category activity
         finish();
+    }
+
+    private void writeToJson() {
+        try {
+            jsonWriter.open(getApplicationContext());
+            jsonWriter.write(gameManager.getInstance());
+            jsonWriter.close();
+            System.out.println("Saved" + " to " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        } catch (JSONException e) {
+            System.out.println("JSON Problem: " + JSON_STORE);
+        }
     }
 }

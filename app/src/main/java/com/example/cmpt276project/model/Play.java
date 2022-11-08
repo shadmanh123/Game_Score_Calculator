@@ -16,6 +16,7 @@ import java.util.HashMap;
 public class Play implements Writable {
 
     private final int NUM_TIERS_ABOVE_MIN = 8;
+
     private LocalDateTime creationDate;
     private Game game;
     private int numPlayers;
@@ -87,6 +88,11 @@ public class Play implements Writable {
         return creationDate.format(dtf);
     }
 
+    public void setCreationDate(String creationDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy MMM dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(creationDate, formatter);
+        this.creationDate = dateTime;
+    }
 
     public int getNumPlayers() {
         return numPlayers;
@@ -104,9 +110,10 @@ public class Play implements Writable {
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("Game", game);
+        json.put("Time", getCreationDate());
         json.put("NumPlayers", numPlayers);
         json.put("TotalScore", totalScore);
+
         return json;
     }
 

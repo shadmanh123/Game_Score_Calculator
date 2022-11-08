@@ -21,13 +21,21 @@ import androidx.fragment.app.FragmentManager;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Play;
+import com.example.cmpt276project.persistence.JsonReader;
+import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
+    private static final String JSON_STORE = "m.json";
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
     private GameManager gameManager;
     private final int COLUMN_SIZE = 4;
     Dialog dialog;
@@ -39,14 +47,27 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_history);
         int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
+//        Game game = gameManager.getInstance().getGame(index);
+//        try {
+//            gameManager = jsonReader.read(getApplicationContext());
+//        } catch (JSONException e) {
+//            gameManager = GameManager.getInstance();
+//            System.out.println("Had to make a new one");
+//        } catch (IOException e) {
+//            gameManager = GameManager.getInstance();
+//            System.out.println("Couldn't read file");
+//        }
+//
         Game game = gameManager.getInstance().getGame(index);
         checkEmptyState(game);
         populateButtons(game);
         Button newGame = findViewById(R.id.btnNewGame);
         FloatingActionButton back = findViewById(R.id.floatingBackButton2);
 
-
         back.setOnClickListener(v -> {
+            writeToJson();
             Intent i = GameCategoriesActivity.makeIntent(this);
             startActivity(i);
         });
@@ -56,6 +77,20 @@ public class GameHistoryActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    private void writeToJson() {
+        try {
+            jsonWriter.open(getApplicationContext());
+            jsonWriter.write(gameManager.getInstance());
+            jsonWriter.close();
+            System.out.println("Saved" + " to " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        } catch (JSONException e) {
+            System.out.println("JSON Problem: " + JSON_STORE);
+        }
+    }
+
 
     private void checkEmptyState(Game game) {
         if(game.playSize() == 0){
@@ -85,12 +120,10 @@ public class GameHistoryActivity extends AppCompatActivity {
         }
     }
 
-
     public static Intent makeIntent(Context context, int gameIndex){
         Intent intent = new Intent(context, GameHistoryActivity.class);
         intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
         return intent;
     }
-
 
 }

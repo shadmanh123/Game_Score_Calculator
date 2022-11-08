@@ -30,6 +30,7 @@ public class JsonReader {
         this.source = source;
     }
 
+/*
     // Code based on: https://medium.com/@nayantala259/android-how-to-read-and-write-parse-data-from-json-file-226f821e957a
     public GameManager read(Context context) throws JSONException, IOException {
         File file = new File(context.getFilesDir(), source);
@@ -49,10 +50,32 @@ public class JsonReader {
         JSONObject jsonObject = new JSONObject(jsonData);
         Log.i("data", jsonData);
 
-        return parseWorkRoom(jsonObject);
+        return parseGameManager(jsonObject);
     }
 
-    private GameManager parseWorkRoom(JSONObject jsonObject) throws JSONException {
+ */
+
+    public GameManager read(Context context) throws IOException, JSONException {
+        String jsonData = readFile(source, context);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseGameManager(jsonObject);
+    }
+
+    // EFFECTS: reads source file as string and returns it
+    private String readFile(String source, Context context) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines( Paths.get(context.getFilesDir() + "/" + source), StandardCharsets.UTF_8)) {
+            System.out.println(context.getFilesDir() + "/" + source);
+            stream.forEach(s -> contentBuilder.append(s));
+        }
+
+        return contentBuilder.toString();
+    }
+
+
+
+    private GameManager parseGameManager(JSONObject jsonObject) throws JSONException {
         GameManager gm = new GameManager();
         addGames(gm, jsonObject);
         System.out.println("Size: " + gm.gamesList().size());
@@ -88,9 +111,12 @@ public class JsonReader {
     }
 
     private void addPlay(Game gm, JSONObject nextPlay) throws JSONException {
+        String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
         int totalScore = nextPlay.getInt("TotalScore");
         Play play = new Play(gm, numPlayers, totalScore);
+        play.setCreationDate(time);
+
         gm.addPlay(play);
     }
 

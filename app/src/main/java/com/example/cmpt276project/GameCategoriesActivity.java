@@ -47,15 +47,26 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
+        adapter = new MyListAdapter();
         gameManager = GameManager.getInstance();
 
+        readFromJson();
+        getState();
+        findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
+        findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
+
+        populateListView();
+        registerClickCallback();
+
+    }
+
+    private void readFromJson() {
         try {
             gameManager = jsonReader.read(getApplicationContext());
-            for (int i = 0; i < gameManager.getNumberOfGames(); i++){
-                Game game = new Game(gameManager.getGame(i).getName(), gameManager.getGame(i).getMinScore(),gameManager.getGame(i).getMaxScore());
+            for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
+                Game game = new Game(gameManager.getGame(i).getName(), gameManager.getGame(i).getMinScore(), gameManager.getGame(i).getMaxScore());
                 gameManager.getInstance().addGame(game);
             }
-            System.out.println(gameManager.getGame(0).getName());
             System.out.println("Loaded" + " from " + JSON_STORE);
             onStart();
             populateListView();
@@ -65,15 +76,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         } catch (IOException e) {
             gameManager = GameManager.getInstance();
             System.out.println("Couldn't read file");
-        } finally {
-            getState();
-            findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
-            findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
-
-            populateListView();
-            registerClickCallback();
         }
-
     }
 
     private void onCredits() {
@@ -126,7 +129,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
-        adapter = new MyListAdapter();
+
         ListView list = findViewById(R.id.gameCategoriesList);
         list.setAdapter(adapter);
     }
@@ -221,7 +224,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
         } else {
             return R.drawable.gameboy;
         }
-
     }
 
     public static Intent makeIntent(Context context) {
@@ -229,21 +231,20 @@ public class GameCategoriesActivity extends AppCompatActivity {
         return intent;
     }
 
-    private void populateTheList() {
-        for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
-            theList.add(gameManager.getGame(i));
-
-        }
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
         theList.clear();
+        populateTheList();
+        adapter.notifyDataSetChanged();
+        getState();
+    }
+
+    private void populateTheList() {
         for (int i = 0; i < gameManager.getInstance().getNumberOfGames(); i++) {
             theList.add(gameManager.getInstance().getGame(i));
+
         }
-        getState();
     }
 
     @Override
@@ -261,7 +262,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private void writeToJson() {
         try {
             jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager);
+            jsonWriter.write(gameManager.getInstance());
             jsonWriter.close();
             System.out.println("Saved" + " to " + JSON_STORE);
         } catch (IOException e) {
@@ -270,7 +271,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
             System.out.println("JSON Problem: " + JSON_STORE);
         }
     }
-
 
 
 }
