@@ -50,14 +50,12 @@ public class GameCategoriesActivity extends AppCompatActivity {
         adapter = new MyListAdapter();
 
         readFromJson();
-        //onStart();
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
         findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
 
         onStart();
-//        populateListView();
         registerClickCallback();
     }
 

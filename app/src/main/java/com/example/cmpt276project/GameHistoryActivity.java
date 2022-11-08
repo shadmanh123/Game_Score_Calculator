@@ -39,8 +39,6 @@ public class GameHistoryActivity extends AppCompatActivity {
     private GameManager gameManager;
     private final int COLUMN_SIZE = 4;
     Dialog dialog;
-    Handler handler;
-    Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,20 +79,6 @@ public class GameHistoryActivity extends AppCompatActivity {
             System.out.println("Couldn't read file");
         }
     }
-
-    private void writeToJson() {
-        try {
-            jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager);
-            jsonWriter.close();
-            System.out.println("Saved" + " to " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        } catch (JSONException e) {
-            System.out.println("JSON Problem: " + JSON_STORE);
-        }
-    }
-
 
     private void checkEmptyState(Game game) {
         if(game.playSize() == 0){

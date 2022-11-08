@@ -96,14 +96,11 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int index = intent.getIntExtra("index", 0);
         FragmentManager manager = getSupportFragmentManager();
-//        FragmentTransaction cash = manager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putInt("index", index);
         DeleteGCFragment dialog = new DeleteGCFragment();
         dialog.setArguments(bundle);
         dialog.show(manager, "message");
-
-//        cash.replace(R.id.frameLayout, )
     }
 
     private void prevDisplay(){
@@ -123,15 +120,10 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
     }
 
     private void onBackClick() {
-        //has a pop up saying that things are not saved
         FragmentManager manager = getSupportFragmentManager();
         BackPopUpGCFragment dialog = new BackPopUpGCFragment();
         dialog.show(manager, "message");
-
-//        Log.i("TAG", "just show");
-//        finish();
     }
-
 
     private void onSaveClick() {
         EditText n = findViewById(R.id.GameName);
@@ -162,9 +154,6 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             return;
         }
 
-        //needs to make it so that saves the specific game
-        //save into game manager - new game
-        //this will be in an else
         Intent intent = getIntent();
         int edit = intent.getIntExtra("edit", 0);
         if (edit == 100){
@@ -177,7 +166,6 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             gameManager.addGame(game);
         }
         writeToJson();
-        //go back to main page - I think it is Game Category activity
         Intent i = GameCategoriesActivity.makeIntent(AddEditGameCategoryActivity.this);
         startActivity(i);
         finish();

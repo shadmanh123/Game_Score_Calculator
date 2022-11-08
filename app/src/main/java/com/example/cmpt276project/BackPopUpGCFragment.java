@@ -16,12 +16,6 @@ import java.text.BreakIterator;
 
 public class BackPopUpGCFragment extends AppCompatDialogFragment {
 
-//    @NonNull
-//    @Override
-//    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-//        return super.onCreateDialog(savedInstanceState);
-//    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //create the view to show - load the message
@@ -32,7 +26,6 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Log.i("Tag", "you clicked the dialog button");
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         getActivity().finish();
@@ -41,7 +34,6 @@ public class BackPopUpGCFragment extends AppCompatDialogFragment {
                     case DialogInterface.BUTTON_NEGATIVE:
                         break;
                 }
-//                getActivity().finish();
             }
         };
 

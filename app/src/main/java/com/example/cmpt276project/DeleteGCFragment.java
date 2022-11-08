@@ -35,10 +35,7 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Log.i("Tag", "you clicked the dialog button");
                 int index = getArguments().getInt("index");
-
-//                int index = intent.getIntExtra("index", 0);
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         readFromJson();
