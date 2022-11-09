@@ -17,37 +17,31 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 // Represents a writer that writes JSON representation of workroom to file
+// Code based on Tiffanie's class at UBC CPSC 210
+
 public class JsonWriter {
-/*
-    private String destination;
 
-    public JsonWriter(String destination) {
-        this.destination = destination;
-    }
-
-    // Code based on: https://medium.com/@nayantala259/android-how-to-read-and-write-parse-data-from-json-file-226f821e957a
-
-    public void write(GameManager gm, Context context) throws JSONException, IOException {
-        JSONObject json = gm.toJson();
-        String userString = json.toString();
-        File file = new File(context.getFilesDir(), destination);
-        System.out.println(context.getFilesDir());
-        FileWriter fileWriter = new FileWriter(file, true);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(userString);
-        Log.i("data", String.valueOf(json));
-        bufferedWriter.close();
-    }
-
- */
-
+    private static final String JSON_STORE = "gameManager.json";
     private static final int TAB = 4;
     private PrintWriter writer;
-    private String destination;
+    private Context context;
 
     // EFFECTS: constructs writer to write to destination file
-    public JsonWriter(String destination) {
-        this.destination = destination;
+    public JsonWriter(Context context) {
+        this.context = context;
+    }
+
+    public void writeToJson(GameManager gameManager) {
+        try {
+            open(context);
+            write(gameManager);
+            close();
+            System.out.println("Saved" + " to " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        } catch (JSONException e) {
+            System.out.println("JSON Problem: " + JSON_STORE);
+        }
     }
 
 
@@ -55,7 +49,7 @@ public class JsonWriter {
     // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
     // be opened for writing
     public void open(Context context) throws FileNotFoundException {
-        writer = new PrintWriter(new File(context.getFilesDir(), destination));
+        writer = new PrintWriter(new File(context.getFilesDir(), JSON_STORE));
     }
 
     // MODIFIES: this

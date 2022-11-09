@@ -36,9 +36,8 @@ import java.util.ArrayList;
 public class GameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
-    private static final String JSON_STORE = "gameManager.json";
+
     private JsonReader jsonReader;
-    private JsonWriter jsonWriter;
     private GameManager gameManager;
     private final int COLUMN_SIZE = 4;
     Dialog dialog;
@@ -48,9 +47,8 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_history);
         int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
-        jsonReader = new JsonReader(JSON_STORE);
-        jsonWriter = new JsonWriter(JSON_STORE);
-        readFromJson();
+        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        gameManager = jsonReader.readFromJson();
 
         Game game = gameManager.getGame(index);
         checkEmptyState(game);
@@ -70,21 +68,8 @@ public class GameHistoryActivity extends AppCompatActivity {
         });
     }
 
-    private void readFromJson() {
-        try {
-            gameManager = jsonReader.read(getApplicationContext());
-            System.out.println("Loaded" + " from " + JSON_STORE);
-        } catch (JSONException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Had to make a new one");
-        } catch (IOException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Couldn't read file");
-        }
-    }
-
     private void checkEmptyState(Game game) {
-        if(game.playSize() == 0){
+        if(game.playSize() == 0) {
             dialog = new Dialog(GameHistoryActivity.this);
             dialog.setContentView(R.layout.adding_game_tutorial);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));

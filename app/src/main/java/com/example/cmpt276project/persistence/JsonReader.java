@@ -22,41 +22,36 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 // Represents a reader that reads workroom from JSON data stored in file
+// Code based on Tiffanie's class at UBC CPSC 210
+
 public class JsonReader {
 
-    private String source;
+    private static final String JSON_STORE = "gameManager.json";
+    private Context context;
+    private GameManager gameManager;
 
-    public JsonReader(String source) {
-        this.source = source;
+    public JsonReader(Context context, GameManager gm) {
+        this.context = context;
+        this.gameManager = gm;
     }
 
-/*
-    // Code based on: https://medium.com/@nayantala259/android-how-to-read-and-write-parse-data-from-json-file-226f821e957a
-    public GameManager read(Context context) throws JSONException, IOException {
-        File file = new File(context.getFilesDir(), source);
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        StringBuilder stringBuilder = new StringBuilder();
-        String line = bufferedReader.readLine();
-
-        while (line != null) {
-            stringBuilder.append(line).append("\n");
-            line = bufferedReader.readLine();
+    public GameManager readFromJson() {
+        try {
+            gameManager = read(context);
+            System.out.println("Loaded" + " from " + JSON_STORE);
+        } catch (JSONException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Had to make a new one");
+        } catch (IOException e) {
+            gameManager = GameManager.getInstance();
+            System.out.println("Couldn't read file");
         }
-
-        bufferedReader.close();
-
-        String jsonData = stringBuilder.toString();
-        JSONObject jsonObject = new JSONObject(jsonData);
-        Log.i("data", jsonData);
-
-        return parseGameManager(jsonObject);
+        return gameManager;
     }
 
- */
 
     public GameManager read(Context context) throws IOException, JSONException {
-        String jsonData = readFile(source, context);
+        String jsonData = readFile(JSON_STORE, context);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseGameManager(jsonObject);
     }
@@ -72,8 +67,6 @@ public class JsonReader {
 
         return contentBuilder.toString();
     }
-
-
 
     private GameManager parseGameManager(JSONObject jsonObject) throws JSONException {
         GameManager gm = new GameManager();

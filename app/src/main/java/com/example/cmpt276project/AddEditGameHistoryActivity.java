@@ -33,7 +33,6 @@ import java.io.IOException;
 public class AddEditGameHistoryActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
-    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameManager gameManager;
@@ -46,9 +45,9 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game_history);
 
-        jsonReader = new JsonReader(JSON_STORE);
-        jsonWriter = new JsonWriter(JSON_STORE);
-        readFromJson();
+        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        jsonWriter = new JsonWriter(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
 
         Intent intent = getIntent();
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
@@ -60,19 +59,6 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
         etTotalScore.addTextChangedListener(inputTextWatcher);
-    }
-
-    private void readFromJson() {
-        try {
-            gameManager = jsonReader.read(getApplicationContext());
-            System.out.println("Loaded" + " from " + JSON_STORE);
-        } catch (JSONException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Had to make a new one");
-        } catch (IOException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Couldn't read file");
-        }
     }
 
     private TextWatcher inputTextWatcher = new TextWatcher() {
@@ -106,23 +92,10 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         Game game = gameManager.getGame(index);
         Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
-        writeToJson();
+        jsonWriter.writeToJson(gameManager);
         Intent intent = GameHistoryActivity.makeIntent(this, index);
         startActivity(intent);
         finish();
-    }
-
-    private void writeToJson() {
-        try {
-            jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager);
-            jsonWriter.close();
-            System.out.println("Saved" + " to " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        } catch (JSONException e) {
-            System.out.println("JSON Problem: " + JSON_STORE);
-        }
     }
 
     private void onBackClick() {

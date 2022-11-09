@@ -32,23 +32,17 @@ import java.io.IOException;
 
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
-    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameManager gameManager;
-
-    public static Intent makeIntent(Context context) {
-        Intent intent = new Intent(context, AddEditGameCategoryActivity.class);
-        return intent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game);
-        jsonReader = new JsonReader(JSON_STORE);
-        jsonWriter = new JsonWriter(JSON_STORE);
-        readFromJson();
+        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        jsonWriter = new JsonWriter(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
 
         //have a way to get to prev display
         Button delete = findViewById(R.id.deleteButton);
@@ -82,20 +76,6 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
                 onSaveClick();
             }
         });
-    }
-
-
-    private void readFromJson() {
-        try {
-            gameManager = jsonReader.read(getApplicationContext());
-            System.out.println("Loaded" + " from " + JSON_STORE);
-        } catch (JSONException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Had to make a new one");
-        } catch (IOException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Couldn't read file");
-        }
     }
 
     private void onDelete() {
@@ -171,22 +151,15 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             Game game = new Game(name, minScore, maxScore);
             gameManager.addGame(game);
         }
-        writeToJson();
+        jsonWriter.writeToJson(gameManager);
         Intent i = GameCategoriesActivity.makeIntent(AddEditGameCategoryActivity.this);
         startActivity(i);
         finish();
     }
 
-    private void writeToJson() {
-        try {
-            jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager);
-            jsonWriter.close();
-            System.out.println("Saved" + " to " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        } catch (JSONException e) {
-            System.out.println("JSON Problem: " + JSON_STORE);
-        }
+    public static Intent makeIntent(Context context) {
+        Intent intent = new Intent(context, AddEditGameCategoryActivity.class);
+        return intent;
     }
+
 }

@@ -29,7 +29,6 @@ import java.util.HashMap;
  */
 public class TiersFragment extends AppCompatDialogFragment {
     private static final String JSON_STORE = "gameManager.json";
-    private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static int pos;
     GameManager gameManager;
@@ -44,16 +43,12 @@ public class TiersFragment extends AppCompatDialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.tiers_layout, null);
 
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
-        readFromJson();
+        jsonReader = new JsonReader(getActivity(), gameManager);
+        gameManager = jsonReader.readFromJson();
         setIntervals(v);
 
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        DialogInterface.OnClickListener listener = (dialog, which) -> {
 
-            }
         };
 
         return new AlertDialog.Builder(getActivity())
@@ -62,21 +57,6 @@ public class TiersFragment extends AppCompatDialogFragment {
                 .setPositiveButton(android.R.string.ok, listener)
                 .create();
     }
-
-    private void readFromJson() {
-        try {
-            gameManager = jsonReader.read(getActivity());
-            onStart();
-            System.out.println("Loaded" + " from " + JSON_STORE);
-        } catch (JSONException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Had to make a new one");
-        } catch (IOException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Couldn't read file");
-        }
-    }
-
 
     public void setIntervals (View v){
         Game game = gameManager.getGame(pos);
@@ -99,6 +79,7 @@ public class TiersFragment extends AppCompatDialogFragment {
         TextView levelNine = v.findViewById(R.id.level9);
 
         TextView levelTen = v.findViewById(R.id.level10);
+
 
 
         Tiers tiers[] = Tiers.values();

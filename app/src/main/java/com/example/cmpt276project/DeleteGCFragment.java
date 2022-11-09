@@ -33,8 +33,9 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
         //create the view to show - load the message
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.delete_gc_fragement, null);
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(getActivity());
+        jsonReader = new JsonReader(getActivity(), gameManager);
+
         //create a button listener
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
@@ -42,10 +43,10 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
                 int index = getArguments().getInt("index");
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        readFromJson();
+                        gameManager = jsonReader.readFromJson();
                         Game game = gameManager.getGame(index);
                         gameManager.removeGame(game);
-                        writeToJson();
+                        jsonWriter.writeToJson(gameManager);
                         Intent i = GameCategoriesActivity.makeIntent(getActivity());
                         startActivity(i);
                         getActivity().finish();
@@ -66,33 +67,4 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
                 .create();
     }
 
-    private void readFromJson() {
-        try {
-            gameManager = jsonReader.read(getActivity());
-            System.out.println("Loaded" + " from " + JSON_STORE);
-        } catch (JSONException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Had to make a new one");
-        } catch (IOException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Couldn't read file");
-        }
-    }
-
-    private void writeToJson() {
-        try {
-            jsonWriter.open(getActivity());
-            if(gameManager == null) {
-                return;
-            } else {
-                jsonWriter.write(gameManager);
-            }
-            jsonWriter.close();
-            System.out.println("Saved" + " to " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        } catch (JSONException e) {
-            System.out.println("JSON Problem: " + JSON_STORE);
-        }
-    }
 }

@@ -36,7 +36,6 @@ import java.util.List;
  */
 public class GameCategoriesActivity extends AppCompatActivity {
 
-    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -46,7 +45,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     ArrayAdapter<Game> adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +53,10 @@ public class GameCategoriesActivity extends AppCompatActivity {
         theList = new ArrayList<>();
         clickedItems = new ArrayList<>();
 
-        jsonReader = new JsonReader(JSON_STORE);
-        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        jsonWriter = new JsonWriter(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
         adapter = new MyListAdapter();
-
-        readFromJson();
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
@@ -67,20 +64,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         onStart();
         registerClickCallback();
-    }
-
-    private void readFromJson() {
-        try {
-            gameManager = jsonReader.read(getApplicationContext());
-            onStart();
-            System.out.println("Loaded" + " from " + JSON_STORE);
-        } catch (JSONException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Had to make a new one");
-        } catch (IOException e) {
-            gameManager = GameManager.getInstance();
-            System.out.println("Couldn't read file");
-        }
     }
 
     private void onCredits() {
@@ -147,10 +130,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
             if (itemView == null) {
                 itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem, parent, false);
             }
-            Game currentGame = theList.get(position);
-//            Toast.makeText(GameCategoriesActivity.this, "this", Toast.LENGTH_LONG).show();
-            if (clickedItems.contains(position)){
 
+            Game currentGame = theList.get(position);
+            if (clickedItems.contains(position)) {
                 itemView = getLayoutInflater().inflate(R.layout.gamecategoryitem_two, parent, false);
                 ImageView imageView = itemView.findViewById(R.id.item_img);
                 imageView.setImageResource(getIcon(currentGame.getName()));
@@ -176,8 +158,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 itemView.setOnClickListener(v->{
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
-                    populateListView();
-//                    registerClickCallback();
                 });
 
             } else {
@@ -197,8 +177,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
             return itemView;
         }
     }
-
-
 
     private void onTiers(int pos) {
         FragmentManager manager = getSupportFragmentManager();
@@ -250,26 +228,12 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     @Override
     protected void onUserLeaveHint() {
-        writeToJson();
+        jsonWriter.writeToJson(gameManager);
         super.onUserLeaveHint();
-    }
-
-    private void writeToJson() {
-        try {
-            jsonWriter.open(getApplicationContext());
-            jsonWriter.write(gameManager);
-            jsonWriter.close();
-            System.out.println("Saved" + " to " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        } catch (JSONException e) {
-            System.out.println("JSON Problem: " + JSON_STORE);
-        }
     }
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, GameCategoriesActivity.class);
         return intent;
     }
-
 }

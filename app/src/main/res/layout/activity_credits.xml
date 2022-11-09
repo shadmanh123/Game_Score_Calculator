@@ -40,9 +40,10 @@
         android:layout_marginTop="16dp"
         android:background="@android:drawable/screen_background_dark_transparent"
         android:gravity="center"
-        android:textColor="@color/white"
         android:text="@string/credit_Info"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCreditsTitle" />
 

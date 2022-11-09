@@ -69,7 +69,7 @@ public class Play implements Writable {
             if (i == 10) {
                 score = 0;
                 break;
-            } else if (score - scoreInterval <= min){
+            } else if (score - scoreInterval <= min) {
                 if (score >= 0){
                     score /= 2;
                 } else {
