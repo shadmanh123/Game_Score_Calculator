@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+// Code based on a demo from Tiffanie's class at UBC CPSC 210
 // Represents a reader that reads workroom from JSON data stored in file
 // Code based on Tiffanie's class at UBC CPSC 210
 
