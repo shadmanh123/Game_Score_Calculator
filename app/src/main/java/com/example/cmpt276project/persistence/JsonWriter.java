@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+// Code based on a demo from Tiffanie's class at UBC CPSC 210
 // Represents a writer that writes JSON representation of workroom to file
 public class JsonWriter {
 /*
