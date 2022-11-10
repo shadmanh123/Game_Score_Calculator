@@ -23,7 +23,6 @@ import java.util.stream.Stream;
 
 // Code based on a demo from Tiffanie's class at UBC CPSC 210
 // Represents a reader that reads workroom from JSON data stored in file
-// Code based on Tiffanie's class at UBC CPSC 210
 
 public class JsonReader {
 
@@ -50,14 +49,12 @@ public class JsonReader {
         return gameManager;
     }
 
-
     public GameManager read(Context context) throws IOException, JSONException {
         String jsonData = readFile(JSON_STORE, context);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseGameManager(jsonObject);
     }
 
-    // EFFECTS: reads source file as string and returns it
     private String readFile(String source, Context context) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
