@@ -51,14 +51,25 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private void initialization() {
         Intent intent = getIntent();
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
+
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         enter.setOnClickListener(v -> onRegisterClick(index));
         etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
         etTotalScore.addTextChangedListener(inputTextWatcher);
+
+        Button options = findViewById(R.id.optionsButton);
+        options.setOnClickListener(v -> onOptionsClick());
+    }
+
+    private void onOptionsClick() {
+        Intent i = OptionsActivity.optionsIntent(AddEditPlayActivity.this);
+        startActivity(i);
+        onStart();
     }
 
     private TextWatcher inputTextWatcher = new TextWatcher() {
