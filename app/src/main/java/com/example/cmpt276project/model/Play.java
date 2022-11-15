@@ -23,6 +23,8 @@ public class Play implements Writable {
     private HashMap<Tiers, Integer> achievements;
     private List<Integer> scores;
 
+    //todo: add options in here - for the single play
+
     public Play(Game game, int numPlayers, int totalScore) {
         creationDate = LocalDateTime.now();
         this.game = game;

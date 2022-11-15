@@ -8,7 +8,7 @@
     tools:context=".AddEditGameCategoryActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/PageTitle"
         android:layout_width="215dp"
         android:layout_height="37dp"
         android:layout_marginTop="68dp"

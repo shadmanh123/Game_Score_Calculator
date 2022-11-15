@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themes">
+        <item>"Ocean"</item>
+        <item>"Space"</item>
+        <item>"Birds"</item>
+        <item>"Dinosaurs"</item>
+    </string-array>
+    <string name = "defaultTheme">"Ocean"</string>
+</resources>

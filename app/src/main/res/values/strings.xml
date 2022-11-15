@@ -41,4 +41,5 @@
     </string>
     <string name="empty_game_manager_text">Your Game Manager is empty! Click here to add a game configuration!</string>
     <string name="options">Options</string>
+    <string name="game_options">Game Options</string>
 </resources>

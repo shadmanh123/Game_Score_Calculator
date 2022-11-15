@@ -2,12 +2,10 @@ package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +17,6 @@ import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.json.JSONException;
-
-import java.io.IOException;
 
 /**
  * AddEditGameCategory: This activity allows users to add edit and
