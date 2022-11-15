@@ -39,6 +39,10 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
     private Button enter;
     private EditText etTotalPlayers;
     private EditText etTotalScore;
+    private Button easy;
+    private Button medium;
+    private Button hard;
+    String difficulty_level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,12 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
+        easy = findViewById(R.id.btnEasy);
+        easy.setOnClickListener(v -> difficulty_level = "easy");
+        medium = findViewById(R.id.btnMedium);
+        medium.setOnClickListener(v -> difficulty_level = "normal");
+        hard = findViewById(R.id.btnHard);
+        hard.setOnClickListener(v -> difficulty_level = "hard");
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         enter.setOnClickListener(v -> onRegisterClick(index));
@@ -90,7 +100,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
         Game game = gameManager.getGame(index);
-        Play play = new Play(game, totalPlayers, totalScore);
+        Play play = new Play(game, totalPlayers, totalScore, difficulty_level);
         game.addPlay(play);
         jsonWriter.writeToJson(gameManager);
         Intent intent = GameHistoryActivity.makeIntent(this, index);

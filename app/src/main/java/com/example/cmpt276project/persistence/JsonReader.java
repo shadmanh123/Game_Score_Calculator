@@ -108,7 +108,8 @@ public class JsonReader {
         String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
         int totalScore = nextPlay.getInt("TotalScore");
-        Play play = new Play(game, numPlayers, totalScore);
+        String difficulty_level = nextPlay.getString("DifficultyLevel");
+        Play play = new Play(game, numPlayers, totalScore, difficulty_level);
         play.setCreationDate(time);
         game.addPlay(play);
     }

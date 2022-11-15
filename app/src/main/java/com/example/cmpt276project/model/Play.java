@@ -21,22 +21,24 @@ public class Play implements Writable {
     private Game game;
     private int numPlayers;
     private int totalScore;
+    private String difficulty_level;
     private HashMap<Integer, String> achievements;
 
 
-    public Play(Game game, int numPlayers, int totalScore) {
+    public Play(Game game, int numPlayers, int totalScore, String difficulty_level) {
         creationDate = LocalDateTime.now();
         this.game = game;
         this.numPlayers = numPlayers;
         this.totalScore = totalScore;
+        this.difficulty_level = difficulty_level;
         achievements = new HashMap<>();
     }
 
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
         Tiers tiers[] = Tiers.values();
-        int max = game.getMaxScore() * numPlayers;
-        int min = game.getMinScore() * numPlayers;
+        int max = (int) (game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level));
+        int min = (int) (game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level));
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int minScore = max;
 
@@ -58,8 +60,8 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public String getAchievementScore() {
-        int max = game.getMaxScore() * numPlayers;
-        int min = game.getMinScore() * numPlayers;
+        int max = (int) (game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level));
+        int min = (int) (game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level));
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int score = max - scoreInterval;
         int i = 1;
@@ -81,6 +83,18 @@ public class Play implements Writable {
         }
 
         return achievements.get(score);
+    }
+
+    public double getDifficultyLevel(String difficultyLevel){
+        double difficulty_value;
+        if(difficultyLevel == "easy"){
+            difficulty_value = 0.75;
+        } else if(difficultyLevel == "normal" ){
+            difficulty_value = 1;
+        } else {
+            difficulty_value = 1.25;
+        }
+        return difficulty_value;
     }
 
     public String getCreationDate() {
