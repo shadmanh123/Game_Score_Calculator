@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 // Code based on a demo from Tiffanie's class at UBC CPSC 210
@@ -104,10 +106,20 @@ public class JsonReader {
     private void addPlay(Game game, JSONObject nextPlay) throws JSONException {
         String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
-        int totalScore = nextPlay.getInt("TotalScore");
-        Play play = new Play(game, numPlayers, totalScore);
+        List<Integer> scores = addScores(nextPlay);
+        Play play = new Play(game, numPlayers, scores);
         play.setCreationDate(time);
         game.addPlay(play);
+    }
+
+    private List<Integer> addScores(JSONObject jsonObject) throws JSONException {
+        JSONArray jsonArray = jsonObject.getJSONArray("Scores");
+        List<Integer> scores = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            int j = jsonArray.getInt(i);
+            scores.add(j);
+        }
+        return scores;
     }
 
 }

@@ -29,8 +29,8 @@ public class Game implements Writable {
 
     // subdivide scores into 10 tiers
     public HashMap<Tiers, Integer> getListOfAchievements(int numPlayers) {
-        HashMap<Tiers, Integer> achievements= new HashMap<>();
-        Tiers tiers[] = Tiers.values();
+        HashMap<Tiers, Integer> achievements = new HashMap<>();
+        Tiers[] tiers = Tiers.values();
         int max = getMaxScore() * numPlayers;
         int min = getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);

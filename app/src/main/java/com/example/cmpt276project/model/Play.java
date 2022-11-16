@@ -2,6 +2,7 @@ package com.example.cmpt276project.model;
 
 import com.example.cmpt276project.persistence.Writable;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,22 +18,27 @@ import java.util.List;
 public class Play implements Writable {
 
     private LocalDateTime creationDate;
-    private Game game;
-    private int numPlayers;
+    private final Game game;
+    private final int numPlayers;
     private int totalScore;
     private HashMap<Tiers, Integer> achievements;
     private List<Integer> scores;
 
-    public Play(Game game, int numPlayers, int totalScore) {
+    public Play(Game game, int numPlayers, List<Integer> scores) { // List<Integer> scores
         creationDate = LocalDateTime.now();
         this.game = game;
         this.numPlayers = numPlayers;
-        this.totalScore = totalScore;
         achievements = new HashMap<>();
-        scores = new ArrayList<>();
+        this.scores = scores;
     }
 
-    //TODO: add function to calculate totalScore
+    public Integer calculateTotalScore() {
+        int totalScore = 0;
+        for (Integer score: scores) {
+            totalScore += score;
+        }
+        return totalScore;
+    }
 
     public String getAchievementScore() {
         this.achievements = game.getListOfAchievements(numPlayers);
@@ -42,6 +48,7 @@ public class Play implements Writable {
         int score = max - scoreInterval;
         int i = 1;
 
+        this.totalScore = calculateTotalScore();
         while (score > totalScore) {
             i++;
             if (i == 10) {
@@ -98,8 +105,18 @@ public class Play implements Writable {
         JSONObject json = new JSONObject();
         json.put("Time", getCreationDate());
         json.put("NumPlayers", numPlayers);
-        json.put("TotalScore", totalScore);
+        json.put("Scores", scoresToJson());
 
         return json;
     }
+
+    private JSONArray scoresToJson() throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Integer s : scores) {
+            jsonArray.put(s);
+        }
+        return jsonArray;
+    }
 }
+
