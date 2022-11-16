@@ -46,13 +46,11 @@ class PlayTest {
         String achievement = play1.getAchievementScore();
         assertEquals("Lion's Mane Jellyfish", achievement);
 
-        /*
         Play play2 = new Play(testGame3, 1,5,"hard");
         play2.getListOfAchievements();
         String achievement2 = play2.getAchievementScore();
         assertEquals("Peacock Mantis Shrimp", achievement2);
 
-         */
         Play play3 = new Play(testGame3, 1,5,"easy");
         play3.getListOfAchievements();
         String achievement3 = play3.getAchievementScore();
