@@ -41,20 +41,22 @@ class PlayTest {
 
     @Test
     public void testDifferentDifficultyAchievement(){
-        Play play1 = new Play(testGame1, 3, 55, "normal");
+        Play play1 = new Play(testGame3, 1, 5, "normal");
         play1.getListOfAchievements();
         String achievement = play1.getAchievementScore();
-        assertEquals("Giant Pacific Octopus", achievement);
+        assertEquals("Lion's Mane Jellyfish", achievement);
 
-        Play play2 = new Play(testGame1, 3,55,"hard");
+        /*
+        Play play2 = new Play(testGame3, 1,5,"hard");
         play2.getListOfAchievements();
         String achievement2 = play2.getAchievementScore();
         assertEquals("Peacock Mantis Shrimp", achievement2);
 
-        Play play3 = new Play(testGame1, 3,55,"easy");
+         */
+        Play play3 = new Play(testGame3, 1,5,"easy");
         play3.getListOfAchievements();
         String achievement3 = play3.getAchievementScore();
-        assertEquals("Lion's Mane Jellyfish", achievement3);
+        assertEquals("Bottlenose Dolphin", achievement3);
     }
 
 

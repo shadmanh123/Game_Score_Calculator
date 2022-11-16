@@ -2,7 +2,6 @@ package com.example.cmpt276project.model;
 
 import com.example.cmpt276project.persistence.Writable;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
