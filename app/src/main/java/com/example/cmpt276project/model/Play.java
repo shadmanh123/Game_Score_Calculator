@@ -21,7 +21,7 @@ public class Play implements Writable {
     private int numPlayers;
     private int totalScore;
     private String difficulty_level;
-    private HashMap<Integer, String> achievements;
+    private HashMap<Double, String> achievements;
 
 
     public Play(Game game, int numPlayers, int totalScore, String difficulty_level) {
@@ -36,10 +36,10 @@ public class Play implements Writable {
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
         Tiers tiers[] = Tiers.values();
-        int max = (int) (game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level));
-        int min = (int) (game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level));
-        int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int minScore = max;
+        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
+        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
+        double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
+        double minScore = max;
 
         for (Tiers tier: tiers) {
             if(tier == Tiers.LEVEL1) {
@@ -59,10 +59,10 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public String getAchievementScore() {
-        int max = (int) (game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level));
-        int min = (int) (game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level));
-        int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int score = max - scoreInterval;
+        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
+        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
+        double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
+        double score = max - scoreInterval;
         int i = 1;
 
         while (score > totalScore) {
