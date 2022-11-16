@@ -8,61 +8,50 @@ import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Play: Class for a single play through that takes in the number of Players and Total Score achieved
  */
 public class Play implements Writable {
 
-    private final int NUM_TIERS_ABOVE_MIN = 8;
-
     private LocalDateTime creationDate;
-    private Game game;
-    private int numPlayers;
+    private final Game game;
+    private final int numPlayers;
     private int totalScore;
-    private HashMap<Integer, String> achievements;
+    private HashMap<Tiers, Integer> achievements;
+    private List<Integer> scores;
 
-
-    public Play(Game game, int numPlayers, int totalScore) {
+    public Play(Game game, int numPlayers, List<Integer> scores) { // List<Integer> scores
         creationDate = LocalDateTime.now();
         this.game = game;
         this.numPlayers = numPlayers;
-        this.totalScore = totalScore;
         achievements = new HashMap<>();
+        this.scores = scores;
+        totalScore = -1;
     }
 
-    // subdivide scores into 10 tiers
-    public void getListOfAchievements() {
-        Tiers tiers[] = Tiers.values();
-        int max = game.getMaxScore() * numPlayers;
-        int min = game.getMinScore() * numPlayers;
-        int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int minScore = max;
-
-        for (Tiers tier: tiers) {
-            if(tier == Tiers.LEVEL1) {
-                minScore = 0;
-            } else if (minScore - scoreInterval <= min) {
-                if (minScore >= 0){
-                    minScore /= 2;
-                } else {
-                    minScore = 0;
-                }
-            } else {
-                minScore -= scoreInterval;
-            }
-            achievements.put(minScore, tier.getLevel());
+    public Integer calculateTotalScore() {
+        int totalScore = 0;
+        for (Integer score: scores) {
+            totalScore += score;
         }
+        return totalScore;
     }
 
-    // subdivide scores into 10 tiers
     public String getAchievementScore() {
+        this.achievements = game.getListOfAchievements(numPlayers);
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
-        int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
+        int scoreInterval = (int) Math.floor((double) (max - min) / game.getNumTiersAboveMin());
         int score = max - scoreInterval;
         int i = 1;
+
+        if(totalScore == -1) {
+            this.totalScore = calculateTotalScore();
+        }
 
         while (score > totalScore) {
             i++;
@@ -80,7 +69,16 @@ public class Play implements Writable {
             }
         }
 
-        return achievements.get(score);
+        Tiers levelAchieved = null;
+
+        for (Tiers tier: achievements.keySet()) {
+            if(achievements.get(tier).equals(score)) {
+                levelAchieved = tier;
+                break;
+            }
+        }
+
+        return levelAchieved.getLevel();
     }
 
     public String getCreationDate() {
@@ -106,15 +104,23 @@ public class Play implements Writable {
         this.totalScore = totalScore;
     }
 
-
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("Time", getCreationDate());
         json.put("NumPlayers", numPlayers);
-        json.put("TotalScore", totalScore);
+        json.put("Scores", scoresToJson());
 
         return json;
     }
 
+    private JSONArray scoresToJson() throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Integer s : scores) {
+            jsonArray.put(s);
+        }
+        return jsonArray;
+    }
 }
+

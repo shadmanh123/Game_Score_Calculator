@@ -87,11 +87,14 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+        /*
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
         Game game = gameManager.getGame(index);
         Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
+
+         */
         jsonWriter.writeToJson(gameManager);
         Intent intent = GameHistoryActivity.makeIntent(this, index);
         startActivity(intent);
