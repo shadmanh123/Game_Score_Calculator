@@ -32,19 +32,21 @@ import java.io.IOException;
 
 public class AddEditGameCategoryActivity extends AppCompatActivity {
 
+    private GameManager gameManager;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_game);
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
-        jsonWriter = new JsonWriter(getApplicationContext());
-        gameManager = jsonReader.readFromJson();
+        initialize();
+        Button delete = prevDisplaySetUp();
+        setUpOnClickListeners(delete);
+    }
 
-        //have a way to get to prev display
+    // have a way to get to prev display
+    private Button prevDisplaySetUp() {
         Button delete = findViewById(R.id.deleteButton);
         Intent intent = getIntent();
         int edit = intent.getIntExtra("edit", 0);
@@ -52,30 +54,23 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
             prevDisplay();
             delete.setVisibility(View.VISIBLE);
         }
+        return delete;
+    }
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onDelete();
-            }
-        });
+    private void initialize() {
+        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        jsonWriter = new JsonWriter(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
+    }
+
+    private void setUpOnClickListeners(Button delete) {
+        delete.setOnClickListener(v -> onDelete());
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackClick();
-            }
-        });
-
+        back.setOnClickListener(v -> onBackClick());
 
         Button save = findViewById(R.id.SaveButton);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSaveClick();
-            }
-        });
+        save.setOnClickListener(v -> onSaveClick());
     }
 
     private void onDelete() {
@@ -157,8 +152,10 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         finish();
     }
 
-    public static Intent makeIntent(Context context) {
+    public static Intent makeIntent(Context context, int edit, int position) {
         Intent intent = new Intent(context, AddEditGameCategoryActivity.class);
+        intent.putExtra("edit", edit);
+        intent.putExtra("index", position);
         return intent;
     }
 

@@ -20,11 +20,11 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".GameHistoryActivity"
+            android:name=".PlayActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".AddEditGameHistoryActivity"
+            android:name=".AddEditPlayActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

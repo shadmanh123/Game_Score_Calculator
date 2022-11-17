@@ -1,12 +1,12 @@
 package com.example.cmpt276project;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.Play;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 class PlayTest {
 
@@ -111,11 +111,10 @@ class PlayTest {
         String achievement3 = play3.getAchievementScore();
         assertEquals("Blobfish", achievement3);
     }
-/*
+
     @Test
     public void testBelowMinAchievementP1() {
         Play play = new Play(testGame1, 2, 10);
-        play.getListOfAchievements();
         String achievement = play.getAchievementScore();
         assertEquals("Blobfish", achievement);
 
@@ -132,7 +131,7 @@ class PlayTest {
         assertEquals("Frogfish", achievement);
 
     }
-*/
+
     @Test
     public void testBelowMinAchievementP2() {
         Play play = new Play(testGame2, 2, 57, "normal");
