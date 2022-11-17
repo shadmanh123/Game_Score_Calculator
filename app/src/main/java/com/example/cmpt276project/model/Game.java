@@ -7,14 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 /**
  * Game: Class of a single game that contains the play history
  */
 public class Game implements Writable {
-
-    private final int NUM_TIERS_ABOVE_MIN = 8;
     private String name;
     private int minScore;
     private int maxScore;
@@ -25,55 +22,6 @@ public class Game implements Writable {
         this.minScore = minScore;
         this.maxScore = maxScore;
         plays = new ArrayList<>();
-    }
-
-    // subdivide scores into 10 tiers
-    public HashMap<Tiers, Integer> getListOfAchievements(int numPlayers) {
-        HashMap<Tiers, Integer> achievements= new HashMap<>();
-        Tiers tiers[] = Tiers.values();
-        int max = getMaxScore() * numPlayers;
-        int min = getMinScore() * numPlayers;
-        int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int minScore = max;
-
-        for (Tiers tier: tiers) {
-            if(tier == Tiers.LEVEL1) {
-                minScore = 0;
-            } else if (minScore - scoreInterval <= min) {
-                if (minScore >= 0){
-                    minScore /= 2;
-                } else {
-                    minScore = 0;
-                }
-            } else {
-                minScore -= scoreInterval;
-            }
-            achievements.put(tier, minScore);
-        }
-        return achievements;
-    }
-
-    public String displayPlayInfo(int playIndex, int column) {
-        String display;
-        Play play = getPlay(playIndex);
-        switch(column) {
-            case 0:
-                display = play.getCreationDate();
-                break;
-            case 1:
-                display = "" + play.getNumPlayers();
-                break;
-            case 2:
-                display = "" + play.getTotalScore();
-                break;
-            case 3:
-                display = play.getAchievementScore();
-                break;
-            default:
-                display = "";
-                break;
-        }
-        return display;
     }
 
     public int playSize() {
@@ -116,8 +64,28 @@ public class Game implements Writable {
         this.maxScore = maxScore;
     }
 
-    public int getNumTiersAboveMin() {
-        return NUM_TIERS_ABOVE_MIN;
+    public String displayPlayInfo(int playIndex, int column) {
+        String display;
+        Play play = getPlay(playIndex);
+        switch(column) {
+            case 0:
+                display = play.getCreationDate();
+                break;
+            case 1:
+                display = "" + play.getNumPlayers();
+                break;
+            case 2:
+                display = "" + play.getTotalScore();
+                break;
+            case 3:
+                play.getListOfAchievements();
+                display = play.getAchievementScore();
+                break;
+            default:
+                display = "";
+                break;
+        }
+        return display;
     }
 
     @Override
@@ -136,6 +104,7 @@ public class Game implements Writable {
         for (Play p : plays) {
             jsonArray.put(p.toJson());
         }
+
         return jsonArray;
     }
 }

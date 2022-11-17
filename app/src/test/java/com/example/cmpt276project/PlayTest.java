@@ -114,13 +114,14 @@ class PlayTest {
 
     @Test
     public void testBelowMinAchievementP1() {
-        Play play = new Play(testGame1, 2, 10);
+        Play play = new Play(testGame1, 2, 10, "normal");
+        play.getListOfAchievements();
         String achievement = play.getAchievementScore();
         assertEquals("Blobfish", achievement);
 
         play.setTotalScore(31);
         achievement = play.getAchievementScore();
-        assertEquals("Blobfish", achievement);
+        assertEquals("Frogfish", achievement);
 
         play.setTotalScore(32);
         achievement = play.getAchievementScore();

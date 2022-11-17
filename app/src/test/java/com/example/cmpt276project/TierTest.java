@@ -7,6 +7,7 @@ import com.example.cmpt276project.model.Play;
 import com.example.cmpt276project.model.Tiers;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class TierTest {
         testGame3 = new Game("Some Card Game", 0, 10);
     }
 
+    /*
+    @Disabled
     @Test
     public void test() {
         HashMap<Tiers, Integer> achievements = testGame1.getListOfAchievements(1);
@@ -34,4 +37,5 @@ public class TierTest {
             System.out.println();
         }
     }
+     */
 }
