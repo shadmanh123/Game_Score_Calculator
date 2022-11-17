@@ -79,6 +79,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         }
     };
+
     private void onRegisterClick(int index) {
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
@@ -94,7 +95,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
         jsonWriter.writeToJson(gameManager);
-         */
+        */
+
         Intent i = AddScoresActivity.makeIntent(this);
         Intent intent = PlayActivity.makeIntent(this, index);
         startActivity(intent);
