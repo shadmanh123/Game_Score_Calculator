@@ -70,7 +70,7 @@ public class OptionsActivity extends AppCompatActivity {
             diffMenu.addView(levelbutton);
 
             //setting the default
-            if (level == getDifficultySelected()) {
+            if (level.equals(getDifficultySelected())) {
                 levelbutton.setChecked(true);
             }
         }
@@ -101,7 +101,7 @@ public class OptionsActivity extends AppCompatActivity {
             themeMenu.addView(themebutton);
 
             //setting the default
-            if (theme == getThemeSelected()) {
+            if (theme.equals(getThemeSelected())) {
                 themebutton.setChecked(true);
             }
         }
