@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
@@ -35,6 +37,10 @@ public class OptionsActivity extends AppCompatActivity {
         createDifficultyMenu();
         createThemeMenu();
 
+        String savedDiff = getDifficultySelected();
+        String savedTheme = getThemeSelected();
+        Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
+
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(v -> onBackClick());
     }
@@ -47,20 +53,26 @@ public class OptionsActivity extends AppCompatActivity {
         for (int i = 0; i < difficulty.length; i++){
             final String level = difficulty[i];
 
-            RadioButton button = new RadioButton(this);
-            button.setText(level);
+            RadioButton levelbutton = new RadioButton(this);
+            levelbutton.setText(level);
 
             //setting onclick callbacks
-            button.setOnClickListener(new View.OnClickListener() {
+            levelbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //todo: save the data
+                    saveDifficultySelected(level);
                     jsonWriter.writeToJson(gameManager);
                 }
             });
 
             //adding to radio group
-            diffMenu.addView(button);
+            diffMenu.addView(levelbutton);
+
+            //setting the default
+            if (level == getDifficultySelected()) {
+                levelbutton.setChecked(true);
+            }
         }
     }
 
@@ -72,22 +84,53 @@ public class OptionsActivity extends AppCompatActivity {
         for (int i = 0; i < themes.length; i++){
             final String theme = themes[i];
 
-            RadioButton button = new RadioButton(this);
-            button.setText(theme);
+            RadioButton themebutton = new RadioButton(this);
+            themebutton.setText(theme);
 
             //setting onclick callbacks
-            button.setOnClickListener(new View.OnClickListener() {
+            themebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //todo: save the data
+                    saveThemeSelected(theme);
                     jsonWriter.writeToJson(gameManager);
-
                 }
             });
 
             //adding to radio group
-            themeMenu.addView(button);
+            themeMenu.addView(themebutton);
+
+            //setting the default
+            if (theme == getThemeSelected()) {
+                themebutton.setChecked(true);
+            }
         }
+    }
+
+    private void saveDifficultySelected(String diff) {
+        SharedPreferences prefs = this.getSharedPreferences("difficulty", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("difficulty", diff);
+        editor.apply();
+    }
+
+    public String getDifficultySelected(){
+        SharedPreferences prefs = this.getSharedPreferences("difficulty", MODE_PRIVATE);
+        String defaultTheme = "Normal";
+        return prefs.getString("difficulty", defaultTheme);
+    }
+
+    private void saveThemeSelected(String theme) {
+        SharedPreferences prefs = this.getSharedPreferences("theme", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("theme", theme);
+        editor.apply();
+    }
+
+    public String getThemeSelected(){
+        SharedPreferences prefs = this.getSharedPreferences("theme", MODE_PRIVATE);
+        String defaultTheme = "Ocean";
+        return prefs.getString("theme", defaultTheme);
     }
 
     private void onBackClick() {
