@@ -1,11 +1,6 @@
 package com.example.cmpt276project.model;
 
-/**
- * Tiers: Class that contains the list of different achievements that can be obtained
- */
-
-public enum Tiers {
-    // Ocean Theme
+public enum Ocean implements Tier {
     LEVEL10("Blue Whale"),
     LEVEL9("Great White Shark"),
     LEVEL8("Colossal Squid"),
@@ -19,11 +14,19 @@ public enum Tiers {
 
     final String level;
 
-    Tiers(String level) {
+    Ocean(String level) {
         this.level = level;
     }
 
+    @Override
     public String getLevel() {
         return level;
     }
+
+    @Override
+    public String getClassName() {
+        return "OCEAN";
+    }
+
+
 }

@@ -33,10 +33,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private Button enter;
     private EditText etTotalPlayers;
     private EditText etTotalScore;
-    private Button easy;
-    private Button medium;
-    private Button hard;
-    String difficulty_level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +53,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
-        easy = findViewById(R.id.btnEasy);
-        easy.setOnClickListener(v -> difficulty_level = "easy");
-        medium = findViewById(R.id.btnMedium);
-        medium.setOnClickListener(v -> difficulty_level = "normal");
-        hard = findViewById(R.id.btnHard);
-        hard.setOnClickListener(v -> difficulty_level = "hard");
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         enter.setOnClickListener(v -> onRegisterClick(index));
@@ -89,6 +79,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         }
     };
+
     private void onRegisterClick(int index) {
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
@@ -97,14 +88,19 @@ public class AddEditPlayActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
+        /*
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
         Game game = gameManager.getGame(index);
-        Play play = new Play(game, totalPlayers, totalScore, difficulty_level);
+        /*
+        Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
-        jsonWriter.writeToJson(gameManager);
 
+         */
+        jsonWriter.writeToJson(gameManager);
+        */
+
+        Intent i = AddScoresActivity.makeIntent(this);
         Intent intent = PlayActivity.makeIntent(this, index);
         startActivity(intent);
         finish();
