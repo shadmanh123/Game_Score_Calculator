@@ -3,9 +3,15 @@ package com.example.cmpt276project.persistence;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Land;
+import com.example.cmpt276project.model.Ocean;
 import com.example.cmpt276project.model.Play;
+import com.example.cmpt276project.model.Sky;
+import com.example.cmpt276project.model.Tier;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,7 +113,10 @@ public class JsonReader {
         String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
         List<Integer> scores = addScores(nextPlay);
-        Play play = new Play(game, numPlayers, scores);
+        String tier = nextPlay.getString("Tier");
+        Tier tiers = getTier(tier);
+
+        Play play = new Play(game, numPlayers, scores, tiers);
         play.setCreationDate(time);
         game.addPlay(play);
     }
@@ -120,6 +129,23 @@ public class JsonReader {
             scores.add(j);
         }
         return scores;
+    }
+
+    @NonNull
+    private Tier getTier(String tier) {
+        Tier tiers;
+        switch(tier) {
+            case "OCEAN":
+                tiers = Ocean.LEVEL1;
+                break;
+            case "LAND":
+                tiers = Land.LEVEL1;
+                break;
+            default:
+                tiers = Sky.LEVEL1;
+                break;
+        }
+        return tiers;
     }
 
 }

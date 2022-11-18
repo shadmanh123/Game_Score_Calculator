@@ -13,6 +13,13 @@
         android:theme="@style/Theme.CMPT276Project"
         tools:targetApi="31">
         <activity
+            android:name=".AddScoresActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CreditsActivity"
             android:exported="false">
             <meta-data
@@ -20,11 +27,10 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".GameHistoryActivity"
-            android:exported="false">
-        </activity>
+            android:name=".PlayActivity"
+            android:exported="false"></activity>
         <activity
-            android:name=".AddEditGameHistoryActivity"
+            android:name=".AddEditPlayActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -1,12 +1,10 @@
 package com.example.cmpt276project;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,16 +19,12 @@ import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-
 /**
  * AddEditGameHistory: Class that allows game plays to be added
  * of a particular game category
  */
 
-public class AddEditGameHistoryActivity extends AppCompatActivity {
+public class AddEditPlayActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private JsonWriter jsonWriter;
@@ -43,12 +37,18 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit_game_history);
+        setContentView(R.layout.activity_add_edit_play);
+        jsonInitialize();
+        initialization();
+    }
 
+    private void jsonInitialize() {
         jsonReader = new JsonReader(getApplicationContext(), gameManager);
         jsonWriter = new JsonWriter(getApplicationContext());
         gameManager = jsonReader.readFromJson();
+    }
 
+    private void initialization() {
         Intent intent = getIntent();
         int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
@@ -79,6 +79,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
 
         }
     };
+
     private void onRegisterClick(int index) {
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
@@ -91,12 +92,16 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
         Game game = gameManager.getGame(index);
+        /*
         Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
 
          */
         jsonWriter.writeToJson(gameManager);
-        Intent intent = GameHistoryActivity.makeIntent(this, index);
+        */
+
+        Intent i = AddScoresActivity.makeIntent(this);
+        Intent intent = PlayActivity.makeIntent(this, index);
         startActivity(intent);
         finish();
     }
@@ -108,7 +113,7 @@ public class AddEditGameHistoryActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context, int gameIndex) {
-        Intent intent = new Intent(context, AddEditGameHistoryActivity.class);
+        Intent intent = new Intent(context, AddEditPlayActivity.class);
         intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
         return intent;
     }

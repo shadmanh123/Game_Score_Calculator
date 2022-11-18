@@ -67,11 +67,9 @@ public class GameManager implements Writable {
 
     private JSONArray gamesToJson() throws JSONException {
         JSONArray jsonArray = new JSONArray();
-
         for (Game g : games) {
             jsonArray.put(g.toJson());
         }
-
         return jsonArray;
     }
 

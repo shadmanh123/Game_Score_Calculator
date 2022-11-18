@@ -24,10 +24,10 @@ import java.io.IOException;
  * asking if they are sure they want to delete
  */
 public class DeleteGCFragment extends AppCompatDialogFragment {
-    private static final String JSON_STORE = "gameManager.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameManager gameManager;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //create the view to show - load the message
@@ -37,25 +37,23 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
         jsonReader = new JsonReader(getActivity(), gameManager);
 
         //create a button listener
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                int index = getArguments().getInt("index");
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        gameManager = jsonReader.readFromJson();
-                        Game game = gameManager.getGame(index);
-                        gameManager.removeGame(game);
-                        jsonWriter.writeToJson(gameManager);
-                        Intent i = GameCategoriesActivity.makeIntent(getActivity());
-                        startActivity(i);
-                        getActivity().finish();
-                        break;
+        DialogInterface.OnClickListener listener = (dialog, which) -> {
+            int index = getArguments().getInt("index");
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    gameManager = jsonReader.readFromJson();
+                    Game game = gameManager.getGame(index);
+                    gameManager.removeGame(game);
+                    jsonWriter.writeToJson(gameManager);
 
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        getActivity().finish();
-                        break;
-                }
+                    Intent i = GameCategoriesActivity.makeIntent(getActivity());
+                    startActivity(i);
+                    getActivity().finish();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    getActivity().finish();
+                    break;
             }
         };
         //build the alert dialog

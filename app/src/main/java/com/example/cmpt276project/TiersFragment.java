@@ -9,12 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
-import com.example.cmpt276project.model.Tiers;
+import com.example.cmpt276project.model.Land;
+import com.example.cmpt276project.model.Ocean;
+import com.example.cmpt276project.model.Sky;
+import com.example.cmpt276project.model.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 
@@ -28,7 +32,6 @@ import java.util.HashMap;
  * scores
  */
 public class TiersFragment extends AppCompatDialogFragment {
-    private static final String JSON_STORE = "gameManager.json";
     private JsonReader jsonReader;
     private static int pos;
     GameManager gameManager;
@@ -81,8 +84,8 @@ public class TiersFragment extends AppCompatDialogFragment {
         TextView levelTen = v.findViewById(R.id.level10);
 
 
-
-        Tiers tiers[] = Tiers.values();
+/*
+        Tier tiers[] = getTierValues();
         int max = game.getMaxScore() * 1;
         int min = game.getMinScore() * 1;
         int scoreInterval = (int) Math.floor((double) (max - min) / 8);
@@ -107,6 +110,8 @@ public class TiersFragment extends AppCompatDialogFragment {
 
         }
 
+
+
         levelTen.setText(""+ranges.get(0) +"+");
         levelNine.setText(""+ranges.get(1)+ " - " + (ranges.get(0)-1));
         levelEight.setText(""+ranges.get(2)+" - " + (ranges.get(1)-1));
@@ -117,5 +122,8 @@ public class TiersFragment extends AppCompatDialogFragment {
         levelThree.setText(""+ranges.get(7)+" - " + (ranges.get(6)-1));
         levelTwo.setText(""+ranges.get(8)+" - " + (ranges.get(7)-1));
         levelOne.setText(""+ranges.get(9)+" - " + (ranges.get(8)-1));
+
+ */
     }
+
 }

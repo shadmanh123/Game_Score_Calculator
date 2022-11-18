@@ -3,7 +3,6 @@ package com.example.cmpt276project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,16 +15,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,13 +44,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_categories);
 
-        theList = new ArrayList<>();
-        clickedItems = new ArrayList<>();
-
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
-        jsonWriter = new JsonWriter(getApplicationContext());
-        gameManager = jsonReader.readFromJson();
-        adapter = new MyListAdapter();
+        initialize();
 
         getState();
         findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
@@ -66,8 +54,18 @@ public class GameCategoriesActivity extends AppCompatActivity {
         registerClickCallback();
     }
 
+    private void initialize() {
+        theList = new ArrayList<>();
+        clickedItems = new ArrayList<>();
+        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        jsonWriter = new JsonWriter(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
+        adapter = new MyListAdapter();
+    }
+
     private void onCredits() {
-        startActivity(new Intent(GameCategoriesActivity.this, CreditsActivity.class));
+        Intent i = CreditsActivity.makeIntent(GameCategoriesActivity.this);
+        startActivity(i);
     }
 
     private void getState() {
@@ -99,24 +97,17 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void onClick() {
-        startActivity(new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class));
+        Intent i = new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class);
+        startActivity(i);
         onStart();
     }
 
     private void registerClickCallback() {
         ListView list = findViewById(R.id.gameCategoriesList);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                clickedItems.add(i);
-                onStart();
-            }
+        list.setOnItemClickListener((adapterView, view, i, l) -> {
+            clickedItems.add(i);
+            onStart();
         });
-    }
-
-    private void populateListView() {
-        ListView list = findViewById(R.id.gameCategoriesList);
-        list.setAdapter(adapter);
     }
 
     private class MyListAdapter extends ArrayAdapter<Game> {
@@ -147,21 +138,20 @@ public class GameCategoriesActivity extends AppCompatActivity {
                 minScore.setText("Min Score: " + currentGame.getMinScore());
 
                 View btnHistory = itemView.findViewById(R.id.btnHistory);
-                btnHistory.setOnClickListener(v->onHistory(position));
+                btnHistory.setOnClickListener(v -> onHistory(position));
 
                 View btnEdit = itemView.findViewById(R.id.btnEdit);
-                btnEdit.setOnClickListener(v->onEdit(position));
+                btnEdit.setOnClickListener(v -> onEdit(position));
 
                 View btnTiers = itemView.findViewById(R.id.btnTiers);
-                btnTiers.setOnClickListener(v->onTiers(position));
+                btnTiers.setOnClickListener(v -> onTiers(position));
 
-                itemView.setOnClickListener(v->{
+                itemView.setOnClickListener(v -> {
                     clickedItems.remove(Integer.valueOf(position));
                     onStart();
                 });
 
             } else {
-
                 ImageView imageView = itemView.findViewById(R.id.item_img);
                 imageView.setImageResource(getIcon(currentGame.getName()));
 
@@ -186,16 +176,14 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void onEdit(int position) {
-        Intent intent = new Intent(GameCategoriesActivity.this, AddEditGameCategoryActivity.class);
-        intent.putExtra("edit", 100);
-        intent.putExtra("index", position);
-        startActivity(intent);
+        Intent i = AddEditGameCategoryActivity.makeIntent(GameCategoriesActivity.this, 100, position);
+        startActivity(i);
         onStart();
     }
 
     private void onHistory(int index) {
-        Intent intent = GameHistoryActivity.makeIntent(GameCategoriesActivity.this, index);
-        startActivity(intent);
+        Intent i = PlayActivity.makeIntent(GameCategoriesActivity.this, index);
+        startActivity(i);
         onStart();
     }
 
@@ -224,6 +212,11 @@ public class GameCategoriesActivity extends AppCompatActivity {
         for (int i = 0; i < gameManager.getNumberOfGames(); i++) {
             theList.add(gameManager.getGame(i));
         }
+    }
+
+    private void populateListView() {
+        ListView list = findViewById(R.id.gameCategoriesList);
+        list.setAdapter(adapter);
     }
 
     @Override
