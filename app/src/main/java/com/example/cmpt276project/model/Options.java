@@ -1,5 +1,8 @@
 package com.example.cmpt276project.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Options: allows for choices of difficulty and theme for a particular play
  */
@@ -28,5 +31,13 @@ public class Options {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+
+    public JSONObject toJson() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("Difficulty", difficulty);
+        json.put("Theme", theme);
+
+        return json;
     }
 }

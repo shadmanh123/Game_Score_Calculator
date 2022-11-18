@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.persistence.JsonReader;
+import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
@@ -18,11 +21,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * of the game
  */
 public class OptionsActivity extends AppCompatActivity {
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
+    private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+
+        initializeJson();
 
         createDifficultyMenu();
         createThemeMenu();
@@ -47,6 +55,7 @@ public class OptionsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //todo: save the data
+                    jsonWriter.writeToJson(gameManager);
                 }
             });
 
@@ -71,6 +80,8 @@ public class OptionsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //todo: save the data
+                    jsonWriter.writeToJson(gameManager);
+
                 }
             });
 
@@ -84,6 +95,12 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     //todo: set up Json reader in here to read out past options for that play
+
+    private void initializeJson() {
+        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        gameManager = jsonReader.readFromJson();
+        jsonWriter = new JsonWriter(getApplicationContext());
+    }
 
     public static Intent optionsIntent(Context context) {
         Intent intent = new Intent(context, OptionsActivity.class);

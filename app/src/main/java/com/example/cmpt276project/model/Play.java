@@ -2,6 +2,7 @@ package com.example.cmpt276project.model;
 
 import com.example.cmpt276project.persistence.Writable;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +25,7 @@ public class Play implements Writable {
     private List<Integer> scores;
 
     //todo: add options in here - for the single play
+    private Options options;
 
     public Play(Game game, int numPlayers, int totalScore) {
         creationDate = LocalDateTime.now();
@@ -32,6 +34,7 @@ public class Play implements Writable {
         this.totalScore = totalScore;
         achievements = new HashMap<>();
         scores = new ArrayList<>();
+        this.options = new Options("Normal", "Ocean"); //these are the default themes
     }
 
     //TODO: add function to calculate totalScore
@@ -95,13 +98,23 @@ public class Play implements Writable {
         this.totalScore = totalScore;
     }
 
+    public Options getOptions() {
+        return options;
+    }
+
+    public void setOptions(Options options) {
+        this.options = options;
+    }
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("Time", getCreationDate());
         json.put("NumPlayers", numPlayers);
         json.put("TotalScore", totalScore);
+        json.put ("option", options);
 
         return json;
     }
+
 }

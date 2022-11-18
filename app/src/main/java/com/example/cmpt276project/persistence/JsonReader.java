@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.model.Play;
 
 import org.json.JSONArray;
@@ -107,7 +108,15 @@ public class JsonReader {
         int totalScore = nextPlay.getInt("TotalScore");
         Play play = new Play(game, numPlayers, totalScore);
         play.setCreationDate(time);
+        addOptions(play, nextPlay);
         game.addPlay(play);
+    }
+
+    private void addOptions(Play play, JSONObject nextPlay) throws JSONException{
+        String level = nextPlay.getString("Difficulty");
+        String theme = nextPlay.getString("Theme");
+        Options options = new Options (level, theme);
+        play.setOptions(options);
     }
 
 }

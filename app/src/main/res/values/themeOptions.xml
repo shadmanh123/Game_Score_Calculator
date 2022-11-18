@@ -2,9 +2,8 @@
 <resources>
     <string-array name="themes">
         <item>"Ocean"</item>
-        <item>"Space"</item>
-        <item>"Birds"</item>
-        <item>"Dinosaurs"</item>
+        <item>"Land"</item>
+        <item>"Sky"</item>
     </string-array>
     <string name = "defaultTheme">"Ocean"</string>
 </resources>
