@@ -1,0 +1,31 @@
+Game Played Difficulty
+    - Model: 1-2 hours of work
+    - UI: 3-4 hours of work
+        - Must change TiersFragment -> Tiers Class
+        - Must change GameHistory
+        - Must change AddEditGameHistory
+
+Edit Game Played
+    - 1 - 2 hours because one of the team members did a similar thing for Game Categories
+
+Score Calculator
+    The app must ask how many players there are and then allow me to enter each player's score individually.
+        - Model: 15 mins
+        - UI: 2 hours
+
+    The app should know the individual scores in the future, so that I can later go back and see or edit the individual scores.
+        - UI: +1 hours
+
+    The computation for the achievement level is still based on the sum of all player scores.
+        - Model: 15 mins
+
+Achievement Improvements
+    When a game is played and an achievement level is earned, I want an image, some animation effect,
+    and a sound to be played to make it feel like a reward and a celebration.
+        - UI: 4 hours
+
+    I want to select a theme for the achievements. I want at least 3 different themes to choose between.
+        - Model: 2 hours
+        - UI: 5+ hours
+
+

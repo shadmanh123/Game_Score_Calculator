@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 // Code based on a demo from Tiffanie's class at UBC CPSC 210
@@ -63,7 +65,6 @@ public class JsonReader {
         return parseGameManager(jsonObject);
     }
 
-    // EFFECTS: reads source file as string and returns it
     private String readFile(String source, Context context) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
@@ -113,6 +114,7 @@ public class JsonReader {
     private void addPlay(Game game, JSONObject nextPlay) throws JSONException {
         String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
+        List<Integer> scores = addScores(nextPlay);
         int totalScore = nextPlay.getInt("TotalScore");
         String tier = nextPlay.getString("Tier");
         Tier tiers = getTier(tier);
@@ -120,6 +122,16 @@ public class JsonReader {
         Play play = new Play(game, numPlayers, totalScore, tiers);
         play.setCreationDate(time);
         game.addPlay(play);
+    }
+
+    private List<Integer> addScores(JSONObject jsonObject) throws JSONException {
+        JSONArray jsonArray = jsonObject.getJSONArray("Scores");
+        List<Integer> scores = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            int j = jsonArray.getInt(i);
+            scores.add(j);
+        }
+        return scores;
     }
 
     @NonNull

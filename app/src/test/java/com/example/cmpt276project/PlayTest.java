@@ -1,6 +1,7 @@
 package com.example.cmpt276project;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.Land;
 import com.example.cmpt276project.model.Ocean;
@@ -10,7 +11,6 @@ import com.example.cmpt276project.model.Tier;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 class PlayTest {
 
@@ -145,6 +145,7 @@ class PlayTest {
         assertEquals("Frogfish", achievement);
 
     }
+
     @Test
     public void testBelowMinAchievementP2() {
         Play play = new Play(testGame2, 2, 56, testOcean);
