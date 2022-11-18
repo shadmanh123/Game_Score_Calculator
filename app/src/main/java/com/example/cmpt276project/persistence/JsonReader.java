@@ -114,21 +114,20 @@ public class JsonReader {
         int numPlayers = nextPlay.getInt("NumPlayers");
         int totalScore = nextPlay.getInt("TotalScore");
         String difficulty_level = nextPlay.getString("DifficultyLevel");
-        Play play = new Play(game, numPlayers, totalScore, difficulty_level);
-        List<Integer> scores = addScores(nextPlay);
+        List<Double> scores = addScores(nextPlay);
         String tier = nextPlay.getString("Tier");
         Tier tiers = getTier(tier);
 
-        Play play = new Play(game, numPlayers, scores, tiers);
+        Play play = new Play(game, numPlayers, scores, tiers, difficulty_level);
         play.setCreationDate(time);
         game.addPlay(play);
     }
 
-    private List<Integer> addScores(JSONObject jsonObject) throws JSONException {
+    private List<Double> addScores(JSONObject jsonObject) throws JSONException {
         JSONArray jsonArray = jsonObject.getJSONArray("Scores");
-        List<Integer> scores = new ArrayList<>();
+        List<Double> scores = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
-            int j = jsonArray.getInt(i);
+            Double j = jsonArray.getDouble(i);
             scores.add(j);
         }
         return scores;

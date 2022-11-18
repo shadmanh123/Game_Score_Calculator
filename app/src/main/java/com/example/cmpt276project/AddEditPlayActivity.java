@@ -96,7 +96,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
 
-         */
+
         jsonWriter.writeToJson(gameManager);
         */
 

@@ -24,29 +24,6 @@ public class Game implements Writable {
         plays = new ArrayList<>();
     }
 
-    public String displayPlayInfo(int playIndex, int column) {
-        String display;
-        Play play = getPlay(playIndex);
-        switch(column) {
-            case 0:
-                display = play.getCreationDate();
-                break;
-            case 1:
-                display = "" + play.getNumPlayers();
-                break;
-            case 2:
-                display = "" + play.getTotalScore();
-                break;
-            case 3:
-                display = play.getAchievementScore();
-                break;
-            default:
-                display = "";
-                break;
-        }
-        return display;
-    }
-
     public int playSize() {
         return plays.size();
     }
@@ -101,7 +78,6 @@ public class Game implements Writable {
                 display = "" + play.getTotalScore();
                 break;
             case 3:
-                play.getListOfAchievements();
                 display = play.getAchievementScore();
                 break;
             default:

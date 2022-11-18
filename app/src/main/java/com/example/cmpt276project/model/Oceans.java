@@ -21,12 +21,12 @@ public enum Oceans  {
         this.level = level;
     }
 
-   // @Override
+    // @Override
     public String getLevel() {
         return level;
     }
 
-   // @Override
+    // @Override
     public List<Oceans> getValues() {
         return Arrays.asList(values());
     }

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Play: Class for a single play through that takes in the number of Players and Total Score achieved
@@ -20,43 +21,42 @@ public class Play implements Writable {
     private LocalDateTime creationDate;
     private final Game game;
     private final int numPlayers;
-    private int totalScore;
+    private Double totalScore;
     private String difficulty_level;
-    private HashMap<Double, String> achievements;
+    private HashMap<Tier, Double> achievements;
     private Tier tier;
     String tierString;
-    private HashMap<Tier, Integer> achievements;
-    private List<Integer> scores;
+    private List<Double> scores;
 
 
-    public Play(Game game, int numPlayers, int totalScore, String difficulty_level) {
+    public Play(Game game, int numPlayers, List<Double> scores, Tier tier, String difficulty_level) {
         creationDate = LocalDateTime.now();
         this.game = game;
         this.numPlayers = numPlayers;
-        this.totalScore = totalScore;
-        achievements = new HashMap<>();
-        scores = new ArrayList<>();
-    }
-    public Play(Game game, int numPlayers, List<Integer> scores, Tier tier) {
-        creationDate = LocalDateTime.now();
-        this.game = game;
-        this.numPlayers = numPlayers;
-        this.totalScore = totalScore;
         this.difficulty_level = difficulty_level;
         achievements = new HashMap<>();
-        totalScore = -1;
+        totalScore = -1.0;
         this.scores = scores;
         this.tier = tier;
         this.tierString = tier.getClassName();
     }
 
+    public Double calculateTotalScore() {
+        Double totalScore = 0.0;
+        for (Double score : scores) {
+            totalScore += score;
+        }
+        return totalScore;
+    }
+
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
         Tier tiers[] = getTierValues();
-        int max = game.getMaxScore() * numPlayers;
-        int min = game.getMinScore() * numPlayers;
-        int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
-        int minScore = max;
+        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
+        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
+        double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
+        double minScore = max;
+
 
         for (Tier tier : tiers) {
             if (isTierLevel1(tier)) {
@@ -74,21 +74,6 @@ public class Play implements Writable {
         }
     }
 
-    public Integer calculateTotalScore() {
-        int totalScore = 0;
-        for (Integer score : scores) {
-            totalScore += score;
-        }
-        return totalScore;
-    }
-
-    // subdivide scores into 10 tiers
-    public void getListOfAchievements() {
-        Tiers tiers[] = Tiers.values();
-        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
-        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
-        double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
-        double minScore = max;
     private boolean isTierLevel1(Tier tier) {
         boolean isLevel1;
         switch (tierString) {
@@ -122,36 +107,16 @@ public class Play implements Writable {
         return tiers;
     }
 
-        for (Tiers tier: tiers) {
-            if(tier == Tiers.LEVEL1) {
-                minScore = 0;
-            } else if (minScore - scoreInterval <= min) {
-                if (minScore >= 0){
-                    minScore /= 2;
-                } else {
-                    minScore = 0;
-                }
-            } else {
-                minScore -= scoreInterval;
-            }
-            achievements.put(minScore, tier.getLevel());
-        }
-    }
-
     // subdivide scores into 10 tiers
     public String getAchievementScore() {
         getListOfAchievements();
-        int max = game.getMaxScore() * numPlayers;
-        int min = game.getMinScore() * numPlayers;
-        int scoreInterval = (int) Math.floor((double) (max - min) / game.getNumTiersAboveMin());
-        int score = max - scoreInterval;
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
         double score = max - scoreInterval;
         int i = 1;
 
-        if(totalScore == -1) {
+        if (totalScore == -1.0) {
             this.totalScore = calculateTotalScore();
         }
 
@@ -171,25 +136,26 @@ public class Play implements Writable {
             }
         }
 
-        return achievements.get(score);
-    }
-
-    public double getDifficultyLevel(String difficultyLevel){
-        double difficulty_value;
-        if(difficultyLevel == "easy"){
-            difficulty_value = 0.75;
-        } else if(difficultyLevel == "normal" ){
-            difficulty_value = 1;
-        } else {
-            difficulty_value = 1.25;
-
         Tier levelAchieved = null;
 
-        for (Tier tier : achievements.keySet()) {
+        for (Tier tier: achievements.keySet()) {
             if (achievements.get(tier).equals(score)) {
                 levelAchieved = tier;
                 break;
             }
+        }
+
+        return levelAchieved.getLevel();
+    }
+
+    public double getDifficultyLevel(String difficultyLevel) {
+        double difficulty_value;
+        if (difficultyLevel == "easy") {
+            difficulty_value = 0.75;
+        } else if (difficultyLevel == "normal") {
+            difficulty_value = 1;
+        } else {
+            difficulty_value = 1.25;
         }
         return difficulty_value;
     }
@@ -209,11 +175,11 @@ public class Play implements Writable {
         return numPlayers;
     }
 
-    public int getTotalScore() {
+    public Double getTotalScore() {
         return totalScore;
     }
 
-    public void setTotalScore(int totalScore) {
+    public void setTotalScore(Double totalScore) {
         this.totalScore = totalScore;
     }
 
@@ -231,10 +197,11 @@ public class Play implements Writable {
     private JSONArray scoresToJson() throws JSONException {
         JSONArray jsonArray = new JSONArray();
 
-        for (Integer s : scores) {
+        for (Double s : scores) {
             jsonArray.put(s);
         }
         return jsonArray;
     }
+
 }
 

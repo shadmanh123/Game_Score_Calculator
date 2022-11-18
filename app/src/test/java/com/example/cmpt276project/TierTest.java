@@ -33,15 +33,13 @@ public class TierTest {
         testOcean = Ocean.LEVEL1;
     }
 
-    /*
-    @Disabled
     @Test
     public void testDifferentTierTypes() {
-        List<Integer> scores = new ArrayList<>();
-        scores.add(20);
-        scores.add(40);
-        scores.add(90);
-        Play play = new Play(testGame1, 3, scores, testOcean);
+        List<Double> scores = new ArrayList<>();
+        scores.add(20.0);
+        scores.add(40.0);
+        scores.add(90.0);
+        Play play = new Play(testGame1, 3, scores, testOcean, "normal");
         assertEquals("OCEAN", testOcean.getClassName());
         System.out.println(testOcean.getClassName());
         play.getListOfAchievements();
@@ -49,19 +47,19 @@ public class TierTest {
         assertEquals("Giant Pacific Octopus", achievement);
 
         Tier testLand = Land.LEVEL1;
-        play = new Play(testGame1, 3, scores, testLand);
+        play = new Play(testGame1, 3, scores, testLand, "normal");
         assertEquals("LAND", testLand.getClassName());
         play.getListOfAchievements();
         achievement = play.getAchievementScore();
         assertEquals("Chimpanzee", achievement);
 
         Tier testSky = Sky.LEVEL1;
-        play = new Play(testGame1, 3, scores, testSky);
+        play = new Play(testGame1, 3, scores, testSky, "normal");
         assertEquals("SKY", testSky.getClassName());
         play.getListOfAchievements();
         achievement = play.getAchievementScore();
         assertEquals("Bald Eagle", achievement);
         testGame3 = new Game("Some Card Game", 0, 7);
     }
-     */
+
 }
