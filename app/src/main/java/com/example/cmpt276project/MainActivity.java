@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 btn.startAnimation(bubble);
                 new Handler().postDelayed(new Runnable() {
-//            this is the coolest thing I ever done
+                    //            this is the coolest thing I ever done
                     @Override
                     public void run() {
                         Intent i = GameCategoriesActivity.makeIntent(MainActivity.this);

@@ -90,6 +90,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         }
     };
+
     private void onRegisterClick(int index) {
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
@@ -98,14 +99,19 @@ public class AddEditPlayActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
+        /*
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
         Game game = gameManager.getGame(index);
+        /*
         Play play = new Play(game, totalPlayers, totalScore);
         game.addPlay(play);
-        jsonWriter.writeToJson(gameManager);
 
+
+        jsonWriter.writeToJson(gameManager);
+        */
+
+        Intent i = AddScoresActivity.makeIntent(this);
         Intent intent = PlayActivity.makeIntent(this, index);
         startActivity(intent);
         finish();

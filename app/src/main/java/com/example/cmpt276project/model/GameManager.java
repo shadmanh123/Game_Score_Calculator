@@ -73,5 +73,5 @@ public class GameManager implements Writable {
         return jsonArray;
     }
 
-    
+
 }
