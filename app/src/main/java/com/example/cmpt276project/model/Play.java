@@ -1,5 +1,7 @@
 package com.example.cmpt276project.model;
 
+import androidx.annotation.Nullable;
+
 import com.example.cmpt276project.persistence.Writable;
 
 import org.json.JSONArray;
@@ -22,26 +24,30 @@ public class Play implements Writable {
     private int numPlayers;
     private int totalScore;
     private HashMap<Integer, String> achievements;
+    private Tier tier;
+    String tierString;
 
 
-    public Play(Game game, int numPlayers, int totalScore) {
+    public Play(Game game, int numPlayers, int totalScore, Tier tier) {
         creationDate = LocalDateTime.now();
         this.game = game;
         this.numPlayers = numPlayers;
         this.totalScore = totalScore;
         achievements = new HashMap<>();
+        this.tier = tier;
+        this.tierString = tier.getClassName();
     }
 
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
-        Tiers tiers[] = Tiers.values();
+        Tier tiers[] = getTierValues();
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int minScore = max;
 
-        for (Tiers tier: tiers) {
-            if(tier == Tiers.LEVEL1) {
+        for (Tier tier: tiers) {
+            if(isTierLevel1(tier)) {
                 minScore = 0;
             } else if (minScore - scoreInterval <= min) {
                 if (minScore >= 0){
@@ -54,6 +60,39 @@ public class Play implements Writable {
             }
             achievements.put(minScore, tier.getLevel());
         }
+    }
+
+    private boolean isTierLevel1(Tier tier) {
+        boolean isLevel1;
+        switch(tierString) {
+            case "OCEAN":
+                isLevel1 = (tier == Ocean.LEVEL1);
+                break;
+            case "LAND":
+                isLevel1 = (tier == Land.LEVEL1);
+                break;
+            default:
+                isLevel1 = (tier == Sky.LEVEL1);
+                break;
+        }
+        return isLevel1;
+    }
+
+    @Nullable
+    private Tier[] getTierValues() {
+        Tier[] tiers;
+        switch(tierString) {
+            case "OCEAN":
+                tiers = Ocean.values();
+                break;
+            case "LAND":
+                tiers = Land.values();
+                break;
+            default:
+                tiers = Sky.values();
+                break;
+        }
+        return tiers;
     }
 
     // subdivide scores into 10 tiers
@@ -113,7 +152,7 @@ public class Play implements Writable {
         json.put("Time", getCreationDate());
         json.put("NumPlayers", numPlayers);
         json.put("TotalScore", totalScore);
-
+        json.put("Tier", tierString);
         return json;
     }
 
