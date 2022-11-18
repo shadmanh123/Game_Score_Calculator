@@ -40,10 +40,6 @@ public class Play implements Writable {
         this.tierString = tier.getClassName();
     }
 
-    public Integer calculateTotalScore() {
-        int totalScore = 0;
-        for (Integer score: scores) {
-            totalScore += score;
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
         Tier tiers[] = getTierValues();
