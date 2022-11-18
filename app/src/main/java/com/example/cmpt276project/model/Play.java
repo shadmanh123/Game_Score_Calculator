@@ -47,7 +47,7 @@ public class Play implements Writable {
         int scoreInterval = (int) Math.floor((double) (max - min) / NUM_TIERS_ABOVE_MIN);
         int minScore = max;
 
-        for (Tier tier: tiers) {
+        for (Tier tier : tiers) {
             if (isTierLevel1(tier)) {
                 minScore = 0;
             } else if (minScore - scoreInterval <= min) {
@@ -59,19 +59,21 @@ public class Play implements Writable {
             } else {
                 minScore -= scoreInterval;
             }
-            achievements.put(minScore, tier.getLevel());
+            achievements.put(tier, minScore);
         }
+    }
+
     public Integer calculateTotalScore() {
-            int totalScore = 0;
-            for (Integer score : scores) {
-                totalScore += score;
-            }
-            return totalScore;
+        int totalScore = 0;
+        for (Integer score : scores) {
+            totalScore += score;
         }
+        return totalScore;
+    }
 
     private boolean isTierLevel1(Tier tier) {
         boolean isLevel1;
-        switch(tierString) {
+        switch (tierString) {
             case "OCEAN":
                 isLevel1 = (tier == Ocean.LEVEL1);
                 break;
@@ -88,7 +90,7 @@ public class Play implements Writable {
     @Nullable
     private Tier[] getTierValues() {
         Tier[] tiers;
-        switch(tierString) {
+        switch (tierString) {
             case "OCEAN":
                 tiers = Ocean.values();
                 break;
@@ -104,7 +106,7 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public String getAchievementScore() {
-        this.achievements = getListOfAchievements(numPlayers);
+        getListOfAchievements();
         int max = game.getMaxScore() * numPlayers;
         int min = game.getMinScore() * numPlayers;
         int scoreInterval = (int) Math.floor((double) (max - min) / game.getNumTiersAboveMin());
@@ -118,7 +120,7 @@ public class Play implements Writable {
                 score = 0;
                 break;
             } else if (score - scoreInterval <= min) {
-                if (score >= 0){
+                if (score >= 0) {
                     score /= 2;
                 } else {
                     score = 0;
@@ -128,10 +130,10 @@ public class Play implements Writable {
             }
         }
 
-        Tiers levelAchieved = null;
+        Tier levelAchieved = null;
 
-        for (Tiers tier: achievements.keySet()) {
-            if(achievements.get(tier).equals(score)) {
+        for (Tier tier : achievements.keySet()) {
+            if (achievements.get(tier).equals(score)) {
                 levelAchieved = tier;
                 break;
             }

@@ -115,11 +115,10 @@ public class JsonReader {
         String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
         List<Integer> scores = addScores(nextPlay);
-        int totalScore = nextPlay.getInt("TotalScore");
         String tier = nextPlay.getString("Tier");
         Tier tiers = getTier(tier);
 
-        Play play = new Play(game, numPlayers, totalScore, tiers);
+        Play play = new Play(game, numPlayers, scores, tiers);
         play.setCreationDate(time);
         game.addPlay(play);
     }
