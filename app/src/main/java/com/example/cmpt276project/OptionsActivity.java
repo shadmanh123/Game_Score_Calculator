@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -43,6 +43,9 @@ public class OptionsActivity extends AppCompatActivity {
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(v -> onBackClick());
+
+        Button tiers = findViewById(R.id.Tiers);
+        tiers.setOnClickListener(v -> onTiersClick());
     }
 
     private void createDifficultyMenu() {
@@ -135,6 +138,12 @@ public class OptionsActivity extends AppCompatActivity {
 
     private void onBackClick() {
         finish();
+    }
+
+    private void onTiersClick() {
+        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
+        startActivity(i);
+        onStart();
     }
 
     //todo: set up Json reader in here to read out past options for that play
