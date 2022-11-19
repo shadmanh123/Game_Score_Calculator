@@ -114,6 +114,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent i = AddScoresActivity.makeIntent(this);
         Intent intent = PlayActivity.makeIntent(this, index);
         startActivity(intent);
+        startActivity(new Intent(AddEditPlayActivity.this, AchievementAnimationActivity.class));
+
         finish();
     }
 
