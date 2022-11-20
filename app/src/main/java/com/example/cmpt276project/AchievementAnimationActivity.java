@@ -31,7 +31,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC,0);
         }
 
-        sound1 = soundPool.load(this, R.raw.sound1, 1);
+        sound1 = soundPool.load(this, R.raw.win, 1);
 
 
 
