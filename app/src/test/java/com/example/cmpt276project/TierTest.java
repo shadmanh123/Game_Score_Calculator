@@ -3,63 +3,74 @@ package com.example.cmpt276project;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.cmpt276project.model.Game;
-import com.example.cmpt276project.model.Land;
-import com.example.cmpt276project.model.Ocean;
+import com.example.cmpt276project.model.Options;
+import com.example.cmpt276project.model.tiers.Land;
+import com.example.cmpt276project.model.tiers.Ocean;
 import com.example.cmpt276project.model.Play;
-import com.example.cmpt276project.model.Sky;
-import com.example.cmpt276project.model.Tier;
+import com.example.cmpt276project.model.tiers.Sky;
+import com.example.cmpt276project.model.tiers.Tier;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+
 
 public class TierTest {
-
-    Game testGame1;
-    Game testGame2;
-    Game testGame3;
+    Game testGame;
     Tier testOcean;
+    Options testOption;
 
     @BeforeEach
     public void runBefore() {
-        testGame1 = new Game("Chutes and Ladders", 30, 100);
-        testGame2 = new Game("Poker", 100, 200);
-        testGame3 = new Game("Some Card Game", 0, 10);
+        testGame = new Game("Chutes and Ladders", 30, 100);
         testOcean = Ocean.LEVEL1;
+        testOption = new Options("normal", testOcean);
     }
 
     @Test
-    public void testDifferentTierTypes() {
+    public void testOceanTierTypes() {
         List<Double> scores = new ArrayList<>();
         scores.add(20.0);
         scores.add(40.0);
         scores.add(90.0);
-        Play play = new Play(testGame1, 3, scores, testOcean, "normal");
+        Play play = new Play(testGame, 3, scores, testOption);
         assertEquals("OCEAN", testOcean.getClassName());
         System.out.println(testOcean.getClassName());
         play.getListOfAchievements();
         String achievement = play.getAchievementScore();
         assertEquals("Giant Pacific Octopus", achievement);
-
-        Tier testLand = Land.LEVEL1;
-        play = new Play(testGame1, 3, scores, testLand, "normal");
-        assertEquals("LAND", testLand.getClassName());
-        play.getListOfAchievements();
-        achievement = play.getAchievementScore();
-        assertEquals("Chimpanzee", achievement);
-
-        Tier testSky = Sky.LEVEL1;
-        play = new Play(testGame1, 3, scores, testSky, "normal");
-        assertEquals("SKY", testSky.getClassName());
-        play.getListOfAchievements();
-        achievement = play.getAchievementScore();
-        assertEquals("Bald Eagle", achievement);
-        testGame3 = new Game("Some Card Game", 0, 7);
     }
 
+    @Test
+    public void testLandTierTypes() {
+        List<Double> scores = new ArrayList<>();
+        scores.add(20.0);
+        scores.add(40.0);
+        scores.add(90.0);
+        testOption.setTheme(Land.LEVEL1);
+        Play play = new Play(testGame, 3, scores, testOption);
+        String tier = testOption.getThemeName();
+        assertEquals("LAND", tier);
+        play.getListOfAchievements();
+        String achievement = play.getAchievementScore();
+        assertEquals("Chimpanzee", achievement);
+    }
+
+    @Test
+    public void testSkyTierTypes() {
+        List<Double> scores = new ArrayList<>();
+        scores.add(20.0);
+        scores.add(40.0);
+        scores.add(90.0);
+        testOption.setTheme(Sky.LEVEL1);
+        Play play = new Play(testGame, 3, scores, testOption);
+        String tier = testOption.getThemeName();
+        assertEquals("SKY", tier);
+        play.getListOfAchievements();
+        String achievement = play.getAchievementScore();
+        assertEquals("Bald Eagle", achievement);
+    }
 }
+

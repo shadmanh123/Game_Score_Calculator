@@ -2,6 +2,10 @@ package com.example.cmpt276project.model;
 
 import androidx.annotation.Nullable;
 
+import com.example.cmpt276project.model.tiers.Land;
+import com.example.cmpt276project.model.tiers.Ocean;
+import com.example.cmpt276project.model.tiers.Sky;
+import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.Writable;
 
 import org.json.JSONArray;
@@ -11,6 +15,7 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,33 +25,30 @@ import java.util.List;
 public class Play implements Writable {
     private final int NUM_TIERS_ABOVE_MIN = 8;
     private LocalDateTime creationDate;
-    private final Game game;
-    private final int numPlayers;
+    private Game game;
+    private int numPlayers;
     private Double totalScore;
     private String difficulty_level;
     private HashMap<Tier, Double> achievements;
-    private Tier tier;
     String tierString;
     private List<Double> scores;
 
     //todo: add options in here - for the single play
     private Options options;
 
-    public Play(Game game, int numPlayers, List<Double> scores, Tier tier, String difficulty_level) {
-        creationDate = LocalDateTime.now();
+    public Play(Game game, int numPlayers, List<Double> scores, Options options) {
+        this.creationDate = LocalDateTime.now();
         this.game = game;
         this.numPlayers = numPlayers;
-        this.difficulty_level = difficulty_level;
-        achievements = new HashMap<>();
-        scores = new ArrayList<>();
-        this.options = new Options("Normal", "Ocean"); //these are the default themes
-        totalScore = -1.0;
         this.scores = scores;
-        this.tier = tier;
-        this.tierString = tier.getClassName();
+        this.totalScore = -1.0;
+        this.achievements = new HashMap<>();
+        this.options = options;
+        this.difficulty_level = options.getDifficulty();
+        this.tierString = options.getThemeName();
     }
 
-    public Double calculateTotalScore() {
+    private Double calculateTotalScore() {
         Double totalScore = 0.0;
         for (Double score : scores) {
             totalScore += score;
@@ -56,12 +58,11 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
-        Tier tiers[] = getTierValues();
+        List<Tier> tiers = getTierValues();
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
         double minScore = max;
-
 
         for (Tier tier : tiers) {
             if (isTierLevel1(tier)) {
@@ -96,17 +97,17 @@ public class Play implements Writable {
     }
 
     @Nullable
-    private Tier[] getTierValues() {
-        Tier[] tiers;
+    private List<Tier> getTierValues() {
+        List<Tier> tiers;
         switch (tierString) {
             case "OCEAN":
-                tiers = Ocean.values();
+                tiers = Arrays.asList(Ocean.values());
                 break;
             case "LAND":
-                tiers = Land.values();
+                tiers = Arrays.asList(Land.values());
                 break;
             default:
-                tiers = Sky.values();
+                tiers = Arrays.asList(Sky.values());
                 break;
         }
         return tiers;
@@ -157,10 +158,10 @@ public class Play implements Writable {
         double difficulty_value;
         if (difficultyLevel == "easy") {
             difficulty_value = 0.75;
-        } else if (difficultyLevel == "normal") {
-            difficulty_value = 1;
-        } else {
+        } else if (difficultyLevel == "hard") {
             difficulty_value = 1.25;
+        } else {
+            difficulty_value = 1;
         }
         return difficulty_value;
     }
@@ -181,7 +182,7 @@ public class Play implements Writable {
     }
 
     public Double getTotalScore() {
-        return totalScore;
+        return calculateTotalScore();
     }
 
     public void setTotalScore(Double totalScore) {
@@ -201,10 +202,8 @@ public class Play implements Writable {
         JSONObject json = new JSONObject();
         json.put("Time", getCreationDate());
         json.put("NumPlayers", numPlayers);
-        json.put("TotalScore", totalScore);
-        json.put ("option", options);
+        json.put("Option", options.toJson());
         json.put("Scores", scoresToJson());
-        json.put("Tier", tierString);
 
         return json;
     }

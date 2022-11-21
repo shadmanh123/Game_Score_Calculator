@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,16 +22,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * of the game
  */
 public class OptionsActivity extends AppCompatActivity {
-    private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
 
-        initializeJson();
+        jsonWriter = new JsonWriter(getApplicationContext());
 
         createDifficultyMenu();
         createThemeMenu();
@@ -135,14 +136,6 @@ public class OptionsActivity extends AppCompatActivity {
 
     private void onBackClick() {
         finish();
-    }
-
-    //todo: set up Json reader in here to read out past options for that play
-
-    private void initializeJson() {
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
-        gameManager = jsonReader.readFromJson();
-        jsonWriter = new JsonWriter(getApplicationContext());
     }
 
     public static Intent optionsIntent(Context context) {

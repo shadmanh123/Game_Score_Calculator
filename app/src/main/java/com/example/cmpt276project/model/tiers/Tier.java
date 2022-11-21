@@ -1,4 +1,4 @@
-package com.example.cmpt276project.model;
+package com.example.cmpt276project.model.tiers;
 
 /**
  * Tiers: Class that contains the list of different achievements that can be obtained
