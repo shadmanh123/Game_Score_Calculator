@@ -14,10 +14,14 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Ocean;
 import com.example.cmpt276project.model.Play;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * AddEditGameHistory: Class that allows game plays to be added
@@ -99,17 +103,20 @@ public class AddEditPlayActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        /*
+
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
         Game game = gameManager.getGame(index);
-        /*
-        Play play = new Play(game, totalPlayers, totalScore);
+        List<Double> scores = new ArrayList<>();
+        scores.add(3.0);
+        scores.add(5.0);
+        Ocean tier = Ocean.LEVEL1;
+        Play play = new Play(game, totalPlayers, scores, tier, "normal");
         game.addPlay(play);
 
 
         jsonWriter.writeToJson(gameManager);
-        */
+
 
         Intent i = AddScoresActivity.makeIntent(this);
         Intent intent = PlayActivity.makeIntent(this, index);

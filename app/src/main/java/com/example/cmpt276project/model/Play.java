@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
-        Tier tiers[] = getTierValues();
+        List<Tier> tiers = getTierValues();
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
@@ -96,17 +97,17 @@ public class Play implements Writable {
     }
 
     @Nullable
-    private Tier[] getTierValues() {
-        Tier[] tiers;
+    private List<Tier> getTierValues() {
+        List<Tier> tiers;
         switch (tierString) {
             case "OCEAN":
-                tiers = Ocean.values();
+                tiers = Arrays.asList(Ocean.values());
                 break;
             case "LAND":
-                tiers = Land.values();
+                tiers = Arrays.asList(Land.values());
                 break;
             default:
-                tiers = Sky.values();
+                tiers = Arrays.asList(Sky.values());
                 break;
         }
         return tiers;
