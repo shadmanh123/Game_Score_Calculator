@@ -277,7 +277,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
                 score = Integer.parseInt(s.toString().trim());
             } catch (NumberFormatException e) {
 //                Toast.makeText(AddEditPlayActivity.this, "this works", Toast.LENGTH_SHORT).show();
-                saveBtn.setEnabled(false);
+//                saveBtn.setEnabled(false);
                 return;
 
             }
@@ -308,9 +308,18 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
 
         Options option = getOptions();
+        if (isEdit){
+            Play play = gameManager.getGame(index).getPlay(playPosition);
+            play.setOptions(option);
+            play.setNumPlayers(totalPlayers);
+            play.setScores(scores);
+        }else{
+            Play play = new Play(game, totalPlayers, scores, option);
+            game.addPlay(play);
+        }
 
-        Play play = new Play(game, totalPlayers, scores, option);
-        game.addPlay(play);
+
+
 
         jsonWriter.writeToJson(gameManager);
 

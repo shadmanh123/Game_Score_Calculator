@@ -49,6 +49,17 @@ public class Play implements Writable {
         this.tierString = options.getThemeName();
     }
 
+    public void setOptions(Options options) {
+        this.options = options;
+    }
+
+    public void setNumPlayers(int num){
+        this.numPlayers = num;
+    }
+    public void setScores(List<Double> scores){
+        this.scores = scores;
+    }
+
     private Double calculateTotalScore() {
         Double totalScore = 0.0;
         for (Double score : scores) {
@@ -201,9 +212,9 @@ public class Play implements Writable {
         return options;
     }
 
-    public void setOptions(Options options) {
-        this.options = options;
-    }
+
+
+
 
     @NonNull
     public static Tier getTier(String tierString) {
