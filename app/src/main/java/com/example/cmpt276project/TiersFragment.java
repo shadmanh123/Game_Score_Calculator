@@ -37,7 +37,6 @@ public class TiersFragment extends AppCompatDialogFragment {
         setIntervals(v);
 
         DialogInterface.OnClickListener listener = (dialog, which) -> {
-
         };
 
         return new AlertDialog.Builder(getActivity())

@@ -27,6 +27,6 @@ public enum Land implements Tier {
 
     @Override
     public String getClassName() {
-        return "LAND";
+        return "Land";
     }
 }

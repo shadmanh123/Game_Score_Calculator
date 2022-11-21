@@ -25,6 +25,6 @@ public enum Sky implements Tier {
 
     @Override
     public String getClassName() {
-        return "SKY";
+        return "Sky";
     }
 }

@@ -7,8 +7,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -16,7 +18,6 @@ import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.model.Play;
-import com.example.cmpt276project.model.tiers.Ocean;
 import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
@@ -40,6 +41,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private Button enter;
     private EditText etTotalPlayers;
     private EditText etTotalScore;
+    private String difficulty;
+    private String tierString;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +57,29 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     private void initialization() {
         Intent intent = getIntent();
-        int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
 
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
-        enter.setOnClickListener(v -> onRegisterClick(index));
+        enter.setOnClickListener(v -> onRegisterClick());
         etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
         etTotalScore.addTextChangedListener(inputTextWatcher);
 
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
+        difficulty = "easy";
+        tierString = "Sky";
+        getOptions();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getOptions();
     }
 
     private void onOptionsClick() {
@@ -94,7 +107,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
         }
     };
 
-    private void onRegisterClick(int index) {
+    private void onRegisterClick() {
+        Game game = gameManager.getGame(index);
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
         if (totalPlayers == 0) {
@@ -105,12 +119,12 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-        Game game = gameManager.getGame(index);
         List<Double> scores = new ArrayList<>();
-        scores.add(3.0);
-        scores.add(5.0);
-        Tier tier = Ocean.LEVEL1;
-        Options option = new Options("normal", tier);
+        scores.add(10.0);
+        scores.add(25.0);
+
+        Options option = getOptions();
+
         Play play = new Play(game, totalPlayers, scores, option);
         game.addPlay(play);
 
@@ -119,6 +133,15 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
         finish();
+    }
+
+    @NonNull
+    private Options getOptions() {
+        difficulty = OptionsActivity.getDifficultySelected(this);
+        tierString = OptionsActivity.getThemeSelected(this);
+        Tier tier = Play.getTier(tierString);
+        Options option = new Options(difficulty, tier);
+        return option;
     }
 
     private void onBackClick() {
@@ -132,4 +155,5 @@ public class AddEditPlayActivity extends AppCompatActivity {
         intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
         return intent;
     }
+
 }

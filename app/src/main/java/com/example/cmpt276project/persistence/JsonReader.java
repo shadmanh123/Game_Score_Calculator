@@ -119,7 +119,7 @@ public class JsonReader {
         JSONObject jsonObject = nextPlay.getJSONObject("Option");
         String level = jsonObject.getString("Difficulty");
         String theme = jsonObject.getString("Theme");
-        return new Options (level, getTier(theme));
+        return new Options(level, Play.getTier(theme));
     }
 
     private List<Double> addScores(JSONObject jsonObject) throws JSONException {
@@ -132,21 +132,5 @@ public class JsonReader {
         return scores;
     }
 
-    @NonNull
-    private Tier getTier(String tierString) {
-        Tier tiers;
-        switch(tierString) {
-            case "OCEAN":
-                tiers = Ocean.LEVEL1;
-                break;
-            case "LAND":
-                tiers = Land.LEVEL1;
-                break;
-            default:
-                tiers = Sky.LEVEL1;
-                break;
-        }
-        return tiers;
-    }
 
 }

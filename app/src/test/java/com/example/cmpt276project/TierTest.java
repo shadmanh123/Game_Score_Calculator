@@ -36,7 +36,7 @@ public class TierTest {
         scores.add(40.0);
         scores.add(90.0);
         Play play = new Play(testGame, 3, scores, testOption);
-        assertEquals("OCEAN", testOcean.getClassName());
+        assertEquals("Ocean", testOcean.getClassName());
         System.out.println(testOcean.getClassName());
         play.getListOfAchievements();
         String achievement = play.getAchievementScore();
@@ -52,7 +52,7 @@ public class TierTest {
         testOption.setTheme(Land.LEVEL1);
         Play play = new Play(testGame, 3, scores, testOption);
         String tier = testOption.getThemeName();
-        assertEquals("LAND", tier);
+        assertEquals("Land", tier);
         play.getListOfAchievements();
         String achievement = play.getAchievementScore();
         assertEquals("Chimpanzee", achievement);
@@ -67,7 +67,7 @@ public class TierTest {
         testOption.setTheme(Sky.LEVEL1);
         Play play = new Play(testGame, 3, scores, testOption);
         String tier = testOption.getThemeName();
-        assertEquals("SKY", tier);
+        assertEquals("Sky", tier);
         play.getListOfAchievements();
         String achievement = play.getAchievementScore();
         assertEquals("Bald Eagle", achievement);

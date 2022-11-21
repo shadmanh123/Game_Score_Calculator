@@ -1,5 +1,6 @@
 package com.example.cmpt276project.model;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cmpt276project.model.tiers.Land;
@@ -83,14 +84,14 @@ public class Play implements Writable {
     private boolean isTierLevel1(Tier tier) {
         boolean isLevel1;
         switch (tierString) {
-            case "OCEAN":
-                isLevel1 = (tier == Ocean.LEVEL1);
-                break;
-            case "LAND":
+            case "Land":
                 isLevel1 = (tier == Land.LEVEL1);
                 break;
-            default:
+            case "Sky":
                 isLevel1 = (tier == Sky.LEVEL1);
+                break;
+            default:
+                isLevel1 = (tier == Ocean.LEVEL1);
                 break;
         }
         return isLevel1;
@@ -100,14 +101,14 @@ public class Play implements Writable {
     private List<Tier> getTierValues() {
         List<Tier> tiers;
         switch (tierString) {
-            case "OCEAN":
-                tiers = Arrays.asList(Ocean.values());
-                break;
-            case "LAND":
+            case "Land":
                 tiers = Arrays.asList(Land.values());
                 break;
-            default:
+            case "Sky":
                 tiers = Arrays.asList(Sky.values());
+                break;
+            default:
+                tiers = Arrays.asList(Ocean.values());
                 break;
         }
         return tiers;
@@ -195,6 +196,23 @@ public class Play implements Writable {
 
     public void setOptions(Options options) {
         this.options = options;
+    }
+
+    @NonNull
+    public static Tier getTier(String tierString) {
+        Tier tiers;
+        switch(tierString) {
+            case "Land":
+                tiers = Land.LEVEL1;
+                break;
+            case "Sky":
+                tiers = Sky.LEVEL1;
+                break;
+            default:
+                tiers = Ocean.LEVEL1;
+                break;
+        }
+        return tiers;
     }
 
     @Override

@@ -27,7 +27,7 @@ public enum Ocean implements Tier {
 
     @Override
     public String getClassName() {
-        return "OCEAN";
+        return "Ocean";
     }
 
 
