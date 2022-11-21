@@ -308,13 +308,14 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
 
         Options option = getOptions();
+        Play play;
         if (isEdit){
-            Play play = gameManager.getGame(index).getPlay(playPosition);
+            play = gameManager.getGame(index).getPlay(playPosition);
             play.setOptions(option);
             play.setNumPlayers(totalPlayers);
             play.setScores(scores);
         }else{
-            Play play = new Play(game, totalPlayers, scores, option);
+            play = new Play(game, totalPlayers, scores, option);
             game.addPlay(play);
         }
 
@@ -326,7 +327,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
 
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this, "Blue Whale");
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this, play.getAchievementScore(), option.getDifficulty());
         startActivity(animationIntent);
         finish();
 
