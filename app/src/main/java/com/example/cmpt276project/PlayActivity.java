@@ -27,7 +27,7 @@ public class PlayActivity extends AppCompatActivity {
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private GameManager gameManager;
     private JsonReader jsonReader;
-    private final int COLUMN_SIZE = 4;
+    private final int COLUMN_SIZE = 5;
     Dialog dialog;
 
     @Override

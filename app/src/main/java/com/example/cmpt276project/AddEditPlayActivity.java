@@ -173,11 +173,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     }
 
-    private void jsonInitialize() {
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
-        jsonWriter = new JsonWriter(getApplicationContext());
-        gameManager = jsonReader.readFromJson();
-    }
+
 
     private void initialization() {
         Intent intent = getIntent();
@@ -189,9 +185,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         enter.setOnClickListener(v -> onRegisterClick());
-        etTotalScore = findViewById(R.id.etTotalScore);
+//        etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
-        etTotalScore.addTextChangedListener(inputTextWatcher);
+//        etTotalScore.addTextChangedListener(inputTextWatcher);
 
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
@@ -251,7 +247,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         if(numOfPlayers > tempMyPlayScores.size()){
             for(int i = tempMyPlayScores.size(); i < numOfPlayers; i++){
-                tempMyPlayScores.add(1);
+                tempMyPlayScores.add(0);
             }
         }else{
             int i = tempMyPlayScores.size();
@@ -303,10 +299,15 @@ public class AddEditPlayActivity extends AppCompatActivity {
             return;
         }
         validateScore();
-
-        String score = etTotalScore.getText().toString();
-        int totalScore = Integer.parseInt(score);
         List<Double> scores = new ArrayList<>();
+//        String score = etTotalScore.getText().toString();
+//        int totalScore = Integer.parseInt(score);
+        for(int i = 0; i < tempMyPlayScores.size(); i++){
+            double convert = tempMyPlayScores.get(i);
+            scores.add(convert);
+        }
+
+        //why
         scores.add(10.0);
         scores.add(25.0);
 

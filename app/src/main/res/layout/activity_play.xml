@@ -107,6 +107,12 @@
                     android:padding="5dip"
                     android:text="Achievement"
                     android:textColor="@color/white" />
+                <TextView
+                    android:background="#51000000"
+                    android:gravity="center"
+                    android:padding="5dip"
+                    android:text="Difficulty"
+                    android:textColor="@color/white" />
             </TableRow>
 
         </TableLayout>

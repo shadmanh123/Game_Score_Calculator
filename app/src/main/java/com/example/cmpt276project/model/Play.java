@@ -29,7 +29,7 @@ public class Play implements Writable {
     private Game game;
     private int numPlayers;
     private Double totalScore;
-    private String difficulty_level;
+    public String difficulty_level;
     private HashMap<Tier, Double> achievements;
     String tierString;
     private List<Double> scores;
