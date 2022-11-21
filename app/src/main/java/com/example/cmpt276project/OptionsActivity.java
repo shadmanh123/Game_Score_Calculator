@@ -25,15 +25,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * of the game
  */
 public class OptionsActivity extends AppCompatActivity {
-    private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
-
         initializeJson();
 
         createDifficultyMenu();
@@ -57,7 +56,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         String[] difficulty = getResources().getStringArray(R.array.difficulty);
         //creating the buttons
-        for (int i = 0; i < difficulty.length; i++){
+        for (int i = 0; i < difficulty.length; i++) {
             final String level = difficulty[i];
 
             RadioButton levelbutton = new RadioButton(this);
@@ -90,11 +89,11 @@ public class OptionsActivity extends AppCompatActivity {
         for (int i = 0; i < themes.length; i++){
             final String theme = themes[i];
 
-            RadioButton themebutton = new RadioButton(this);
-            themebutton.setText(theme);
+            RadioButton themeButton = new RadioButton(this);
+            themeButton.setText(theme);
 
             //setting onclick callbacks
-            themebutton.setOnClickListener(new View.OnClickListener() {
+            themeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     saveThemeSelected(theme);
@@ -103,11 +102,11 @@ public class OptionsActivity extends AppCompatActivity {
             });
 
             //adding to radio group
-            themeMenu.addView(themebutton);
+            themeMenu.addView(themeButton);
 
             //setting the default
             if (theme.equals(getThemeSelected(this))) {
-                themebutton.setChecked(true);
+                themeButton.setChecked(true);
             }
         }
     }
@@ -119,7 +118,7 @@ public class OptionsActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public static String getDifficultySelected(Context context){
+    public static String getDifficultySelected(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("difficulty", MODE_PRIVATE);
         String defaultTheme = "Normal";
         return prefs.getString("difficulty", defaultTheme);
@@ -132,7 +131,7 @@ public class OptionsActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public static String getThemeSelected(Context context){
+    public static String getThemeSelected(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("theme", MODE_PRIVATE);
         String defaultTheme = "Ocean";
         return prefs.getString("theme", defaultTheme);

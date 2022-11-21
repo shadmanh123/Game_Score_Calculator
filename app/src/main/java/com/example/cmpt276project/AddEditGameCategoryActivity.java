@@ -52,8 +52,8 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
         jsonWriter = new JsonWriter(getApplicationContext());
+        jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
     }
 
@@ -78,7 +78,7 @@ public class AddEditGameCategoryActivity extends AppCompatActivity {
         dialog.show(manager, "message");
     }
 
-    private void prevDisplay(){
+    private void prevDisplay() {
         //has slots filled in already because we are editing that game
         Intent intent = getIntent();
         int index = intent.getIntExtra("index", 0);

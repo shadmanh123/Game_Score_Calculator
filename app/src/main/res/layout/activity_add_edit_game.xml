@@ -12,36 +12,30 @@
         android:layout_width="215dp"
         android:layout_height="37dp"
         android:layout_marginTop="68dp"
-        android:layout_marginEnd="100dp"
         android:background="@drawable/main_title"
         android:fontFamily="sans-serif"
         android:text="@string/game_configuration"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/listViewMain2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/floatingActionButton2"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginBottom="16dp"-->
-    <!--        android:clickable="true"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:srcCompat="@drawable/ic_baseline_add_24" />-->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035" />
 
     <TextView
         android:id="@+id/listViewMain2"
         android:layout_width="274dp"
         android:layout_height="369dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginBottom="88dp"
         android:background="@drawable/gamecategorieslist"
+        app:layout_constraintBottom_toTopOf="@+id/deleteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/PageTitle"
+        app:layout_constraintVertical_bias="0.85" />
 
     <Button
         android:id="@+id/SaveButton"
@@ -65,9 +59,8 @@
         android:hint="@string/game_name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/listViewMain2"
+        app:layout_constraintStart_toStartOf="@+id/listViewMain2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.295" />
 
@@ -80,9 +73,8 @@
         android:hint="@string/min_score"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/listViewMain2"
+        app:layout_constraintStart_toStartOf="@+id/listViewMain2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.441" />
 
@@ -95,9 +87,8 @@
         android:hint="@string/max_score"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/listViewMain2"
+        app:layout_constraintStart_toStartOf="@+id/listViewMain2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.59" />
 
@@ -121,9 +112,9 @@
         android:id="@+id/deleteButton"
         android:layout_width="92dp"
         android:layout_height="49dp"
+        android:backgroundTint="#71B3D8"
         android:text="@string/delete"
         android:visibility="invisible"
-        android:backgroundTint="#71B3D8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

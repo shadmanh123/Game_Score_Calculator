@@ -15,10 +15,6 @@ import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-
 /**
  * DeleteGCFragment: Displays a dialog when deleting a game config to the user
  * asking if they are sure they want to delete
@@ -33,14 +29,14 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
         //create the view to show - load the message
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.delete_gc_fragement, null);
-        jsonWriter = new JsonWriter(getActivity());
-        jsonReader = new JsonReader(getActivity(), gameManager);
 
         //create a button listener
         DialogInterface.OnClickListener listener = (dialog, which) -> {
             int index = getArguments().getInt("index");
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    jsonWriter = new JsonWriter(getActivity());
+                    jsonReader = new JsonReader(getActivity());
                     gameManager = jsonReader.readFromJson();
                     Game game = gameManager.getGame(index);
                     gameManager.removeGame(game);

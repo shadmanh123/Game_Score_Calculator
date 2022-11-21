@@ -14,7 +14,6 @@
         android:layout_width="215dp"
         android:layout_height="37dp"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="96dp"
         android:background="@drawable/main_title"
         android:fontFamily="sans-serif"
         android:text="Games"
@@ -22,6 +21,7 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,6 +31,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="#71B3D8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />
@@ -39,10 +40,10 @@
         android:id="@+id/listViewMain"
         android:layout_width="291dp"
         android:layout_height="470dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="104dp"
         android:background="@drawable/gamecategorieslist"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,14 +51,14 @@
         android:id="@+id/gameCategoriesList"
         android:layout_width="249dp"
         android:layout_height="402dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="80dp"
 
         android:isScrollContainer="true"
         android:keepScreenOn="true"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/listViewMain"
+        app:layout_constraintEnd_toEndOf="@+id/listViewMain"
+        app:layout_constraintStart_toStartOf="@+id/listViewMain"
+        app:layout_constraintTop_toTopOf="@+id/listViewMain" />
 
     <Button
         android:id="@+id/btnCredits"
@@ -94,5 +95,18 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#71B3D8"
+        android:text="Clear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listViewMain"
+        app:layout_constraintVertical_bias="0.121" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

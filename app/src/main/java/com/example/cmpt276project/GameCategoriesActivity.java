@@ -3,13 +3,13 @@ package com.example.cmpt276project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,12 +32,18 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-
     private List<Game> theList;
     private GameManager gameManager;
     private List<Integer> clickedItems;
 
     ArrayAdapter<Game> adapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameManager = jsonReader.readFromJson();
+        onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +53,29 @@ public class GameCategoriesActivity extends AppCompatActivity {
         initialize();
 
         getState();
-        findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
-        findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
+        setUpOnClickListeners();
 
         onStart();
         registerClickCallback();
     }
 
+    private void setUpOnClickListeners() {
+        findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
+        findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
+        findViewById(R.id.btnClear).setOnClickListener(v -> onClear());
+    }
+
+    private void onClear() {
+        FragmentManager manager = getSupportFragmentManager();
+        ClearFragment dialog = new ClearFragment();
+        dialog.show(manager, "message");
+    }
+
     private void initialize() {
         theList = new ArrayList<>();
         clickedItems = new ArrayList<>();
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
         jsonWriter = new JsonWriter(getApplicationContext());
+        jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
         adapter = new MyListAdapter();
     }
@@ -76,6 +93,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
             View list = findViewById(R.id.gameCategoriesList);
             list.setVisibility(View.GONE);
 
+            View clear = findViewById(R.id.btnClear);
+            clear.setVisibility(View.GONE);
+
             View text = findViewById(R.id.emptyStateText);
             text.setVisibility(View.VISIBLE);
 
@@ -87,6 +107,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
             View list = findViewById(R.id.gameCategoriesList);
             list.setVisibility(View.VISIBLE);
+
+            View clear = findViewById(R.id.btnClear);
+            clear.setVisibility(View.VISIBLE);
 
             View text = findViewById(R.id.emptyStateText);
             text.setVisibility(View.GONE);

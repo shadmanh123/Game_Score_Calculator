@@ -7,17 +7,24 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.model.Play;
+import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * AddEditGameHistory: Class that allows game plays to be added
@@ -26,6 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddEditPlayActivity extends AppCompatActivity {
 
+    private static final String JSON_STORE = "gameManager.json";
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -33,37 +41,45 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private Button enter;
     private EditText etTotalPlayers;
     private EditText etTotalScore;
+    private String difficulty;
+    private String tierString;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_play);
-        jsonInitialize();
-        initialization();
-    }
-
-    private void jsonInitialize() {
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
-        jsonWriter = new JsonWriter(getApplicationContext());
+        jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
+        jsonWriter = new JsonWriter(getApplicationContext());
+        initialization();
     }
 
     private void initialization() {
         Intent intent = getIntent();
-        int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
 
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
-        enter.setOnClickListener(v -> onRegisterClick(index));
+        enter.setOnClickListener(v -> onRegisterClick());
         etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
         etTotalScore.addTextChangedListener(inputTextWatcher);
 
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
+        difficulty = "easy";
+        tierString = "Sky";
+        getOptions();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getOptions();
     }
 
     private void onOptionsClick() {
@@ -91,7 +107,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
         }
     };
 
-    private void onRegisterClick(int index) {
+    private void onRegisterClick() {
+        Game game = gameManager.getGame(index);
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
         if (totalPlayers == 0) {
@@ -99,22 +116,32 @@ public class AddEditPlayActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        /*
+
         String score = etTotalScore.getText().toString();
         int totalScore = Integer.parseInt(score);
-        Game game = gameManager.getGame(index);
-        /*
-        Play play = new Play(game, totalPlayers, totalScore);
+        List<Double> scores = new ArrayList<>();
+        scores.add(10.0);
+        scores.add(25.0);
+
+        Options option = getOptions();
+
+        Play play = new Play(game, totalPlayers, scores, option);
         game.addPlay(play);
 
-
         jsonWriter.writeToJson(gameManager);
-        */
 
-        Intent i = AddScoresActivity.makeIntent(this);
-        Intent intent = PlayActivity.makeIntent(this, index);
+        Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
         finish();
+    }
+
+    @NonNull
+    private Options getOptions() {
+        difficulty = OptionsActivity.getDifficultySelected(this);
+        tierString = OptionsActivity.getThemeSelected(this);
+        Tier tier = Play.getTier(tierString);
+        Options option = new Options(difficulty, tier);
+        return option;
     }
 
     private void onBackClick() {
@@ -128,4 +155,5 @@ public class AddEditPlayActivity extends AppCompatActivity {
         intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
         return intent;
     }
+
 }

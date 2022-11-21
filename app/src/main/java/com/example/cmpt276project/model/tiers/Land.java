@@ -1,4 +1,6 @@
-package com.example.cmpt276project.model;
+package com.example.cmpt276project.model.tiers;
+
+import com.example.cmpt276project.model.tiers.Tier;
 
 public enum Land implements Tier {
     LEVEL10("African Bush Elephant"),
@@ -25,6 +27,6 @@ public enum Land implements Tier {
 
     @Override
     public String getClassName() {
-        return "LAND";
+        return "Land";
     }
 }

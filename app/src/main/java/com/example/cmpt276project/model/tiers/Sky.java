@@ -1,4 +1,4 @@
-package com.example.cmpt276project.model;
+package com.example.cmpt276project.model.tiers;
 
 public enum Sky implements Tier {
     LEVEL10("Ruppell’s Griffon Vulture"),
@@ -25,6 +25,6 @@ public enum Sky implements Tier {
 
     @Override
     public String getClassName() {
-        return "SKY";
+        return "Sky";
     }
 }
