@@ -1,9 +1,8 @@
-package com.example.cmpt276project.model;
+package com.example.cmpt276project.model.tiers;
 
-import java.util.Arrays;
-import java.util.List;
+import com.example.cmpt276project.model.tiers.Tier;
 
-public enum Oceans  {
+public enum Ocean implements Tier {
     LEVEL10("Blue Whale"),
     LEVEL9("Great White Shark"),
     LEVEL8("Colossal Squid"),
@@ -17,18 +16,18 @@ public enum Oceans  {
 
     final String level;
 
-    Oceans(String level) {
+    Ocean(String level) {
         this.level = level;
     }
 
-    // @Override
+    @Override
     public String getLevel() {
         return level;
     }
 
-    // @Override
-    public List<Oceans> getValues() {
-        return Arrays.asList(values());
+    @Override
+    public String getClassName() {
+        return "Ocean";
     }
 
 

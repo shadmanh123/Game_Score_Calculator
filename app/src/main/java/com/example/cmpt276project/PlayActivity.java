@@ -25,8 +25,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class PlayActivity extends AppCompatActivity {
 
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
-    private JsonReader jsonReader;
     private GameManager gameManager;
+    private JsonReader jsonReader;
     private final int COLUMN_SIZE = 4;
     Dialog dialog;
 
@@ -35,14 +35,10 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
-        initializeJson();
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
         setUpGame(index);
         setUpOnClickListeners(index);
-    }
-
-    private void initializeJson() {
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
-        gameManager = jsonReader.readFromJson();
     }
 
     private void setUpGame(int index) {

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,7 +31,6 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-
     private List<Game> theList;
     private GameManager gameManager;
     private List<Integer> clickedItems;
@@ -57,8 +55,8 @@ public class GameCategoriesActivity extends AppCompatActivity {
     private void initialize() {
         theList = new ArrayList<>();
         clickedItems = new ArrayList<>();
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
         jsonWriter = new JsonWriter(getApplicationContext());
+        jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
         adapter = new MyListAdapter();
     }

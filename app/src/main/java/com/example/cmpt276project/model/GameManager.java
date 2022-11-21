@@ -1,5 +1,6 @@
 package com.example.cmpt276project.model;
 
+import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.Writable;
 
 import org.json.JSONArray;
@@ -8,7 +9,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * GameManager: Singleton class that manages all the different games in the application
@@ -18,9 +18,10 @@ public class GameManager implements Writable {
 
     //making the singleton
     private static GameManager instance;
-    public static GameManager getInstance(){
-        if (instance == null){
+    public static GameManager getInstance() {
+        if (instance == null) {
             instance = new GameManager();
+            System.out.println("Instance was null!");
         }
         return instance;
     }
@@ -50,7 +51,7 @@ public class GameManager implements Writable {
         games.set(index, game);
     }
 
-    public Game getGame(int index){
+    public Game getGame(int index) {
         return games.get(index);
     }
 

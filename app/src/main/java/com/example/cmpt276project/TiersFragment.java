@@ -4,37 +4,24 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
-import com.example.cmpt276project.model.Land;
-import com.example.cmpt276project.model.Ocean;
-import com.example.cmpt276project.model.Sky;
-import com.example.cmpt276project.model.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
-import com.example.cmpt276project.persistence.JsonWriter;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 /**
  * TiersFragment: Creates a dialog to view tiers and their corresponding
  * scores
  */
 public class TiersFragment extends AppCompatDialogFragment {
-    private JsonReader jsonReader;
     private static int pos;
-    GameManager gameManager;
+    private GameManager gameManager;
+    private JsonReader jsonReader;
     public static TiersFragment newInstance(int position) {
         TiersFragment tiersFragment = new TiersFragment();
         pos = position;
@@ -45,13 +32,11 @@ public class TiersFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.tiers_layout, null);
-
-        jsonReader = new JsonReader(getActivity(), gameManager);
+        jsonReader = new JsonReader(getActivity());
         gameManager = jsonReader.readFromJson();
         setIntervals(v);
 
         DialogInterface.OnClickListener listener = (dialog, which) -> {
-
         };
 
         return new AlertDialog.Builder(getActivity())

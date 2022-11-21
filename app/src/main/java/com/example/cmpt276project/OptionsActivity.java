@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,22 +22,24 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * of the game
  */
 public class OptionsActivity extends AppCompatActivity {
-    private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
 
-        initializeJson();
+        jsonWriter = new JsonWriter(getApplicationContext());
 
         createDifficultyMenu();
         createThemeMenu();
 
-        String savedDiff = getDifficultySelected();
-        String savedTheme = getThemeSelected();
+        String savedDiff = getDifficultySelected(this);
+        String savedTheme = getThemeSelected(this);
         Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
@@ -50,7 +51,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         String[] difficulty = getResources().getStringArray(R.array.difficulty);
         //creating the buttons
-        for (int i = 0; i < difficulty.length; i++){
+        for (int i = 0; i < difficulty.length; i++) {
             final String level = difficulty[i];
 
             RadioButton levelbutton = new RadioButton(this);
@@ -70,7 +71,7 @@ public class OptionsActivity extends AppCompatActivity {
             diffMenu.addView(levelbutton);
 
             //setting the default
-            if (level.equals(getDifficultySelected())) {
+            if (level.equals(getDifficultySelected(this))) {
                 levelbutton.setChecked(true);
             }
         }
@@ -84,11 +85,11 @@ public class OptionsActivity extends AppCompatActivity {
         for (int i = 0; i < themes.length; i++){
             final String theme = themes[i];
 
-            RadioButton themebutton = new RadioButton(this);
-            themebutton.setText(theme);
+            RadioButton themeButton = new RadioButton(this);
+            themeButton.setText(theme);
 
             //setting onclick callbacks
-            themebutton.setOnClickListener(new View.OnClickListener() {
+            themeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //todo: save the data
@@ -98,11 +99,11 @@ public class OptionsActivity extends AppCompatActivity {
             });
 
             //adding to radio group
-            themeMenu.addView(themebutton);
+            themeMenu.addView(themeButton);
 
             //setting the default
-            if (theme.equals(getThemeSelected())) {
-                themebutton.setChecked(true);
+            if (theme.equals(getThemeSelected(this))) {
+                themeButton.setChecked(true);
             }
         }
     }
@@ -114,8 +115,8 @@ public class OptionsActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public String getDifficultySelected(){
-        SharedPreferences prefs = this.getSharedPreferences("difficulty", MODE_PRIVATE);
+    public static String getDifficultySelected(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("difficulty", MODE_PRIVATE);
         String defaultTheme = "Normal";
         return prefs.getString("difficulty", defaultTheme);
     }
@@ -127,22 +128,14 @@ public class OptionsActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public String getThemeSelected(){
-        SharedPreferences prefs = this.getSharedPreferences("theme", MODE_PRIVATE);
+    public static String getThemeSelected(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("theme", MODE_PRIVATE);
         String defaultTheme = "Ocean";
         return prefs.getString("theme", defaultTheme);
     }
 
     private void onBackClick() {
         finish();
-    }
-
-    //todo: set up Json reader in here to read out past options for that play
-
-    private void initializeJson() {
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
-        gameManager = jsonReader.readFromJson();
-        jsonWriter = new JsonWriter(getApplicationContext());
     }
 
     public static Intent optionsIntent(Context context) {

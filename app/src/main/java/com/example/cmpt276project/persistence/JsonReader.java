@@ -1,27 +1,23 @@
 package com.example.cmpt276project.persistence;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.cedarsoftware.util.io.JsonObject;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
-import com.example.cmpt276project.model.Land;
-import com.example.cmpt276project.model.Ocean;
+import com.example.cmpt276project.model.tiers.Land;
+import com.example.cmpt276project.model.tiers.Ocean;
 import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.model.Play;
-import com.example.cmpt276project.model.Sky;
-import com.example.cmpt276project.model.Tier;
+import com.example.cmpt276project.model.tiers.Sky;
+import com.example.cmpt276project.model.tiers.Tier;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -37,16 +33,14 @@ public class JsonReader {
 
     private static final String JSON_STORE = "gameManager.json";
     private Context context;
-    private GameManager gameManager;
+    GameManager gameManager;
 
-    public JsonReader(Context context, GameManager gm) {
+    public JsonReader(Context context) {
         this.context = context;
-        this.gameManager = gm;
     }
-
     public GameManager readFromJson() {
         try {
-            gameManager = read(context);
+            gameManager = read();
             System.out.println("Loaded" + " from " + JSON_STORE);
         } catch (JSONException e) {
             gameManager = GameManager.getInstance();
@@ -58,7 +52,7 @@ public class JsonReader {
         return gameManager;
     }
 
-    public GameManager read(Context context) throws IOException, JSONException {
+    public GameManager read() throws IOException, JSONException {
         String jsonData = readFile(JSON_STORE, context);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseGameManager(jsonObject);
@@ -113,23 +107,19 @@ public class JsonReader {
     private void addPlay(Game game, JSONObject nextPlay) throws JSONException {
         String time = nextPlay.getString("Time");
         int numPlayers = nextPlay.getInt("NumPlayers");
-        int totalScore = nextPlay.getInt("TotalScore");
-        String difficulty_level = nextPlay.getString("DifficultyLevel");
         List<Double> scores = addScores(nextPlay);
-        String tier = nextPlay.getString("Tier");
-        Tier tiers = getTier(tier);
-
-        Play play = new Play(game, numPlayers, scores, tiers, difficulty_level);
+        Options options = addOptions(nextPlay);
+        Play play = new Play(game, numPlayers, scores, options);
         play.setCreationDate(time);
-        addOptions(play, nextPlay);
+
         game.addPlay(play);
     }
 
-    private void addOptions(Play play, JSONObject nextPlay) throws JSONException{
-        String level = nextPlay.getString("Difficulty");
-        String theme = nextPlay.getString("Theme");
-        Options options = new Options (level, theme);
-        play.setOptions(options);
+    private Options addOptions(JSONObject nextPlay) throws JSONException{
+        JSONObject jsonObject = nextPlay.getJSONObject("Option");
+        String level = jsonObject.getString("Difficulty");
+        String theme = jsonObject.getString("Theme");
+        return new Options(level, Play.getTier(theme));
     }
 
     private List<Double> addScores(JSONObject jsonObject) throws JSONException {
@@ -142,21 +132,5 @@ public class JsonReader {
         return scores;
     }
 
-    @NonNull
-    private Tier getTier(String tier) {
-        Tier tiers;
-        switch(tier) {
-            case "OCEAN":
-                tiers = Ocean.LEVEL1;
-                break;
-            case "LAND":
-                tiers = Land.LEVEL1;
-                break;
-            default:
-                tiers = Sky.LEVEL1;
-                break;
-        }
-        return tiers;
-    }
 
 }
