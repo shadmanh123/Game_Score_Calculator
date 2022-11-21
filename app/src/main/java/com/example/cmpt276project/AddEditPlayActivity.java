@@ -43,6 +43,10 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     private static final String JSON_STORE = "gameManager.json";
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
+
+    public static final String BOOL_ISEDIT = "Index of Selected Game";
+    public static final String INT_PLAY_POSITION = "Index of Selected play";
+
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameManager gameManager;
@@ -51,51 +55,47 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private EditText etTotalScore;
     private String difficulty;
     private String tierString;
+
     private int index;
+    private boolean isEdit;
+    private int playPosition;
 
 
     private int numOfPlayers;
 
-    private ArrayAdapter<Integer> adapter;
+    private ArrayAdapter<Double> adapter;
 
-    private List<Integer> tempMyPlayScores;
-    private List<Integer> myScores;
+    private List<Double> tempMyPlayScores;
+    private List<Double> myScores;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_play);
+
         jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
+
+        String name = gameManager.getGame(index).getName();
+
+
+
         jsonWriter = new JsonWriter(getApplicationContext());
         initialization();
 
-        tempMyPlayScores = new ArrayList<Integer>();
+        tempMyPlayScores = new ArrayList<Double>();
 
-        myScores = new ArrayList<Integer>();
-        tempMyPlayScores.add(1);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(4);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(9);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(9);
-        tempMyPlayScores.add(1);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(4);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(9);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(3);
-        tempMyPlayScores.add(9);
+        myScores = new ArrayList<Double>();
+        if(isEdit){
+
+            Play play = gameManager.getGame(index).getPlay(playPosition);
+            Toast.makeText(AddEditPlayActivity.this, ""+name, Toast.LENGTH_SHORT).show();
+
+            for(int i = 0; i < play.getScoreSize(); i++){
+                tempMyPlayScores.add(play.getScore(i));
+            }
+        }
 
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         etTotalPlayers.setText(""+ tempMyPlayScores.size());
@@ -105,7 +105,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         populateListView();
 
 //        tempMyPlayScores.add(6);
-
+//        Toast.makeText(AddEditPlayActivity.this, ""+playPosition, Toast.LENGTH_SHORT).show();
 
     }
     private void populateListView() {
@@ -113,7 +113,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         ListView list = findViewById(R.id.playerList);
         list.setAdapter(adapter);
     }
-    private class MyListAdapter extends ArrayAdapter<Integer>{
+    private class MyListAdapter extends ArrayAdapter<Double>{
         public MyListAdapter(){
             super(AddEditPlayActivity.this, R.layout.playitemlayout, myScores);
         }
@@ -144,9 +144,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
             View saveBtn = itemView.findViewById(R.id.btnSave);
             saveBtn.setOnClickListener(view -> {
                 Toast.makeText(AddEditPlayActivity.this, score.getText().toString().trim(), Toast.LENGTH_SHORT).show();
-                int numScore;
+                double numScore;
                 try {
-                    numScore = Integer.parseInt(score.getText().toString().trim());
+                    numScore = Double.parseDouble(score.getText().toString().trim());
                 } catch (NumberFormatException e) {
 //                Toast.makeText(AddEditPlayActivity.this, "this works", Toast.LENGTH_SHORT).show();
                     return;
@@ -178,6 +178,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private void initialization() {
         Intent intent = getIntent();
         index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+
+        isEdit = intent.getBooleanExtra(BOOL_ISEDIT, false);
+        playPosition = intent.getIntExtra(INT_PLAY_POSITION, 0);
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
@@ -235,19 +238,14 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         }
     };
-    private void saveScoreToTemp() {
-        tempMyPlayScores.clear();
-        for(int i = 0; i < myScores.size(); i++){
-            tempMyPlayScores.add(myScores.get(i));
-        }
-    }
+
 
     private void updateTempPlayer() {
 
 
         if(numOfPlayers > tempMyPlayScores.size()){
             for(int i = tempMyPlayScores.size(); i < numOfPlayers; i++){
-                tempMyPlayScores.add(0);
+                tempMyPlayScores.add(0.0);
             }
         }else{
             int i = tempMyPlayScores.size();
@@ -307,9 +305,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
             scores.add(convert);
         }
 
-        //why
-        scores.add(10.0);
-        scores.add(25.0);
+
 
         Options option = getOptions();
 
@@ -320,6 +316,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
+
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this, "Blue Whale");
+        startActivity(animationIntent);
         finish();
 
     }
@@ -346,11 +345,14 @@ public class AddEditPlayActivity extends AppCompatActivity {
         dialog.show(manager, "message");
     }
 
-    public static Intent makeIntent(Context context, int gameIndex) {
+    public static Intent makeIntent(Context context, int gameIndex, boolean isEdit, int playPosition) {
         Intent intent = new Intent(context, AddEditPlayActivity.class);
         intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
+        intent.putExtra(BOOL_ISEDIT, isEdit);
+        intent.putExtra(INT_PLAY_POSITION, playPosition);
         return intent;
     }
+
     @Override
     protected void onStart() {
         super.onStart();

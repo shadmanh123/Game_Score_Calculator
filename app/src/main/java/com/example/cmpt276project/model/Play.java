@@ -57,6 +57,13 @@ public class Play implements Writable {
         return totalScore;
     }
 
+    public int getScoreSize(){
+        return scores.size();
+    }
+    public double getScore(int i){
+        return scores.get(i);
+    }
+
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
         List<Tier> tiers = getTierValues();
