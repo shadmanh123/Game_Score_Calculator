@@ -1,11 +1,13 @@
 package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -37,15 +39,17 @@ public class OptionsActivity extends AppCompatActivity {
         createDifficultyMenu();
         createThemeMenu();
 
-        String savedDiff = getDifficultySelected();
-        String savedTheme = getThemeSelected();
+        String savedDiff = getDifficultySelected(this);
+        String savedTheme = getThemeSelected(this);
         Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(v -> onBackClick());
 
+        Intent intent = getIntent();
+        int pos = intent.getIntExtra("position", 0);
         Button tiers = findViewById(R.id.Tiers);
-        tiers.setOnClickListener(v -> onTiersClick());
+        tiers.setOnClickListener(v -> onTiersClick(pos));
     }
 
     private void createDifficultyMenu() {
@@ -63,7 +67,6 @@ public class OptionsActivity extends AppCompatActivity {
             levelbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo: save the data
                     saveDifficultySelected(level);
                     jsonWriter.writeToJson(gameManager);
                 }
@@ -73,7 +76,7 @@ public class OptionsActivity extends AppCompatActivity {
             diffMenu.addView(levelbutton);
 
             //setting the default
-            if (level.equals(getDifficultySelected())) {
+            if (level.equals(getDifficultySelected(this))) {
                 levelbutton.setChecked(true);
             }
         }
@@ -94,7 +97,6 @@ public class OptionsActivity extends AppCompatActivity {
             themebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo: save the data
                     saveThemeSelected(theme);
                     jsonWriter.writeToJson(gameManager);
                 }
@@ -104,7 +106,7 @@ public class OptionsActivity extends AppCompatActivity {
             themeMenu.addView(themebutton);
 
             //setting the default
-            if (theme.equals(getThemeSelected())) {
+            if (theme.equals(getThemeSelected(this))) {
                 themebutton.setChecked(true);
             }
         }
@@ -117,8 +119,8 @@ public class OptionsActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public String getDifficultySelected(){
-        SharedPreferences prefs = this.getSharedPreferences("difficulty", MODE_PRIVATE);
+    public static String getDifficultySelected(Context context){
+        SharedPreferences prefs = context.getSharedPreferences("difficulty", MODE_PRIVATE);
         String defaultTheme = "Normal";
         return prefs.getString("difficulty", defaultTheme);
     }
@@ -130,8 +132,8 @@ public class OptionsActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public String getThemeSelected(){
-        SharedPreferences prefs = this.getSharedPreferences("theme", MODE_PRIVATE);
+    public static String getThemeSelected(Context context){
+        SharedPreferences prefs = context.getSharedPreferences("theme", MODE_PRIVATE);
         String defaultTheme = "Ocean";
         return prefs.getString("theme", defaultTheme);
     }
@@ -140,13 +142,19 @@ public class OptionsActivity extends AppCompatActivity {
         finish();
     }
 
-    private void onTiersClick() {
-        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
-        startActivity(i);
-        onStart();
+    private void onTiersClick(int pos) {
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position", 0);
+        FragmentManager manager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        numPlayersFragment dialog = new numPlayersFragment();
+        dialog.setArguments(bundle);
+        dialog.show(manager, "message");
+//        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
+//        startActivity(i);
+//        onStart();
     }
-
-    //todo: set up Json reader in here to read out past options for that play
 
     private void initializeJson() {
         jsonReader = new JsonReader(getApplicationContext(), gameManager);
@@ -154,8 +162,14 @@ public class OptionsActivity extends AppCompatActivity {
         jsonWriter = new JsonWriter(getApplicationContext());
     }
 
-    public static Intent optionsIntent(Context context) {
+    public static Intent optionsIntentPlay(Context context) {
         Intent intent = new Intent(context, OptionsActivity.class);
+        return intent;
+    }
+
+    public static Intent optionsIntent(Context context, int position) {
+        Intent intent = new Intent(context, OptionsActivity.class);
+        intent.putExtra("position", position);
         return intent;
     }
 }

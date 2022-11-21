@@ -173,7 +173,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 //        TiersFragment dialog = TiersFragment.newInstance(pos);
 //        dialog.show(manager, "MessageDialog");
 //        Log.i("Tag", "Just showed the dialog");
-        Intent i = OptionsActivity.optionsIntent(GameCategoriesActivity.this);
+        Intent i = OptionsActivity.optionsIntent(GameCategoriesActivity.this, pos);
         startActivity(i);
         onStart();
     }

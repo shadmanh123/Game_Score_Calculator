@@ -67,7 +67,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
     }
 
     private void onOptionsClick() {
-        Intent i = OptionsActivity.optionsIntent(AddEditPlayActivity.this);
+        Intent i = OptionsActivity.optionsIntentPlay(AddEditPlayActivity.this);
         startActivity(i);
         onStart();
     }
