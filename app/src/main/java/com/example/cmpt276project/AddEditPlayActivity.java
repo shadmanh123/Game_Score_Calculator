@@ -51,8 +51,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     private ArrayAdapter<Integer> adapter;
 
-    private List<Integer> myPlayers = new ArrayList<Integer>();
-    private List<Integer> idList = new ArrayList<Integer>();
+    private List<Integer> tempMyPlayScores;
+    private List<Integer> myScores;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +61,43 @@ public class AddEditPlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_play);
         jsonInitialize();
         initialization();
+
+        //if is add
+        tempMyPlayScores = new ArrayList<Integer>();
+
+        myScores = new ArrayList<Integer>();
+        tempMyPlayScores.add(1);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(4);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(9);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(9);
+        tempMyPlayScores.add(1);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(4);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(9);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(3);
+        tempMyPlayScores.add(9);
+
+        etTotalPlayers = findViewById(R.id.etTotalPlayers);
+        etTotalPlayers.setText(""+ tempMyPlayScores.size());
+
         
         populateList();
         populateListView();
+
+//        tempMyPlayScores.add(6);
+
 
 
     }
@@ -74,7 +109,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
     }
     private class MyListAdapter extends ArrayAdapter<Integer>{
         public MyListAdapter(){
-            super(AddEditPlayActivity.this, R.layout.playitemlayout, myPlayers);
+            super(AddEditPlayActivity.this, R.layout.playitemlayout, myScores);
         }
 
 
@@ -90,25 +125,46 @@ public class AddEditPlayActivity extends AppCompatActivity {
             player.setText("player " + (position+1));
 
             EditText score = itemView.findViewById(R.id.txtScore);
-            score.setText(""+myPlayers.get(position));
+            score.setText(""+myScores.get(position));
 //            score.setTag(position);
 //            score.setId(position);
 //            EditText editText = itemView.findViewById(position);
-            score.addTextChangedListener(new inputScoreWatcher(position));
+
 
 //            int id = View.generateViewId();
 //            score.setId(position);
 //            idList.add(id);
 //            score.setId(position);
+            View saveBtn = itemView.findViewById(R.id.btnSave);
+            saveBtn.setOnClickListener(view -> {
+                Toast.makeText(AddEditPlayActivity.this, score.getText().toString().trim(), Toast.LENGTH_SHORT).show();
+                int numScore;
+                try {
+                    numScore = Integer.parseInt(score.getText().toString().trim());
+                } catch (NumberFormatException e) {
+//                Toast.makeText(AddEditPlayActivity.this, "this works", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+
+                tempMyPlayScores.set(position, numScore);
+//                onStart();
+                populateList();
+                adapter.notifyDataSetChanged();
+            });
+
+            score.addTextChangedListener(new inputScoreWatcher(position, saveBtn));
 
             return itemView;
         }
     }
 
     private void populateList() {
-        for(int i = 0; i < numOfPlayers; i++){
-            myPlayers.add(0);
-        }
+        myScores.clear();
+       for(int i = 0; i < tempMyPlayScores.size(); i++){
+           myScores.add(tempMyPlayScores.get(i));
+       }
+
     }
 
     private void jsonInitialize() {
@@ -152,57 +208,79 @@ public class AddEditPlayActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String players = etTotalPlayers.getText().toString().trim();
 //            String score = etTotalScore.getText().toString().trim();
-            enter.setEnabled(!players.isEmpty() /*&& !score.isEmpty()*/);
+            enter.setEnabled(!players.isEmpty() || players == "0"/*&& !score.isEmpty()*/);
 
             try {
                 numOfPlayers = Integer.parseInt(players);
             } catch (NumberFormatException e) {
 //                Toast.makeText(AddEditPlayActivity.this, "this works", Toast.LENGTH_SHORT).show();
-//                return;
-                numOfPlayers = 0;
-            }
-            myPlayers.clear();
-            populateList();
-            populateListView();
+                return;
 
+            }
+
+            updateTempPlayer();
+            onStart();
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
+//            saveScoreToTemp();
         }
     };
+
+    private void saveScoreToTemp() {
+        tempMyPlayScores.clear();
+        for(int i = 0; i < myScores.size(); i++){
+            tempMyPlayScores.add(myScores.get(i));
+        }
+    }
+
+    private void updateTempPlayer() {
+
+
+        if(numOfPlayers > tempMyPlayScores.size()){
+            for(int i = tempMyPlayScores.size(); i < numOfPlayers; i++){
+                tempMyPlayScores.add(1);
+            }
+        }else{
+            int i = tempMyPlayScores.size();
+            int j = numOfPlayers;
+            while(i != j){
+                tempMyPlayScores.remove(tempMyPlayScores.size()-1);
+                i--;
+            }
+        }
+    }
+
     public class inputScoreWatcher implements TextWatcher{
         private int position;
+        private View saveBtn;
 
-        public inputScoreWatcher(int position){
+
+        public inputScoreWatcher(int position, View saveBtn){
             super();
             this.position = position;
+            this.saveBtn = saveBtn;
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            int score = 0;
-            Toast.makeText(AddEditPlayActivity.this, "position: " + position, Toast.LENGTH_SHORT).show();
+            int score;
             try {
                 score = Integer.parseInt(s.toString().trim());
-
             } catch (NumberFormatException e) {
-//                Toast.makeText(AddEditPlayActivity.this, "Invalid input", Toast.LENGTH_SHORT).show();
-                return;
+//                Toast.makeText(AddEditPlayActivity.this, "this works", Toast.LENGTH_SHORT).show();
+                saveBtn.setEnabled(false);
+                 return;
+
             }
-            myPlayers.set(position, score);
 
+            saveBtn.setEnabled(true);
         }
-
         @Override
-        public void afterTextChanged(Editable s) {
-
-        }
+        public void afterTextChanged(Editable s) {}
     };
 
     private void onRegisterClick(int index) {
@@ -214,30 +292,13 @@ public class AddEditPlayActivity extends AppCompatActivity {
             return;
         }
         validateScore();
-        /*
-        String score = etTotalScore.getText().toString();
-        int totalScore = Integer.parseInt(score);
-        Game game = gameManager.getGame(index);
-        /*
-        Play play = new Play(game, totalPlayers, totalScore);
-        game.addPlay(play);
 
-
-        jsonWriter.writeToJson(gameManager);
-        */
-
-//        Intent i = AddScoresActivity.makeIntent(this);
-//        Intent intent = PlayActivity.makeIntent(this, index);
-//        startActivity(intent);
-//        startActivity(new Intent(AddEditPlayActivity.this, AchievementAnimationActivity.class));
-//
-//        finish();
     }
 
     private void validateScore() {
         int sum = 0;
         for(int i = 0 ; i < numOfPlayers; i++){
-            sum += myPlayers.get(i);
+            sum += myScores.get(i);
         }
 
         Toast.makeText(AddEditPlayActivity.this,""+sum, Toast.LENGTH_SHORT).show();
@@ -253,5 +314,15 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = new Intent(context, AddEditPlayActivity.class);
         intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
         return intent;
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        myScores.clear();
+        populateList();
+
+//        getState();
+        populateListView();
+        adapter.notifyDataSetChanged();
     }
 }
