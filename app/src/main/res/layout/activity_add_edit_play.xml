@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rectange_filled"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rectange_filled"
     tools:context=".AddEditPlayActivity">
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvTotalScoreQuestion2"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="52dp"-->
-    <!--        android:background="@android:drawable/screen_background_dark_transparent"-->
-    <!--        android:text="What is the difficulty level?"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textSize="20sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/etTotalScore" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/tvTotalScoreQuestion2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="52dp"-->
+<!--        android:background="@android:drawable/screen_background_dark_transparent"-->
+<!--        android:text="What is the difficulty level?"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/etTotalScore" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBackButton3"
@@ -34,6 +34,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
+
+    <EditText
+        android:id="@+id/etTotalScore"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="26dp"
+        android:background="@android:drawable/editbox_background"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Combined Score"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion" />
+
+    <TextView
+        android:id="@+id/tvTotalScoreQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:background="@android:drawable/screen_background_dark_transparent"
+        android:text="What is the total combined score?"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTotalPlayers" />
 
     <Button
         android:id="@+id/btnEnter"
@@ -113,38 +141,38 @@
         app:layout_constraintTop_toBottomOf="@+id/etTotalPlayers"
         app:layout_constraintVertical_bias="0.0" />
 
-    <!--    <Button-->
-    <!--        android:id="@+id/btnMedium"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Normal"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/btnEnter"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion2" />-->
+<!--    <Button-->
+<!--        android:id="@+id/btnMedium"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Normal"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnEnter"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion2" />-->
 
-    <!--    <Button-->
-    <!--        android:id="@+id/btnEasy"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="60dp"-->
-    <!--        android:layout_marginEnd="8dp"-->
-    <!--        android:text="Easy"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/btnEnter"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/btnMedium"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion2" />-->
+<!--    <Button-->
+<!--        android:id="@+id/btnEasy"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="60dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:text="Easy"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnEnter"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/btnMedium"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion2" />-->
 
-    <!--    <Button-->
-    <!--        android:id="@+id/btnHard"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="8dp"-->
-    <!--        android:layout_marginEnd="60dp"-->
-    <!--        android:text="Hard"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/btnEnter"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/btnMedium"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion2" />-->
+<!--    <Button-->
+<!--        android:id="@+id/btnHard"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:text="Hard"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnEnter"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/btnMedium"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion2" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

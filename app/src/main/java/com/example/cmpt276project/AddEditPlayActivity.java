@@ -17,13 +17,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.model.Play;
+import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,6 +41,7 @@ import java.util.List;
 
 public class AddEditPlayActivity extends AppCompatActivity {
 
+    private static final String JSON_STORE = "gameManager.json";
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -45,6 +49,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private Button enter;
     private EditText etTotalPlayers;
     private EditText etTotalScore;
+    private String difficulty;
+    private String tierString;
+    private int index;
 
 
     private int numOfPlayers;
@@ -59,10 +66,11 @@ public class AddEditPlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_play);
-        jsonInitialize();
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
+        jsonWriter = new JsonWriter(getApplicationContext());
         initialization();
 
-        //if is add
         tempMyPlayScores = new ArrayList<Integer>();
 
         myScores = new ArrayList<Integer>();
@@ -92,16 +100,14 @@ public class AddEditPlayActivity extends AppCompatActivity {
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         etTotalPlayers.setText(""+ tempMyPlayScores.size());
 
-        
+
         populateList();
         populateListView();
 
 //        tempMyPlayScores.add(6);
 
 
-
     }
-
     private void populateListView() {
         adapter = new MyListAdapter();
         ListView list = findViewById(R.id.playerList);
@@ -161,9 +167,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     private void populateList() {
         myScores.clear();
-       for(int i = 0; i < tempMyPlayScores.size(); i++){
-           myScores.add(tempMyPlayScores.get(i));
-       }
+        for(int i = 0; i < tempMyPlayScores.size(); i++){
+            myScores.add(tempMyPlayScores.get(i));
+        }
 
     }
 
@@ -175,23 +181,29 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     private void initialization() {
         Intent intent = getIntent();
-        int index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton3);
         back.setOnClickListener(v -> onBackClick());
 
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
-        enter.setOnClickListener(v -> onRegisterClick(index));
-//        etTotalScore = findViewById(R.id.etTotalScore);
+        enter.setOnClickListener(v -> onRegisterClick());
+        etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
-//        etTotalScore.addTextChangedListener(inputTextWatcher);
-
+        etTotalScore.addTextChangedListener(inputTextWatcher);
 
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
+        difficulty = "easy";
+        tierString = "Sky";
+        getOptions();
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getOptions();
+    }
     private void onOptionsClick() {
         Intent i = OptionsActivity.optionsIntent(AddEditPlayActivity.this);
         startActivity(i);
@@ -224,10 +236,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-//            saveScoreToTemp();
+
         }
     };
-
     private void saveScoreToTemp() {
         tempMyPlayScores.clear();
         for(int i = 0; i < myScores.size(); i++){
@@ -273,7 +284,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
             } catch (NumberFormatException e) {
 //                Toast.makeText(AddEditPlayActivity.this, "this works", Toast.LENGTH_SHORT).show();
                 saveBtn.setEnabled(false);
-                 return;
+                return;
 
             }
 
@@ -282,8 +293,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable s) {}
     };
-
-    private void onRegisterClick(int index) {
+    private void onRegisterClick() {
+        Game game = gameManager.getGame(index);
         String players = etTotalPlayers.getText().toString();
         int totalPlayers = Integer.parseInt(players);
         if (totalPlayers == 0) {
@@ -293,8 +304,24 @@ public class AddEditPlayActivity extends AppCompatActivity {
         }
         validateScore();
 
-    }
+        String score = etTotalScore.getText().toString();
+        int totalScore = Integer.parseInt(score);
+        List<Double> scores = new ArrayList<>();
+        scores.add(10.0);
+        scores.add(25.0);
 
+        Options option = getOptions();
+
+        Play play = new Play(game, totalPlayers, scores, option);
+        game.addPlay(play);
+
+        jsonWriter.writeToJson(gameManager);
+
+        Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
+        startActivity(intent);
+        finish();
+
+    }
     private void validateScore() {
         int sum = 0;
         for(int i = 0 ; i < numOfPlayers; i++){
@@ -302,6 +329,14 @@ public class AddEditPlayActivity extends AppCompatActivity {
         }
 
         Toast.makeText(AddEditPlayActivity.this,""+sum, Toast.LENGTH_SHORT).show();
+    }
+    @NonNull
+    private Options getOptions() {
+        difficulty = OptionsActivity.getDifficultySelected(this);
+        tierString = OptionsActivity.getThemeSelected(this);
+        Tier tier = Play.getTier(tierString);
+        Options option = new Options(difficulty, tier);
+        return option;
     }
 
     private void onBackClick() {

@@ -1,5 +1,7 @@
 package com.example.cmpt276project.model;
 
+import com.example.cmpt276project.model.tiers.Tier;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,10 +11,10 @@ import org.json.JSONObject;
 public class Options {
     //choosing the play difficulty level and the play theme
     private String difficulty;
-    private String theme;
+    private Tier theme;
 
     //going to have default has normal difficulty and ocean theme - just since that was our original
-    public Options(String difficulty, String theme) {
+    public Options(String difficulty, Tier theme) {
         this.difficulty = difficulty;
         this.theme = theme;
     }
@@ -25,18 +27,21 @@ public class Options {
         this.difficulty = difficulty;
     }
 
-    public String getTheme() {
+    public Tier getTheme() {
         return theme;
     }
+    public String getThemeName() {
+        return theme.getClassName();
+    }
 
-    public void setTheme(String theme) {
+    public void setTheme(Tier theme) {
         this.theme = theme;
     }
 
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("Difficulty", difficulty);
-        json.put("Theme", theme);
+        json.put("Theme", getThemeName());
 
         return json;
     }
