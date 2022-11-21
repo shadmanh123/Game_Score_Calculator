@@ -4,19 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Path;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Land;
-import com.example.cmpt276project.model.Ocean;
 import com.example.cmpt276project.model.Oceans;
-import com.example.cmpt276project.model.Play;
 import com.example.cmpt276project.model.Sky;
-import com.example.cmpt276project.model.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -49,7 +44,9 @@ public class TiersListActivity extends AppCompatActivity {
         title.setText(theme);
     }
 
-    private void onBackClick() {finish();}
+    private void onBackClick() {
+        finish();
+    }
 
     public static Intent tiersIntent(Context context, int position, int numPlayers) {
         Intent intent = new Intent(context, TiersListActivity.class);
@@ -115,8 +112,8 @@ public class TiersListActivity extends AppCompatActivity {
         TextView levelsix = findViewById(R.id.level_6_score);
         levelsix.setText(scores[5]);
 
-        TextView levelseven = findViewById(R.id.level_7_score);
-        levelseven.setText(scores[4]);
+        TextView levelSeven = findViewById(R.id.level_7_score);
+        levelSeven.setText(scores[4]);
 
         TextView leveleight = findViewById(R.id.level_8_score);
         leveleight.setText(scores[3]);
@@ -131,7 +128,7 @@ public class TiersListActivity extends AppCompatActivity {
 
     //not the best way to do this I don't think so try to find another way
     private void setLevels(String theme) {
-        if (theme.equals("Ocean")){
+        if (theme.equals("Ocean")) {
             TextView levelOne = findViewById(R.id.level_1);
             levelOne.setText(Oceans.LEVEL1.getLevel());
 
@@ -161,7 +158,7 @@ public class TiersListActivity extends AppCompatActivity {
 
             TextView levelten = findViewById(R.id.level_10);
             levelten.setText(Oceans.LEVEL10.getLevel());
-        }else if(theme.equals("Land")){
+        } else if(theme.equals("Land")) {
             TextView levelOne = findViewById(R.id.level_1);
             levelOne.setText(Land.LEVEL1.getLevel());
 
@@ -192,7 +189,7 @@ public class TiersListActivity extends AppCompatActivity {
             TextView levelten = findViewById(R.id.level_10);
             levelten.setText(Land.LEVEL10.getLevel());
 
-        }else{
+        } else {
             TextView levelOne = findViewById(R.id.level_1);
             levelOne.setText(Sky.LEVEL1.getLevel());
 

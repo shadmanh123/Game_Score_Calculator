@@ -34,7 +34,7 @@ public class numPlayersFragment extends AppCompatDialogFragment{
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        EditText num = findViewById(R.id.editTextNumber);
+                        EditText num = getActivity().findViewById(R.id.editTextNumber);
                         String numPlayers = num.getText().toString();
 
                         int Players;

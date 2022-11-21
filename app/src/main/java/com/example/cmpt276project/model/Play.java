@@ -56,7 +56,7 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public void getListOfAchievements() {
-        Tier tiers[] = getTierValues();
+        Tier[] tiers = getTierValues();
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
