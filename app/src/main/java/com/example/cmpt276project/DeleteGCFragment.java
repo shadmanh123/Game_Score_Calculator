@@ -29,13 +29,13 @@ public class DeleteGCFragment extends AppCompatDialogFragment {
         //create the view to show - load the message
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.delete_gc_fragement, null);
-        jsonWriter = new JsonWriter(getActivity());
 
         //create a button listener
         DialogInterface.OnClickListener listener = (dialog, which) -> {
             int index = getArguments().getInt("index");
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    jsonWriter = new JsonWriter(getActivity());
                     jsonReader = new JsonReader(getActivity());
                     gameManager = jsonReader.readFromJson();
                     Game game = gameManager.getGame(index);
