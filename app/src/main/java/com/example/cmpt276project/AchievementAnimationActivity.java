@@ -65,4 +65,102 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         intent.putExtra(THEME, theme);
         return intent;
     }
+
+    public void setIcon(String achievement){
+        switch(achievement) {
+            case "Blue Whale":
+                // code block
+                break;
+            case "Great White Shark":
+                // code block
+                break;
+            case "Colossal Squid":
+                // code block
+                break;
+            case "Bottlenose Dolphin":
+                // code block
+                break;
+            case "Lion's Mane Jellyfish":
+                // code block
+                break;
+            case "Giant Pacific Octopus":
+                // code block
+                break;
+            case "Peacock Mantis Shrimp":
+                // code block
+                break;
+            case "Flamingo Tongue Snail":
+                // code block
+                break;
+            case "Frogfish":
+                // code block
+                break;
+            case "Blobfish":
+                // code block
+                break;
+            case "African Bush Elephant":
+                // code block
+                break;
+            case "White Rhinoceros":
+                // code block
+                break;
+            case "Siberian Tiger":
+                // code block
+                break;
+            case "Impala Antelope":
+                // code block
+                break;
+            case "Red Kangaroo":
+                // code block
+                break;
+            case "Chimpanzee":
+                // code block
+                break;
+            case "Blue Peacock":
+                // code block
+                break;
+            case "Queensland Koala":
+                // code block
+                break;
+            case "Northern Flying Squirrel":
+                // code block
+                break;
+            case "Etruscan shrew":
+                // code block
+                break;
+            case "Ruppell’s Griffon Vulture":
+                // code block
+                break;
+            case "Peregrine Falcon":
+                // code block
+                break;
+            case "Black Crowned Crane":
+                // code block
+                break;
+            case "Whooper Swan":
+                // code block
+                break;
+            case "Alpine Chough":
+                // code block
+                break;
+            case "Bald Eagle":
+                // code block
+                break;
+            case "Barn Owl":
+                // code block
+                break;
+            case "Little Brown Bat":
+                // code block
+                break;
+            case "Red Carneau Pigeon":
+                // code block
+                break;
+            case "Dorking Chicken":
+                // code block
+                break;
+            default:
+                // code block
+        }
+
+    }
 }
