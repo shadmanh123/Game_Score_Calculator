@@ -19,7 +19,9 @@ import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
-
+/**
+ * Fragment to clear Game Categories if needed
+ */
 public class ClearFragment extends AppCompatDialogFragment {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;

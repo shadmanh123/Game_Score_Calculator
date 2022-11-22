@@ -84,14 +84,12 @@ public class PlayActivity extends AppCompatActivity {
             tableRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int rowIndex = table.indexOfChild(view) -1;
-//                    Toast.makeText(PlayActivity.this, ""+rowIndex, Toast.LENGTH_SHORT).show();
+                    int rowIndex = table.indexOfChild(view) - 1;
                     Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, GameIndex, true, rowIndex);
                     startActivity(intent);
                 }
             });
             table.addView(tableRow);
-
 
             for (int col = 0; col < COLUMN_SIZE; col++) {
                 TextView tv = new TextView(this);
@@ -105,8 +103,6 @@ public class PlayActivity extends AppCompatActivity {
 
         }
     }
-
-
 
     public static Intent makeIntent(Context context, int gameIndex) {
         Intent intent = new Intent(context, PlayActivity.class);
