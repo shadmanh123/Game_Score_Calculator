@@ -1,12 +1,15 @@
 package com.example.cmpt276project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -30,20 +33,22 @@ public class OptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
-        jsonReader = new JsonReader(getApplicationContext());
-        gameManager = jsonReader.readFromJson();
-
-        jsonWriter = new JsonWriter(getApplicationContext());
+        initializeJson();
 
         createDifficultyMenu();
         createThemeMenu();
 
         String savedDiff = getDifficultySelected(this);
         String savedTheme = getThemeSelected(this);
-        Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(v -> onBackClick());
+
+        Intent intent = getIntent();
+        int pos = intent.getIntExtra("position", 0);
+        Button tiers = findViewById(R.id.Tiers);
+        tiers.setOnClickListener(v -> onTiersClick(pos));
     }
 
     private void createDifficultyMenu() {
@@ -61,7 +66,6 @@ public class OptionsActivity extends AppCompatActivity {
             levelbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo: save the data
                     saveDifficultySelected(level);
                     jsonWriter.writeToJson(gameManager);
                 }
@@ -92,7 +96,6 @@ public class OptionsActivity extends AppCompatActivity {
             themeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo: save the data
                     saveThemeSelected(theme);
                     jsonWriter.writeToJson(gameManager);
                 }
@@ -138,8 +141,34 @@ public class OptionsActivity extends AppCompatActivity {
         finish();
     }
 
-    public static Intent optionsIntent(Context context) {
+    private void onTiersClick(int pos) {
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position", 0);
+        FragmentManager manager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        NumPlayersFragment dialog = new NumPlayersFragment();
+        dialog.setArguments(bundle);
+        dialog.show(manager, "message");
+//        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
+//        startActivity(i);
+//        onStart();
+    }
+
+    private void initializeJson() {
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
+        jsonWriter = new JsonWriter(getApplicationContext());
+    }
+
+    public static Intent optionsIntentPlay(Context context) {
         Intent intent = new Intent(context, OptionsActivity.class);
+        return intent;
+    }
+
+    public static Intent optionsIntent(Context context, int position) {
+        Intent intent = new Intent(context, OptionsActivity.class);
+        intent.putExtra("position", position);
         return intent;
     }
 }

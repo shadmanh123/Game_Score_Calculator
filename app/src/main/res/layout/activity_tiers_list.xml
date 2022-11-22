@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img2"
+    tools:context=".TiersListActivity">
+
+    <TextView
+        android:id="@+id/PageTitle"
+        android:layout_width="215dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/main_title"
+        android:fontFamily="sans-serif"
+        android:text="@string/tiers"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/listViewMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/listViewMain"
+        android:layout_width="322dp"
+        android:layout_height="517dp"
+        android:background="@drawable/gamecategorieslist"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingBackButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:rotation="180"
+        app:backgroundTint="#70B2D7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
+
+    <TextView
+        android:id="@+id/theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/tiersTable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PageTitle"
+        app:layout_constraintVertical_bias="0.632" />
+
+    <TableLayout
+        android:id="@+id/tiersTable"
+        android:layout_width="309dp"
+        android:layout_height="430dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="@+id/listViewMain"
+        app:layout_constraintEnd_toEndOf="@+id/listViewMain"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintLeft_toLeftOf="@+id/listViewMain"
+        app:layout_constraintRight_toRightOf="@+id/listViewMain"
+        app:layout_constraintStart_toStartOf="@+id/listViewMain"
+        app:layout_constraintTop_toTopOf="@+id/listViewMain"
+        app:layout_constraintVertical_bias="0.712">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="#9EAAD5"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="Achievement \n Levels"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:background="#9EAAD5"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="Minimum Score \n Required"
+                android:textColor="@color/white" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

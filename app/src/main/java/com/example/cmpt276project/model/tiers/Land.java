@@ -2,6 +2,10 @@ package com.example.cmpt276project.model.tiers;
 
 import com.example.cmpt276project.model.tiers.Tier;
 
+/**
+ * Land: hold the enum that contains all the tier levels
+ * for this theme - land
+ */
 public enum Land implements Tier {
     LEVEL10("African Bush Elephant"),
     LEVEL9("White Rhinoceros"),

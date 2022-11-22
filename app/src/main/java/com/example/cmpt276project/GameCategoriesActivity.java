@@ -52,6 +52,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         initialize();
 
+
         getState();
         setUpOnClickListeners();
 
@@ -192,10 +193,13 @@ public class GameCategoriesActivity extends AppCompatActivity {
     }
 
     private void onTiers(int pos) {
-        FragmentManager manager = getSupportFragmentManager();
-        TiersFragment dialog = TiersFragment.newInstance(pos);
-        dialog.show(manager, "MessageDialog");
-        Log.i("Tag", "Just showed the dialog");
+//        FragmentManager manager = getSupportFragmentManager();
+//        TiersFragment dialog = TiersFragment.newInstance(pos);
+//        dialog.show(manager, "MessageDialog");
+//        Log.i("Tag", "Just showed the dialog");
+        Intent i = OptionsActivity.optionsIntent(GameCategoriesActivity.this, pos);
+        startActivity(i);
+        onStart();
     }
 
     private void onEdit(int position) {

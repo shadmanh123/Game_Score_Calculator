@@ -2,6 +2,10 @@ package com.example.cmpt276project.model.tiers;
 
 import com.example.cmpt276project.model.tiers.Tier;
 
+/**
+ * Ocean: hold the enum that contains all the tier levels
+ * for this theme - ocean
+ */
 public enum Ocean implements Tier {
     LEVEL10("Blue Whale"),
     LEVEL9("Great White Shark"),
