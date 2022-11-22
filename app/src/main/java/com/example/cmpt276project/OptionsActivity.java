@@ -147,7 +147,7 @@ public class OptionsActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        numPlayersFragment dialog = new numPlayersFragment();
+        NumPlayersFragment dialog = new NumPlayersFragment();
         dialog.setArguments(bundle);
         dialog.show(manager, "message");
 //        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);

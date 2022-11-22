@@ -4,16 +4,15 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +22,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
  * numPlayers Fragment: This fragments asks users the number of players
  * so that it gives an accurate tier example for what they want to see
  */
-public class numPlayersFragment extends AppCompatDialogFragment{
+public class NumPlayersFragment extends AppCompatDialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
