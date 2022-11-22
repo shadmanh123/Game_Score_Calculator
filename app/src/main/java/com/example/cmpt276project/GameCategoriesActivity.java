@@ -3,6 +3,7 @@ package com.example.cmpt276project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,13 @@ public class GameCategoriesActivity extends AppCompatActivity {
     ArrayAdapter<Game> adapter;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        gameManager = jsonReader.readFromJson();
+        onStart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_categories);
@@ -45,11 +53,22 @@ public class GameCategoriesActivity extends AppCompatActivity {
         initialize();
 
         getState();
-        findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
-        findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
+        setUpOnClickListeners();
 
         onStart();
         registerClickCallback();
+    }
+
+    private void setUpOnClickListeners() {
+        findViewById(R.id.btnAdd).setOnClickListener(v -> onClick());
+        findViewById(R.id.btnCredits).setOnClickListener((v -> onCredits()));
+        findViewById(R.id.btnClear).setOnClickListener(v -> onClear());
+    }
+
+    private void onClear() {
+        FragmentManager manager = getSupportFragmentManager();
+        ClearFragment dialog = new ClearFragment();
+        dialog.show(manager, "message");
     }
 
     private void initialize() {
@@ -74,6 +93,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
             View list = findViewById(R.id.gameCategoriesList);
             list.setVisibility(View.GONE);
 
+            View clear = findViewById(R.id.btnClear);
+            clear.setVisibility(View.GONE);
+
             View text = findViewById(R.id.emptyStateText);
             text.setVisibility(View.VISIBLE);
 
@@ -85,6 +107,9 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
             View list = findViewById(R.id.gameCategoriesList);
             list.setVisibility(View.VISIBLE);
+
+            View clear = findViewById(R.id.btnClear);
+            clear.setVisibility(View.VISIBLE);
 
             View text = findViewById(R.id.emptyStateText);
             text.setVisibility(View.GONE);
