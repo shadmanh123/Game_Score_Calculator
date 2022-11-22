@@ -81,7 +81,7 @@ public class Game implements Writable {
                 display = play.getAchievementScore();
                 break;
             case 4:
-                display = play.difficulty_level;
+                display = play.getDifficultyLevel();
                 break;
             default:
                 display = "";

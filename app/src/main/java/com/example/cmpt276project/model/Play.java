@@ -33,7 +33,6 @@ public class Play implements Writable {
     private static HashMap<Tier, Double> achievements;
     private static String tierString;
     private List<Double> scores;
-
     private Options options;
 
     public Play(Game game, int numPlayers, List<Double> scores, Options options) {
@@ -177,15 +176,15 @@ public class Play implements Writable {
     }
 
     public static double getDifficultyLevel(String difficultyLevel) {
-        double difficulty_value;
-        if (difficultyLevel == "easy") {
-            difficulty_value = 0.75;
-        } else if (difficultyLevel == "hard") {
-            difficulty_value = 1.25;
+        double difficultyValue;
+        if (difficultyLevel.equals("easy")) {
+            difficultyValue = 0.75;
+        } else if (difficultyLevel.equals("hard")) {
+            difficultyValue = 1.25;
         } else {
-            difficulty_value = 1;
+            difficultyValue = 1;
         }
-        return difficulty_value;
+        return difficultyValue;
     }
 
     public String getCreationDate() {
@@ -215,8 +214,9 @@ public class Play implements Writable {
         return options;
     }
 
-
-
+    public String getDifficultyLevel() {
+        return difficultyLevel;
+    }
 
 
     @NonNull
