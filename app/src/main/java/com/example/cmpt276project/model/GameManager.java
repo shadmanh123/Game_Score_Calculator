@@ -14,7 +14,7 @@ import java.util.List;
  * GameManager: Singleton class that manages all the different games in the application
  */
 public class GameManager implements Writable {
-    private List<Game> games;
+    public List<Game> games;
 
     //making the singleton
     private static GameManager instance;

@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,18 +29,19 @@ public class PlayActivity extends AppCompatActivity {
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private GameManager gameManager;
     private JsonReader jsonReader;
-    private final int COLUMN_SIZE = 4;
+    private final int COLUMN_SIZE = 5;
     Dialog dialog;
+    private int GameIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+        GameIndex = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
-        setUpGame(index);
-        setUpOnClickListeners(index);
+        setUpGame(GameIndex);
+        setUpOnClickListeners(GameIndex);
     }
 
     private void setUpGame(int index) {
@@ -57,7 +60,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         newGame.setOnClickListener(v -> {
-            Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, index);
+            Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, index, false, -1);
             startActivity(intent);
         });
     }
@@ -74,20 +77,36 @@ public class PlayActivity extends AppCompatActivity {
 
     private void populateButtons(Game game) {
         TableLayout table = findViewById(R.id.tableForHistory);
+        int pos = 0;
         for (int row = 0; row < game.playSize(); row++) {
+            pos = row;
             TableRow tableRow = new TableRow(this);
+            tableRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int rowIndex = table.indexOfChild(view) -1;
+//                    Toast.makeText(PlayActivity.this, ""+rowIndex, Toast.LENGTH_SHORT).show();
+                    Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, GameIndex, true, rowIndex);
+                    startActivity(intent);
+                }
+            });
             table.addView(tableRow);
+
 
             for (int col = 0; col < COLUMN_SIZE; col++) {
                 TextView tv = new TextView(this);
+                tv.setTextSize(12);
                 tableRow.addView(tv);
                 String tvText = game.displayPlayInfo(row, col);
                 tv.setText(tvText);
                 tv.setBackgroundColor(Color.parseColor("#CBF4F1"));
                 tv.setGravity(Gravity.CENTER);
             }
+
         }
     }
+
+
 
     public static Intent makeIntent(Context context, int gameIndex) {
         Intent intent = new Intent(context, PlayActivity.class);
