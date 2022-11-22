@@ -65,7 +65,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
         enter = findViewById(R.id.btnEnter);
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         enter.setOnClickListener(v -> onRegisterClick());
-        etTotalScore = findViewById(R.id.etTotalScore);
         etTotalPlayers.addTextChangedListener(inputTextWatcher);
         etTotalScore.addTextChangedListener(inputTextWatcher);
 
