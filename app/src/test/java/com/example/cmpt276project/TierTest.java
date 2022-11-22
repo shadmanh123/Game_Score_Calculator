@@ -16,7 +16,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Tier Test: holds coverage tests for the tiers
+ */
 public class TierTest {
     Game testGame;
     Tier testOcean;

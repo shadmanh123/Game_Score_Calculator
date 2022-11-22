@@ -20,6 +20,9 @@ import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 
+/**
+ * Clear Fragment: used to make sure that user wanted to delete all games
+ */
 public class ClearFragment extends AppCompatDialogFragment {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;

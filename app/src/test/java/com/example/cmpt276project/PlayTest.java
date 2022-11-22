@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Play Test: holds coverage tests for the play class
+ */
 class PlayTest {
     Game testGame1;
     Game testGame2;
