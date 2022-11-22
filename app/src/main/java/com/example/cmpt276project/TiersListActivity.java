@@ -46,7 +46,7 @@ public class TiersListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", 0);
         System.out.println("num of position in tiers " + position);
-        int numPlayers = numPlayersFragment.getNumPlayersSelected(this);
+        int numPlayers = NumPlayersFragment.getNumPlayersSelected(this);
         System.out.println("num of players in tiers " + numPlayers);
 
         theme = OptionsActivity.getThemeSelected(this);
