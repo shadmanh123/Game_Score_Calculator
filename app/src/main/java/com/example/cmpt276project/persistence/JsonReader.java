@@ -26,9 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-// Code based on a demo from Tiffanie's class at UBC CPSC 210
-// Represents a reader that reads workroom from JSON data stored in file
-
+/**
+ * Code based on a demo from Tiffanie's class at UBC CPSC 210
+ * Represents a reader that reads workroom from JSON data stored in file
+ */
 public class JsonReader {
 
     private static final String JSON_STORE = "gameManager.json";

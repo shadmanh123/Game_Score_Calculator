@@ -1,5 +1,9 @@
 package com.example.cmpt276project.model.tiers;
 
+/**
+ * Sky: hold the enum that contains all the tier levels
+ * for this theme - sky
+ */
 public enum Sky implements Tier {
     LEVEL10("Ruppell’s Griffon Vulture"),
     LEVEL9("Peregrine Falcon"),
