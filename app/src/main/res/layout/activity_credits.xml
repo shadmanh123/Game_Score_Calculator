@@ -61,23 +61,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+            <TextView
+                android:id="@+id/tvCredits"
+                android:layout_width="414dp"
+                android:layout_height="482dp"
+                android:background="@android:drawable/screen_background_dark_transparent"
+                android:gravity="center"
+                android:text="@string/credit_Info"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/floatingBackButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
         </LinearLayout>
 
     </ScrollView>
-
-    <TextView
-        android:id="@+id/tvCredits"
-        android:layout_width="414dp"
-        android:layout_height="482dp"
-        android:background="@android:drawable/screen_background_dark_transparent"
-        android:gravity="center"
-        android:text="@string/credit_Info"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/floatingBackButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
