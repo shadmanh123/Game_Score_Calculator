@@ -41,7 +41,7 @@ class PlayTest {
         scores.add(40.0);
         scores.add(90.0);
         Play play1 = new Play(testGame1, 3, scores, testOption);
-        String achievement = play1.getAchievementScore();
+        String achievement = play1.getAchievementScore(testOption.getTheme());
         assertEquals("Giant Pacific Octopus", achievement);
 
         scores.clear();
@@ -51,13 +51,13 @@ class PlayTest {
         scores.add(50.0);
         scores.add(140.0);
         Play play2 = new Play(testGame2, 5, scores, testOption);
-        String achievement2 = play2.getAchievementScore();
+        String achievement2 = play2.getAchievementScore(testOption.getTheme());
         assertEquals("Lion's Mane Jellyfish", achievement2);
 
         scores.clear();
         scores.add(3.0);
         Play play3 = new Play(testGame3, 1, scores, testOption);
-        String achievement3 = play3.getAchievementScore();
+        String achievement3 = play3.getAchievementScore(testOption.getTheme());
         assertEquals("Giant Pacific Octopus", achievement3);
     }
 
@@ -66,21 +66,21 @@ class PlayTest {
         List<Double> scores = new ArrayList<>();
         scores.add(5.0);
         Play play1 = new Play(testGame3, 1, scores, testOption);
-        String achievement = play1.getAchievementScore();
+        String achievement = play1.getAchievementScore(testOption.getTheme());
         assertEquals("Bottlenose Dolphin", achievement);
 
         scores.clear();
         scores.add(5.0);
         testOption.setDifficulty("hard");
         Play play2 = new Play(testGame3, 1, scores, testOption);
-        String achievement2 = play2.getAchievementScore();
+        String achievement2 = play2.getAchievementScore(testOption.getTheme());
         assertEquals("Lion's Mane Jellyfish", achievement2);
 
         scores.clear();
         scores.add(5.0);
         testOption.setDifficulty("easy");
         Play play3 = new Play(testGame3, 1, scores, testOption);
-        String achievement3 = play3.getAchievementScore();
+        String achievement3 = play3.getAchievementScore(testOption.getTheme());
         assertEquals("Colossal Squid", achievement3);
     }
 
@@ -90,21 +90,21 @@ class PlayTest {
         scores.add(150.0);
         scores.add(50.0);
         Play play1 = new Play(testGame1, 2, scores, testOption);
-        String achievement = play1.getAchievementScore();
+        String achievement = play1.getAchievementScore(testOption.getTheme());
         assertEquals("Blue Whale", achievement);
 
         scores.clear();
         scores.add(230.0);
         scores.add(170.0);
         Play play2 = new Play(testGame2, 2, scores, testOption);
-        String achievement2 = play2.getAchievementScore();
+        String achievement2 = play2.getAchievementScore(testOption.getTheme());
         assertEquals("Blue Whale", achievement2);
 
         scores.clear();
         scores.add(13.0);
         scores.add(7.0);
         Play play3 = new Play(testGame3, 2, scores, testOption);
-        String achievement3 = play3.getAchievementScore();
+        String achievement3 = play3.getAchievementScore(testOption.getTheme());
         assertEquals("Blue Whale", achievement3);
     }
 
@@ -114,21 +114,21 @@ class PlayTest {
         scores.add(150.0);
         scores.add(100.0);
         Play play1 = new Play(testGame1, 2, scores, testOption);
-        String achievement = play1.getAchievementScore();
+        String achievement = play1.getAchievementScore(testOption.getTheme());
         assertEquals("Blue Whale", achievement);
 
         scores.clear();
         scores.add(370.0);
         scores.add(80.0);
         Play play2 = new Play(testGame2, 2, scores, testOption);
-        String achievement2 = play2.getAchievementScore();
+        String achievement2 = play2.getAchievementScore(testOption.getTheme());
         assertEquals("Blue Whale", achievement2);
 
         scores.clear();
         scores.add(20.0);
         scores.add(5.0);
         Play play3 = new Play(testGame3, 2, scores, testOption);
-        String achievement3 = play3.getAchievementScore();
+        String achievement3 = play3.getAchievementScore(testOption.getTheme());
         assertEquals("Blue Whale", achievement3);
     }
 
@@ -139,21 +139,21 @@ class PlayTest {
         scores.add(0.0);
         Play play1 = new Play(testGame1, 2, scores, testOption);
 
-        String achievement = play1.getAchievementScore();
+        String achievement = play1.getAchievementScore(testOption.getTheme());
         assertEquals("Blobfish", achievement);
 
         scores.clear();
         scores.add(0.0);
         scores.add(0.0);
         Play play2 = new Play(testGame2, 2, scores, testOption);
-        String achievement2 = play2.getAchievementScore();
+        String achievement2 = play2.getAchievementScore(testOption.getTheme());
         assertEquals("Blobfish", achievement2);
 
         scores.clear();
         scores.add(0.0);
         scores.add(0.0);
         Play play3 = new Play(testGame3, 2, scores, testOption);
-        String achievement3 = play3.getAchievementScore();
+        String achievement3 = play3.getAchievementScore(testOption.getTheme());
         assertEquals("Blobfish", achievement3);
     }
 
@@ -164,19 +164,19 @@ class PlayTest {
         scores.add(2.0);
         Play play = new Play(testGame1, 2, scores, testOption);
 
-        String achievement = play.getAchievementScore();
+        String achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Blobfish", achievement);
 
         play.setTotalScore(31.0);
-        achievement = play.getAchievementScore();
+        achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Frogfish", achievement);
 
         play.setTotalScore(32.0);
-        achievement = play.getAchievementScore();
+        achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Frogfish", achievement);
 
         play.setTotalScore(33.0);
-        achievement = play.getAchievementScore();
+        achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Frogfish", achievement);
 
     }
@@ -187,11 +187,11 @@ class PlayTest {
         scores.add(35.0);
         scores.add(22.0);
         Play play = new Play(testGame2, 2, scores, testOption);
-        String achievement = play.getAchievementScore();
+        String achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Frogfish", achievement);
 
         play.setTotalScore(56.0);
-        achievement = play.getAchievementScore();
+        achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Blobfish", achievement);
     }
 
@@ -201,11 +201,11 @@ class PlayTest {
         scores.add(1.0);
         scores.add(0.0);
         Play play = new Play(testGame3, 2, scores, testOption);
-        String achievement = play.getAchievementScore();
+        String achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Frogfish", achievement);
 
         play.setTotalScore(0.0);
-        achievement = play.getAchievementScore();
+        achievement = play.getAchievementScore(testOption.getTheme());
         assertEquals("Blobfish", achievement);
     }
 

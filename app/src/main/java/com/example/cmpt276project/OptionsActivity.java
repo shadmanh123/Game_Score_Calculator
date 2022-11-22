@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,7 +42,6 @@ public class OptionsActivity extends AppCompatActivity {
         String savedDiff = getDifficultySelected(this);
         String savedTheme = getThemeSelected(this);
 //        Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
-
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(v -> onBackClick());
 
@@ -67,7 +67,6 @@ public class OptionsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     saveDifficultySelected(level);
-                    jsonWriter.writeToJson(gameManager);
                 }
             });
 

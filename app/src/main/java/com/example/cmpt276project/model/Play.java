@@ -54,7 +54,7 @@ public class Play implements Writable {
     public void setNumPlayers(int num){
         this.numPlayers = num;
     }
-    public void setScores(List<Double> scores){
+    public void setScores(List<Double> scores) {
         this.scores = scores;
     }
 
@@ -66,12 +66,8 @@ public class Play implements Writable {
         return totalScore;
     }
 
-    public int getScoreSize(){
-        return scores.size();
-    }
-    public double getScore(int i){
-        return scores.get(i);
-    }
+    public int getScoreSize() { return scores.size(); }
+    public double getScore(int i) { return scores.get(i); }
 
     // subdivide scores into 10 tiers
     public static List<Double> getListOfAchievements(Game game, int numPlayers, String difficultyLevel, String theme, HashMap<Tier, Double> achievements) {
@@ -135,8 +131,8 @@ public class Play implements Writable {
     }
 
     // subdivide scores into 10 tiers
-    public String getAchievementScore() {
-        getListOfAchievements(game, numPlayers, difficultyLevel, tierString, achievements);
+    public String getAchievementScore(Tier tiers) {
+        getListOfAchievements(game, numPlayers, difficultyLevel, tiers.getClassName(), achievements);
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
@@ -214,7 +210,7 @@ public class Play implements Writable {
     }
 
     public String getDifficultyLevel() {
-        return difficultyLevel;
+        return options.getDifficulty();
     }
 
 

@@ -78,7 +78,8 @@ public class Game implements Writable {
                 display = "" + play.getTotalScore();
                 break;
             case 3:
-                display = play.getAchievementScore();
+                Options option = play.getOptions();
+                display = play.getAchievementScore(option.getTheme());
                 break;
             case 4:
                 display = play.getDifficultyLevel();
