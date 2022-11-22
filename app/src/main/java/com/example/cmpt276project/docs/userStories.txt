@@ -1,31 +1,33 @@
+Unit of Work - An hour of coding / debugging, not including research
+
 Game Played Difficulty
-    - Model: 1-2 hours of work
-    - UI: 3-4 hours of work
+    - Model: 1-2 units of work
+    - UI: 3-4 units of work
         - Must change TiersFragment -> Tiers Class
         - Must change GameHistory
         - Must change AddEditGameHistory
 
 Edit Game Played
-    - 1 - 2 hours because one of the team members did a similar thing for Game Categories
+    - 1 - 2 units of work because one of the team members did a similar thing for Game Categories
 
 Score Calculator
     The app must ask how many players there are and then allow me to enter each player's score individually.
-        - Model: 15 mins
-        - UI: 2 hours
+        - Model: 1/4 units of work
+        - UI: 2 units of work
 
     The app should know the individual scores in the future, so that I can later go back and see or edit the individual scores.
-        - UI: +1 hours
+        - UI: more than 1 unit of work
 
     The computation for the achievement level is still based on the sum of all player scores.
-        - Model: 15 mins
+        - Model: 1/4 units of work
 
 Achievement Improvements
     When a game is played and an achievement level is earned, I want an image, some animation effect,
     and a sound to be played to make it feel like a reward and a celebration.
-        - UI: 4 hours
+        - UI: 4 units of work
 
     I want to select a theme for the achievements. I want at least 3 different themes to choose between.
-        - Model: 2 hours
-        - UI: 5+ hours
+        - Model: 2 units of work
+        - UI: 5+ units of work
 
 

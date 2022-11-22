@@ -1,0 +1,30 @@
+1. Lines must be no more than 120 characters long
+
+2. Methods must be no more than 20 lines long (25 for the term project), excluding blank lines and lines that are fully commented out
+
+3. Type names (classes, interfaces, enums) must
+- start with an upper case [A-Z] character, optionally followed by a sequence of lower [a-z] or upper case [A-Z] characters or digits [0-9] (no underscores)
+- contain no more than 3 consecutive upper case characters
+- consist only of lower or upper case characters or digits (no underscores)
+- use UpperCamelCase
+
+4. Method and field names must
+- start with two lower case characters or a lower case character followed by a digit,
+- optionally followed by a sequence of lower or upper case characters or digits (no underscores)
+- contain no more than 3 consecutive upper case characters
+- use lowerCamelCase
+
+5. Parameter and local variable names must:
+- consist of a single lower case character; or start with two lower case characters or a lower case character followed by a digit, optionally followed by a sequence of lower or upper case characters or digits (no underscores)
+- contain no more than 3 consecutive upper case characters
+- use lowerCamelCase
+
+6. Fields that are declared static and final must have identifiers that consist of upper case characters, digits and underscores ( _ ) only
+
+7. Code blocks must be consistently indented using 4 spaces
+
+8. At least one blank line must separate the fields from the methods and the methods from each other; there must be only one statement per line
+
+9. An open brace { must not appear on a line of its own
+
+10. A closing brace } must appear on a line of its own, unless followed by the keywords else or catch
