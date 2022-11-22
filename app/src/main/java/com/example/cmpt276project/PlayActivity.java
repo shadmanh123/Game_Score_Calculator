@@ -60,7 +60,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         newGame.setOnClickListener(v -> {
-            Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, index, false, -1);
+            Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, GameIndex, false, -1);
             startActivity(intent);
         });
     }
@@ -77,9 +77,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private void populateButtons(Game game) {
         TableLayout table = findViewById(R.id.tableForHistory);
-        int pos = 0;
         for (int row = 0; row < game.playSize(); row++) {
-            pos = row;
             TableRow tableRow = new TableRow(this);
             tableRow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,7 +98,6 @@ public class PlayActivity extends AppCompatActivity {
                 tv.setBackgroundColor(Color.parseColor("#CBF4F1"));
                 tv.setGravity(Gravity.CENTER);
             }
-
         }
     }
 

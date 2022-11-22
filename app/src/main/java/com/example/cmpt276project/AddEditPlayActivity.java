@@ -10,12 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276project.model.Game;
@@ -37,7 +41,8 @@ import java.util.List;
 
 public class AddEditPlayActivity extends AppCompatActivity {
 
-    public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
+    private static final String JSON_STORE = "gameManager.json";
+    public static final String INDEX_OF_SELECTED_GAME = "Index";
 
     public static final String BOOL_IS_EDIT = "Index of Selected Game";
     public static final String INT_PLAY_POSITION = "Index of Selected play";
@@ -68,10 +73,13 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
-
-        String name = gameManager.getGame(index).getName();
-        jsonWriter = new JsonWriter(getApplicationContext());
         initialization();
+        String name = gameManager.getGame(index).getName();
+
+
+
+        jsonWriter = new JsonWriter(getApplicationContext());
+
 
         tempMyPlayScores = new ArrayList<>();
 
@@ -79,7 +87,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
         if(isEdit) {
 
             Play play = gameManager.getGame(index).getPlay(playPosition);
-            Toast.makeText(AddEditPlayActivity.this, ""+name, Toast.LENGTH_SHORT).show();
             for(int i = 0; i < play.getScoreSize(); i++) {
                 tempMyPlayScores.add(play.getScore(i));
             }
@@ -101,14 +108,12 @@ public class AddEditPlayActivity extends AppCompatActivity {
             super(AddEditPlayActivity.this, R.layout.playitemlayout, myScores);
         }
 
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
-            if(itemView == null){
+            if(itemView == null) {
                 itemView = getLayoutInflater().inflate(R.layout.playitemlayout, parent, false);
             }
-
             TextView player = itemView.findViewById(R.id.txtPlayer);
             player.setText("player " + (position + 1));
 
@@ -116,15 +121,12 @@ public class AddEditPlayActivity extends AppCompatActivity {
             score.setText("" + myScores.get(position));
             View saveBtn = itemView.findViewById(R.id.btnSave);
             saveBtn.setOnClickListener(view -> {
-                Toast.makeText(AddEditPlayActivity.this, score.getText().toString().trim(), Toast.LENGTH_SHORT).show();
                 double numScore;
                 try {
                     numScore = Double.parseDouble(score.getText().toString().trim());
                 } catch (NumberFormatException e) {
                     return;
-
                 }
-
                 tempMyPlayScores.set(position, numScore);
                 populateList();
                 adapter.notifyDataSetChanged();
@@ -202,7 +204,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
         }
     };
 
-
     private void updateTempPlayer() {
         if(numOfPlayers > tempMyPlayScores.size()){
             for(int i = tempMyPlayScores.size(); i < numOfPlayers; i++){
@@ -219,12 +220,10 @@ public class AddEditPlayActivity extends AppCompatActivity {
     }
 
     public class inputScoreWatcher implements TextWatcher {
-        private int position;
         private View saveBtn;
 
         public inputScoreWatcher(int position, View saveBtn){
             super();
-            this.position = position;
             this.saveBtn = saveBtn;
         }
 
@@ -236,9 +235,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
                 Integer.parseInt(s.toString().trim());
             } catch (NumberFormatException e) {
                 return;
-
             }
-
             saveBtn.setEnabled(true);
         }
         @Override
@@ -253,7 +250,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        validateScore();
+
         List<Double> scores = new ArrayList<>();
         for(int i = 0; i < tempMyPlayScores.size(); i++){
             double convert = tempMyPlayScores.get(i);
@@ -277,20 +274,11 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
 
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this, play.getAchievementScore(), option.getDifficulty());
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, play.getAchievementScore(), option.getDifficulty());
         startActivity(animationIntent);
         finish();
-
     }
 
-    private void validateScore() {
-        int sum = 0;
-        for(int i = 0 ; i < numOfPlayers; i++) {
-            sum += myScores.get(i);
-        }
-
-        Toast.makeText(AddEditPlayActivity.this,"" + sum, Toast.LENGTH_SHORT).show();
-    }
     @NonNull
     private Options getOptions() {
         String difficulty = OptionsActivity.getDifficultySelected(this);
@@ -308,7 +296,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context, int gameIndex, boolean isEdit, int playPosition) {
         Intent intent = new Intent(context, AddEditPlayActivity.class);
-        intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
+        intent.putExtra("Index", gameIndex);
         intent.putExtra(BOOL_IS_EDIT, isEdit);
         intent.putExtra(INT_PLAY_POSITION, playPosition);
         return intent;

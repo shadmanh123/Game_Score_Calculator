@@ -13,14 +13,19 @@ import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+/*
+animation class for display achievement lever and difficulty
+ */
 
 public class AchievementAnimationActivity extends AppCompatActivity {
     private SoundPool soundPool;
     private int sound1;
     public static final String ACHIEVEMENT= "achievement of play";
     public static final String THEME = "theme of play";
+    public static final String GAME_INDEX = "game index";
     private String theme;
     private String achievement;
+    private int gameIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +34,14 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         achievement = intent.getStringExtra(ACHIEVEMENT);
         theme = intent.getStringExtra(THEME);
+        gameIndex = intent.getIntExtra(GAME_INDEX, 0);
 
         TextView difficulty = findViewById(R.id.txtDificulty);
         difficulty.setText(theme);
 
         setIcon(achievement);
 
-        Toast.makeText(this,theme, Toast.LENGTH_SHORT).show();
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -46,7 +50,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
                     .setMaxStreams(6)
                     .setAudioAttributes(audioAttributes)
                     .build();
-        }else{
+        } else {
             soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC,0);
         }
 
@@ -57,19 +61,22 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             public void run() {
 
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
-                startActivity(new Intent(AchievementAnimationActivity.this, PlayActivity.class));
+                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
+                startActivity(intent);
                 finish();
             }
         },3000);
     }
-    public static Intent makeIntent(Context context, String achievement, String theme) {
+
+    public static Intent makeIntent(Context context,int gameIndex, String achievement, String theme) {
         Intent intent = new Intent(context, AchievementAnimationActivity.class);
         intent.putExtra(ACHIEVEMENT, achievement);
         intent.putExtra(THEME, theme);
+        intent.putExtra(GAME_INDEX, gameIndex);
         return intent;
     }
 
-    public void setIcon(String achievement){
+    public void setIcon(String achievement) {
         ImageView img = findViewById(R.id.blueBug);
         img.setImageResource(R.drawable.whale);
         switch(achievement) {
@@ -194,6 +201,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
                 // code block
                 break;
             default:
+                break;
                 // code block
         }
 
