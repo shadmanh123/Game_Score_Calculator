@@ -22,18 +22,15 @@ public class Options {
     public String getDifficulty() {
         return difficulty;
     }
-
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
-
     public Tier getTheme() {
         return theme;
     }
     public String getThemeName() {
         return theme.getClassName();
     }
-
     public void setTheme(Tier theme) {
         this.theme = theme;
     }

@@ -11,25 +11,27 @@
         android:id="@+id/PageTitle"
         android:layout_width="215dp"
         android:layout_height="37dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="34dp"
         android:background="@drawable/main_title"
         android:fontFamily="sans-serif"
         android:text="@string/tiers"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/listViewMain"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/listViewMain"
         android:layout_width="322dp"
         android:layout_height="517dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="124dp"
         android:background="@drawable/gamecategorieslist"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,23 +54,14 @@
         android:id="@+id/theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/tiersTable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PageTitle" />
-
-    <TextView
-        android:id="@+id/level_10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_10_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/theme" />
+        app:layout_constraintTop_toBottomOf="@+id/PageTitle"
+        app:layout_constraintVertical_bias="0.632" />
 
     <TextView
         android:id="@+id/level_10_score"
@@ -76,7 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/theme" />
 
@@ -86,7 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_10_score" />
 
@@ -96,7 +87,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_9_score" />
 
@@ -106,7 +96,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_8_score" />
 
@@ -116,7 +105,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_6_score" />
 
@@ -126,7 +114,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_5_score" />
 
@@ -136,7 +123,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_4_score" />
 
@@ -146,7 +132,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_2_score" />
 
@@ -156,7 +141,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_3_score" />
 
@@ -166,108 +150,42 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="116dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_7_score" />
 
-    <TextView
-        android:id="@+id/level_9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_9_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_10" />
+    <TableLayout
+        android:id="@+id/tiersTable"
+        android:layout_width="309dp"
+        android:layout_height="430dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="@+id/listViewMain"
+        app:layout_constraintEnd_toEndOf="@+id/listViewMain"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintLeft_toLeftOf="@+id/listViewMain"
+        app:layout_constraintRight_toRightOf="@+id/listViewMain"
+        app:layout_constraintStart_toStartOf="@+id/listViewMain"
+        app:layout_constraintTop_toTopOf="@+id/listViewMain"
+        app:layout_constraintVertical_bias="0.712">
 
-    <TextView
-        android:id="@+id/level_8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_8_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_9" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/level_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_6_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_7" />
+            <TextView
+                android:background="#9EAAD5"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="Achievement \n Levels"
+                android:textColor="@color/white" />
 
-    <TextView
-        android:id="@+id/level_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_3_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_4" />
-
-    <TextView
-        android:id="@+id/level_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_2_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_3" />
-
-    <TextView
-        android:id="@+id/level_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_4_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_5" />
-
-    <TextView
-        android:id="@+id/level_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_5_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_6" />
-
-    <TextView
-        android:id="@+id/level_7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/level_7_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_8" />
-
-    <TextView
-        android:id="@+id/level_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/level_1_score"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_2"
-        app:layout_constraintVertical_bias="0.161" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:background="#9EAAD5"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="Minimum Score \n Required"
+                android:textColor="@color/white" />
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

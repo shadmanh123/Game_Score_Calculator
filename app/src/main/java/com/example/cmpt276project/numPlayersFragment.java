@@ -42,7 +42,7 @@ public class numPlayersFragment extends AppCompatDialogFragment{
                             Players = Integer.parseInt(numPlayers);
                             int position = getArguments().getInt("position");
 
-                            Intent i = TiersListActivity.tiersIntent(getActivity(), position, Players);
+                            Intent i = TiersListActivity.tiersIntent(getActivity()); // , position, Players);
                             startActivity(i);
                             getActivity().finish();
                             break;

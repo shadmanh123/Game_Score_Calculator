@@ -142,21 +142,21 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     private void onTiersClick(int pos) {
-        Intent intent = getIntent();
-        int position = intent.getIntExtra("position", 0);
-        FragmentManager manager = getSupportFragmentManager();
-        Bundle bundle = new Bundle();
-        bundle.putInt("position", position);
-        numPlayersFragment dialog = new numPlayersFragment();
-        dialog.setArguments(bundle);
-        dialog.show(manager, "message");
-//        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
-//        startActivity(i);
-//        onStart();
+//        Intent intent = getIntent();
+//        int position = intent.getIntExtra("position", 0);
+//        FragmentManager manager = getSupportFragmentManager();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("position", position);
+//        numPlayersFragment dialog = new numPlayersFragment();
+//        dialog.setArguments(bundle);
+//        dialog.show(manager, "message");
+        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
+        startActivity(i);
+        onStart();
     }
 
     private void initializeJson() {
-        jsonReader = new JsonReader(getApplicationContext(), gameManager);
+        jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
         jsonWriter = new JsonWriter(getApplicationContext());
     }

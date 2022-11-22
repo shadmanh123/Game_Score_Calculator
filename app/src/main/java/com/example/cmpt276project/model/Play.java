@@ -24,29 +24,28 @@ import java.util.List;
  * Play: Class for a single play through that takes in the number of Players and Total Score achieved
  */
 public class Play implements Writable {
-    private final int NUM_TIERS_ABOVE_MIN = 8;
+    private static final int NUM_TIERS_ABOVE_MIN = 8;
     private LocalDateTime creationDate;
-    private Game game;
+    private static Game game;
     private int numPlayers;
     private Double totalScore;
-    private String difficulty_level;
-    private HashMap<Tier, Double> achievements;
-    String tierString;
+    private String difficultyLevel;
+    private static HashMap<Tier, Double> achievements;
+    private static String tierString;
     private List<Double> scores;
 
-    //todo: add options in here - for the single play
     private Options options;
 
     public Play(Game game, int numPlayers, List<Double> scores, Options options) {
         this.creationDate = LocalDateTime.now();
-        this.game = game;
+        Play.game = game;
         this.numPlayers = numPlayers;
         this.scores = scores;
         this.totalScore = -1.0;
-        this.achievements = new HashMap<>();
+        achievements = new HashMap<>();
         this.options = options;
-        this.difficulty_level = options.getDifficulty();
-        this.tierString = options.getThemeName();
+        this.difficultyLevel = options.getDifficulty();
+        tierString = options.getThemeName();
     }
 
     private Double calculateTotalScore() {
@@ -58,15 +57,16 @@ public class Play implements Writable {
     }
 
     // subdivide scores into 10 tiers
-    public void getListOfAchievements() {
-        List<Tier> tiers = getTierValues();
-        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
-        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
+    public static List<Double> getListOfAchievements(Game game, int numPlayers, String difficultyLevel, String theme, HashMap<Tier, Double> achievements) {
+        List<Tier> tiers = getTierValues(theme);
+        List<Double> scores = new ArrayList<>();
+        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficultyLevel);
+        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
         double minScore = max;
 
         for (Tier tier : tiers) {
-            if (isTierLevel1(tier)) {
+            if (isTierLevel1(tier, theme)) {
                 minScore = 0;
             } else if (minScore - scoreInterval <= min) {
                 if (minScore >= 0) {
@@ -78,12 +78,15 @@ public class Play implements Writable {
                 minScore -= scoreInterval;
             }
             achievements.put(tier, minScore);
+            scores.add(minScore);
         }
+        Play.achievements = achievements;
+        return scores;
     }
 
-    private boolean isTierLevel1(Tier tier) {
+    private static boolean isTierLevel1(Tier tier, String theme) {
         boolean isLevel1;
-        switch (tierString) {
+        switch (theme) {
             case "Land":
                 isLevel1 = (tier == Land.LEVEL1);
                 break;
@@ -98,9 +101,9 @@ public class Play implements Writable {
     }
 
     @Nullable
-    private List<Tier> getTierValues() {
+    private static List<Tier> getTierValues(String theme) {
         List<Tier> tiers;
-        switch (tierString) {
+        switch (theme) {
             case "Land":
                 tiers = Arrays.asList(Land.values());
                 break;
@@ -116,9 +119,9 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public String getAchievementScore() {
-        getListOfAchievements();
-        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficulty_level);
-        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficulty_level);
+        getListOfAchievements(game, numPlayers, difficultyLevel, tierString, achievements);
+        double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficultyLevel);
+        double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
         double score = max - scoreInterval;
         int i = 1;
@@ -155,7 +158,7 @@ public class Play implements Writable {
         return levelAchieved.getLevel();
     }
 
-    public double getDifficultyLevel(String difficultyLevel) {
+    public static double getDifficultyLevel(String difficultyLevel) {
         double difficulty_value;
         if (difficultyLevel == "easy") {
             difficulty_value = 0.75;
