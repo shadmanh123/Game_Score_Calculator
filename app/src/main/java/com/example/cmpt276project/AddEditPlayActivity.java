@@ -36,9 +36,7 @@ import java.util.List;
  */
 
 public class AddEditPlayActivity extends AppCompatActivity {
-
     public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
-
     public static final String BOOL_IS_EDIT = "Index of Selected Game";
     public static final String INT_PLAY_POSITION = "Index of Selected play";
 
@@ -51,15 +49,11 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private int index;
     private boolean isEdit;
     private int playPosition;
-
-
     private int numOfPlayers;
 
     private ArrayAdapter<Double> adapter;
-
     private List<Double> tempMyPlayScores;
     private List<Double> myScores;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +68,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
         initialization();
 
         tempMyPlayScores = new ArrayList<>();
-
         myScores = new ArrayList<>();
-        if(isEdit) {
-
-            Play play = gameManager.getGame(index).getPlay(playPosition);
-            Toast.makeText(AddEditPlayActivity.this, ""+name, Toast.LENGTH_SHORT).show();
-            for(int i = 0; i < play.getScoreSize(); i++) {
-                tempMyPlayScores.add(play.getScore(i));
-            }
-        }
+        editPlay(name);
 
         etTotalPlayers = findViewById(R.id.etTotalPlayers);
         etTotalPlayers.setText("" + tempMyPlayScores.size());
@@ -91,6 +77,18 @@ public class AddEditPlayActivity extends AppCompatActivity {
         populateList();
         populateListView();
     }
+
+    private void editPlay(String name) {
+        if(isEdit) {
+
+            Play play = gameManager.getGame(index).getPlay(playPosition);
+            Toast.makeText(AddEditPlayActivity.this, ""+ name, Toast.LENGTH_SHORT).show();
+            for(int i = 0; i < play.getScoreSize(); i++) {
+                tempMyPlayScores.add(play.getScore(i));
+            }
+        }
+    }
+
     private void populateListView() {
         adapter = new MyListAdapter();
         ListView list = findViewById(R.id.playerList);
@@ -189,7 +187,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
                 numOfPlayers = Integer.parseInt(players);
             } catch (NumberFormatException e) {
                 return;
-
             }
 
             updateTempPlayer();
@@ -201,7 +198,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         }
     };
-
 
     private void updateTempPlayer() {
         if(numOfPlayers > tempMyPlayScores.size()){

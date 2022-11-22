@@ -169,7 +169,6 @@ public class Play implements Writable {
                 break;
             }
         }
-
         return levelAchieved.getLevel();
     }
 
@@ -211,10 +210,6 @@ public class Play implements Writable {
     public Options getOptions() {
         return options;
     }
-
-
-
-
 
     @NonNull
     public static Tier getTier(String tierString) {
