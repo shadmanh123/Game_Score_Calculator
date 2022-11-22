@@ -48,12 +48,30 @@ public class Play implements Writable {
         tierString = options.getThemeName();
     }
 
+    public void setOptions(Options options) {
+        this.options = options;
+    }
+
+    public void setNumPlayers(int num){
+        this.numPlayers = num;
+    }
+    public void setScores(List<Double> scores){
+        this.scores = scores;
+    }
+
     private Double calculateTotalScore() {
         Double totalScore = 0.0;
         for (Double score : scores) {
             totalScore += score;
         }
         return totalScore;
+    }
+
+    public int getScoreSize(){
+        return scores.size();
+    }
+    public double getScore(int i){
+        return scores.get(i);
     }
 
     // subdivide scores into 10 tiers
@@ -197,9 +215,9 @@ public class Play implements Writable {
         return options;
     }
 
-    public void setOptions(Options options) {
-        this.options = options;
-    }
+
+
+
 
     @NonNull
     public static Tier getTier(String tierString) {

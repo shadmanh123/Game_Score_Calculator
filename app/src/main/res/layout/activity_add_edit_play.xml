@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".AddEditPlayActivity">
 
+<!--    <TextView-->
+<!--        android:id="@+id/tvTotalScoreQuestion2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="52dp"-->
+<!--        android:background="@android:drawable/screen_background_dark_transparent"-->
+<!--        android:text="What is the difficulty level?"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/etTotalScore" />-->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBackButton3"
         android:layout_width="wrap_content"
@@ -22,59 +35,34 @@
         app:layout_constraintVertical_bias="0.976"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
-    <EditText
-        android:id="@+id/etTotalScore"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="26dp"
-        android:background="@android:drawable/editbox_background"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Combined Score"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTotalScoreQuestion" />
 
-    <TextView
-        android:id="@+id/tvTotalScoreQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:background="@android:drawable/screen_background_dark_transparent"
-        android:text="What is the total combined score?"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTotalPlayers" />
 
     <Button
         android:id="@+id/btnEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="108dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="608dp"
         android:backgroundTint="#71B3D8"
         android:backgroundTintMode="add"
-        android:gravity="center"
         android:enabled="false"
+        android:gravity="center"
         android:text="Enter"
         app:icon="@drawable/rounded_corner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNewGameTitle"
-        android:layout_width="297dp"
-        android:layout_height="43dp"
+        android:layout_width="246dp"
+        android:layout_height="40dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_corner"
         android:gravity="center"
         android:text="@string/new_game_text"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,16 +98,24 @@
         android:id="@+id/optionsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="284dp"
+        android:layout_marginTop="608dp"
         android:backgroundTint="#70B2D7"
         android:text="@string/options"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.889"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.964" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <Button-->
+    <ListView
+        android:id="@+id/playerList"
+        android:layout_width="269dp"
+        android:layout_height="348dp"
+        android:layout_marginStart="72dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEnter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTotalPlayers"
+        app:layout_constraintVertical_bias="0.0" />
+
+<!--    <Button-->
 <!--        android:id="@+id/btnMedium"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
