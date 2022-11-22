@@ -1,13 +1,13 @@
 package com.example.cmpt276project;
 
-import static android.view.View.inflate;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +16,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.io.DataInput;
-
+/**
+ * numPlayers Fragment: This fragments asks users the number of players
+ * so that it gives an accurate tier example for what they want to see
+ */
 public class numPlayersFragment extends AppCompatDialogFragment{
 
     @Override
@@ -34,20 +37,24 @@ public class numPlayersFragment extends AppCompatDialogFragment{
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        EditText num = getActivity().findViewById(R.id.editTextNumber);
+                        EditText num = v.findViewById(R.id.editTextNumber);
                         String numPlayers = num.getText().toString();
-
-                        int Players;
                         try {
-                            Players = Integer.parseInt(numPlayers);
-                            int position = getArguments().getInt("position");
+                            int Players = Integer.parseInt(numPlayers);
 
-                            Intent i = TiersListActivity.tiersIntent(getActivity()); // , position, Players);
+                            //shared preferences to hold players
+                            SharedPreferences prefs = getActivity().getSharedPreferences("numPlayers", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putInt("numPlayers", Players);
+                            editor.apply();
+
+                            System.out.println("num of players " + Players);
+                            int position = getArguments().getInt("position");
+                            Intent i = TiersListActivity.tiersIntent(getActivity(), position);
                             startActivity(i);
                             getActivity().finish();
                             break;
                         } catch(NumberFormatException e) {
-//                            Toast.makeText(OptionsActivity.class,"Every slot must be filled", Toast.LENGTH_SHORT).show();
                             break;
                         }
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -65,12 +72,8 @@ public class numPlayersFragment extends AppCompatDialogFragment{
                 .create();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.num_players_fragment, container, false);
-        View num = (EditText) view.findViewById(R.id.editTextNumber);
-//      EditText num = findViewById(R.id.editTextNumber);
-//        String numPlayers = num.getText().toString();
-        return num;
+    public static int getNumPlayersSelected(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("numPlayers", MODE_PRIVATE);
+        return prefs.getInt("numPlayers", 0);
     }
 }

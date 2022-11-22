@@ -25,6 +25,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Tiers List Activity: calculates each tier and shows the tiers
+ */
 public class TiersListActivity extends AppCompatActivity {
     private GameManager gameManager;
     private String theme;
@@ -41,10 +44,10 @@ public class TiersListActivity extends AppCompatActivity {
         back.setOnClickListener(v -> onBackClick());
 
         Intent intent = getIntent();
-        //int position = intent.getIntExtra("position", 0);
-       // int numPlayers = intent.getIntExtra("players", 0);
-        int numPlayers = 2;
-        int position = 0;
+        int position = intent.getIntExtra("position", 0);
+        System.out.println("num of position in tiers " + position);
+        int numPlayers = numPlayersFragment.getNumPlayersSelected(this);
+        System.out.println("num of players in tiers " + numPlayers);
 
         theme = OptionsActivity.getThemeSelected(this);
         setThemeTitle(theme);
@@ -60,10 +63,9 @@ public class TiersListActivity extends AppCompatActivity {
         finish();
     }
 
-    public static Intent tiersIntent(Context context) {
+    public static Intent tiersIntent(Context context, int position) {
         Intent intent = new Intent(context, TiersListActivity.class);
-//        intent.putExtra("position", position);
-//        intent.putExtra("players", numPlayers);
+        intent.putExtra("position", position);
         return intent;
     }
 

@@ -40,7 +40,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         String savedDiff = getDifficultySelected(this);
         String savedTheme = getThemeSelected(this);
-        Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
 
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(v -> onBackClick());
@@ -142,17 +142,17 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     private void onTiersClick(int pos) {
-//        Intent intent = getIntent();
-//        int position = intent.getIntExtra("position", 0);
-//        FragmentManager manager = getSupportFragmentManager();
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("position", position);
-//        numPlayersFragment dialog = new numPlayersFragment();
-//        dialog.setArguments(bundle);
-//        dialog.show(manager, "message");
-        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
-        startActivity(i);
-        onStart();
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position", 0);
+        FragmentManager manager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        numPlayersFragment dialog = new numPlayersFragment();
+        dialog.setArguments(bundle);
+        dialog.show(manager, "message");
+//        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
+//        startActivity(i);
+//        onStart();
     }
 
     private void initializeJson() {
