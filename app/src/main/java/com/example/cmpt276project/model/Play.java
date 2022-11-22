@@ -171,7 +171,6 @@ public class Play implements Writable {
                 break;
             }
         }
-
         return levelAchieved.getLevel();
     }
 
