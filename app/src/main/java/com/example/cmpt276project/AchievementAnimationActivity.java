@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +23,9 @@ public class AchievementAnimationActivity extends AppCompatActivity {
     private SoundPool soundPool;
     private int sound1;
     public static final String ACHIEVEMENT= "achievement of play";
-    public static final String THEME = "theme of play";
+    public static final String DIFFICULTY = "difficulty of play";
     public static final String GAME_INDEX = "game index";
-    private String theme;
+    private String difficulty;
     private String achievement;
     private int gameIndex;
     @Override
@@ -33,13 +35,16 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         achievement = intent.getStringExtra(ACHIEVEMENT);
-        theme = intent.getStringExtra(THEME);
+        difficulty = intent.getStringExtra(DIFFICULTY);
         gameIndex = intent.getIntExtra(GAME_INDEX, 0);
 
-        TextView difficulty = findViewById(R.id.txtDificulty);
-        difficulty.setText(theme);
+        TextView txtDifficulty = findViewById(R.id.txtDificulty);
+        txtDifficulty.setText(difficulty);
 
         setIcon(achievement);
+
+        View replayBtn = findViewById(R.id.btnReplay);
+        replayBtn.setOnClickListener(v->onReplay());
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -61,19 +66,40 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             public void run() {
 
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
-                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
-                startActivity(intent);
-                finish();
+//                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
+//                startActivity(intent);
+//                finish();
+//                replayBtn.setVisibility(View.VISIBLE);
+
             }
+
         },3000);
+
     }
 
-    public static Intent makeIntent(Context context,int gameIndex, String achievement, String theme) {
+    private void onReplay() {
+        recreate();
+    }
+
+    public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty) {
         Intent intent = new Intent(context, AchievementAnimationActivity.class);
         intent.putExtra(ACHIEVEMENT, achievement);
-        intent.putExtra(THEME, theme);
+        intent.putExtra("difficulty of play", difficulty);
         intent.putExtra(GAME_INDEX, gameIndex);
         return intent;
+    }
+
+    private void saveThemeSelected(String theme) {
+        SharedPreferences prefs = this.getSharedPreferences("theme", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("theme", theme);
+        editor.apply();
+    }
+
+    public static String getThemeSelected(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("theme", MODE_PRIVATE);
+        String defaultTheme = "Ocean";
+        return prefs.getString("theme", defaultTheme);
     }
 
     public void setIcon(String achievement) {
@@ -205,5 +231,15 @@ public class AchievementAnimationActivity extends AppCompatActivity {
                 // code block
         }
 
+    }
+
+    @Override
+    public void recreate(){
+        if (android.os.Build.VERSION.SDK_INT >=  11){
+            super.recreate();
+        }else{
+            startActivity(getIntent());
+            finish();
+        }
     }
 }
