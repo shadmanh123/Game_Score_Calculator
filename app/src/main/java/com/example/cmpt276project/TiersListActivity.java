@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.model.Play;
 import com.example.cmpt276project.model.tiers.Land;
 import com.example.cmpt276project.model.tiers.Ocean;
@@ -73,7 +74,9 @@ public class TiersListActivity extends AppCompatActivity {
         Game game = gameManager.getGame(pos);
         String difficultyLevel = OptionsActivity.getDifficultySelected(this);
         HashMap<Tier, Double> achievements = new HashMap<>();
-        List<Double> scores = Play.getListOfAchievements(game, numPlayers, difficultyLevel, theme, achievements);
+        Tier tier = Play.getTier(theme);
+        Options option = new Options(difficultyLevel, tier);
+        List<Double> scores = Play.getListOfAchievements(game, numPlayers, option, achievements);
         return scores.get(row);
     }
 

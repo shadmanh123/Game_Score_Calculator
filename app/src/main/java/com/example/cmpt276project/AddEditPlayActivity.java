@@ -10,16 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276project.model.Game;
@@ -89,6 +85,25 @@ public class AddEditPlayActivity extends AppCompatActivity {
         populateListView();
     }
 
+    private void initialization() {
+        Intent intent = getIntent();
+        index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
+
+        isEdit = intent.getBooleanExtra(BOOL_IS_EDIT, false);
+        playPosition = intent.getIntExtra(INT_PLAY_POSITION, 0);
+
+        FloatingActionButton back = findViewById(R.id.floatingBackButton3);
+        back.setOnClickListener(v -> onBackClick());
+
+        enter = findViewById(R.id.btnEnter);
+        etTotalPlayers = findViewById(R.id.etTotalPlayers);
+        enter.setOnClickListener(v -> onRegisterClick());
+        etTotalPlayers.addTextChangedListener(inputTextWatcher);
+
+        Button options = findViewById(R.id.optionsButton);
+        options.setOnClickListener(v -> onOptionsClick());
+    }
+
     private void editGame() {
         if(isEdit) {
             Play play = gameManager.getGame(index).getPlay(playPosition);
@@ -146,24 +161,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         }
     }
 
-    private void initialization() {
-        Intent intent = getIntent();
-        index = intent.getIntExtra(INDEX_OF_SELECTED_GAME, 0);
 
-        isEdit = intent.getBooleanExtra(BOOL_IS_EDIT, false);
-        playPosition = intent.getIntExtra(INT_PLAY_POSITION, 0);
-
-        FloatingActionButton back = findViewById(R.id.floatingBackButton3);
-        back.setOnClickListener(v -> onBackClick());
-
-        enter = findViewById(R.id.btnEnter);
-        etTotalPlayers = findViewById(R.id.etTotalPlayers);
-        enter.setOnClickListener(v -> onRegisterClick());
-        etTotalPlayers.addTextChangedListener(inputTextWatcher);
-
-        Button options = findViewById(R.id.optionsButton);
-        options.setOnClickListener(v -> onOptionsClick());
-    }
 
     @Override
     protected void onResume() {
@@ -276,8 +274,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
-
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, play.getAchievementScore(option.getTheme()), option.getDifficulty());
+        Tier tier = play.getAchievementScore();
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, tier.getLevel(), option.getDifficulty());
         startActivity(animationIntent);
         finish();
     }
