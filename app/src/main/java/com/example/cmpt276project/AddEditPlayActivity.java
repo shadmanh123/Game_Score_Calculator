@@ -270,6 +270,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         } else {
             play = new Play(game, totalPlayers, scores, option);
             game.addPlay(play);
+            playPosition = game.playSize()-1;
         }
 
         jsonWriter.writeToJson(gameManager);
@@ -277,7 +278,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
 
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, play.getAchievementScore(option.getTheme()), option.getDifficulty());
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, play.getAchievementScore(option.getTheme()), option.getDifficulty(), playPosition);
         startActivity(animationIntent);
         finish();
     }

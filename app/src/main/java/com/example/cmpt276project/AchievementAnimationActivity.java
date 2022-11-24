@@ -1,5 +1,6 @@
 package com.example.cmpt276project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -15,6 +16,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.model.Options;
+import com.example.cmpt276project.model.Play;
+import com.example.cmpt276project.model.tiers.Tier;
+import com.example.cmpt276project.persistence.JsonReader;
+import com.example.cmpt276project.persistence.JsonWriter;
 /*
 animation class for display achievement lever and difficulty
  */
@@ -25,18 +33,32 @@ public class AchievementAnimationActivity extends AppCompatActivity {
     public static final String ACHIEVEMENT= "achievement of play";
     public static final String DIFFICULTY = "difficulty of play";
     public static final String GAME_INDEX = "game index";
+    public static final String PLAY_POSITION = "play index";
+
     private String difficulty;
     private String achievement;
     private int gameIndex;
+    private int playPosition;
+    private GameManager gameManager;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievement_animation);
 
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
+        jsonWriter = new JsonWriter(getApplicationContext());
+
         Intent intent = getIntent();
         achievement = intent.getStringExtra(ACHIEVEMENT);
         difficulty = intent.getStringExtra(DIFFICULTY);
         gameIndex = intent.getIntExtra(GAME_INDEX, 0);
+        playPosition = intent.getIntExtra(PLAY_POSITION, 0);
+
 
         TextView txtDifficulty = findViewById(R.id.txtDificulty);
         txtDifficulty.setText(difficulty);
@@ -83,9 +105,9 @@ public class AchievementAnimationActivity extends AppCompatActivity {
     }
 
     private void onOptions() {
-//        Intent i = OptionsActivity.optionsIntentPlay(AchievementAnimationActivity.this);
-//        startActivity(i);
-//        onStart();
+        Intent i = OptionsActivity.optionsIntentPlay(AchievementAnimationActivity.this);
+        startActivity(i);
+        onStart();
     }
 
     private void onContinue() {
@@ -98,15 +120,58 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         recreate();
     }
 
-    public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty) {
+    public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty, int playPosition) {
         Intent intent = new Intent(context, AchievementAnimationActivity.class);
         intent.putExtra(ACHIEVEMENT, achievement);
         intent.putExtra("difficulty of play", difficulty);
         intent.putExtra(GAME_INDEX, gameIndex);
+        intent.putExtra(PLAY_POSITION, playPosition);
+
         return intent;
     }
 
+    @Override
+    public void recreate(){
+        if (android.os.Build.VERSION.SDK_INT >=  11){
+            super.recreate();
+        }else{
+            startActivity(getIntent());
+            finish();
+        }
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        Options option = getOptions();
+        Play play;
+        play = gameManager.getGame(gameIndex).getPlay(playPosition);
+        play.setOptions(option);
+        jsonWriter.writeToJson(gameManager);
+
+        difficulty = OptionsActivity.getDifficultySelected(this);
+        achievement = play.getAchievementScore(option.getTheme());
+
+//        Toast.makeText(AchievementAnimationActivity.this,OptionsActivity.getDifficultySelected(this), Toast.LENGTH_SHORT).show();
+
+        TextView txtDifficulty = findViewById(R.id.txtDificulty);
+        txtDifficulty.setText(difficulty);
+
+        TextView txtAchievement = findViewById(R.id.txtAchievement);
+        txtAchievement.setText(achievement);
+
+        setIcon(achievement);
+    }
+
+    @NonNull
+    private Options getOptions() {
+        String difficulty = OptionsActivity.getDifficultySelected(this);
+        String tierString = OptionsActivity.getThemeSelected(this);
+        Tier tier = Play.getTier(tierString);
+        Options option = new Options(difficulty, tier);
+        return option;
+    }
 
     public void setIcon(String achievement) {
         ImageView img = findViewById(R.id.blueBug);
@@ -239,13 +304,4 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void recreate(){
-        if (android.os.Build.VERSION.SDK_INT >=  11){
-            super.recreate();
-        }else{
-            startActivity(getIntent());
-            finish();
-        }
-    }
 }
