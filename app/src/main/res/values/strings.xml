@@ -83,5 +83,7 @@
     <string name="tiers">Tiers</string>
     <string name="level">Level</string>
     <string name="of_times_earned"># of times earned</string>
+    <string name="tables">Tables</string>
+    <string name="histograms">Histograms</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

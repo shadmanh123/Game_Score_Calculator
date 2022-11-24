@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
 
@@ -35,6 +37,21 @@ public class AchievementStatistics extends AppCompatActivity {
         int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         game = gameManager.getGame(index);
         populateText();
+
+        setOnClick(index);
+    }
+
+    private void setOnClick(int index) {
+        FloatingActionButton back = findViewById(R.id.floatingBackButton2);
+        back.setOnClickListener(v -> {
+            finish();
+        });
+
+        Button table = findViewById(R.id.statsCharts);
+        table.setOnClickListener(v -> {
+            Intent intent = StatisticChartActivity.makeIntent(this, index);
+            startActivity(intent);
+        });
     }
 
     private void populateText() {
