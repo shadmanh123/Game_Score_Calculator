@@ -38,7 +38,7 @@ public class AchievementStatistics extends AppCompatActivity {
     }
 
     private void populateText() {
-        TableLayout table = findViewById(R.id.tableForHistory);
+        TableLayout table = findViewById(R.id.statisticTable);
         for (int row = 0; row < ROW_SIZE; row++) {
             TableRow tableRow = new TableRow(this);
             table.addView(tableRow);

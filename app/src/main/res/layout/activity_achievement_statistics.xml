@@ -7,13 +7,14 @@
     tools:context=".AchievementStatistics">
 
     <TableLayout
+        android:id="@+id/statisticTable"
         android:layout_width="match_parent"
         android:layout_height="360dp"
+        android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="16dp"
-        android:stretchColumns="*">
+        tools:layout_editor_absoluteX="16dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -32,8 +33,9 @@
                 android:padding="5dip"
                 android:text="@string/of_times_earned"
                 android:textColor="@color/white" />
-    </TableRow>
+        </TableRow>
 
 
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
