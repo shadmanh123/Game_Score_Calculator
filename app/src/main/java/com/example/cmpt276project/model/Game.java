@@ -76,7 +76,7 @@ public class Game implements Writable {
         this.maxScore = maxScore;
     }
 
-    public HashMap<Ocean, Integer> achievementStatistics() {
+    public HashMap<Integer, Integer> achievementStatistics() {
         List<Tier> tiers = new ArrayList<>();
         for (Play p: plays) {
             Tier achievement = p.getAchievementScore();
@@ -95,12 +95,12 @@ public class Game implements Writable {
         addLevelFreq(tiers, Sky.LEVEL1.getClassName());
         print();
 
-        HashMap<Ocean, Integer> statistics = new HashMap<>();
+        HashMap<Integer, Integer> statistics = new HashMap<>();
 
-        int i = 0;
-        for (Ocean ocean : Ocean.values()) {
-            statistics.put(ocean, level.get(i));
-            i++;
+        int lvl = 10;
+        for (int i = 0; i < 10; i++) {
+            statistics.put(lvl, level.get(i));
+            lvl--;
         }
 
         return statistics;

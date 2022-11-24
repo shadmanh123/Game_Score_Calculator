@@ -81,5 +81,7 @@
     <string name="clear_text_blerb" />
     <string name="clear_text">Are you sure you want to clear all your games?</string>
     <string name="tiers">Tiers</string>
+    <string name="level">Level</string>
+    <string name="of_times_earned"># of times earned</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
