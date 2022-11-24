@@ -28,8 +28,8 @@ public class Game implements Writable {
         this.name = name;
         this.minScore = minScore;
         this.maxScore = maxScore;
-        plays = new ArrayList<>();
-        level = new ArrayList<>();
+        this.plays = new ArrayList<>();
+        this.level = new ArrayList<>();
     }
 
     public List<Play> getPlays() {
@@ -80,6 +80,7 @@ public class Game implements Writable {
         List<Tier> tiers = new ArrayList<>();
         for (Play p: plays) {
             Tier achievement = p.getAchievementScore();
+            System.out.println(achievement.getLevel());
             tiers.add(achievement);
         }
 
@@ -108,8 +109,9 @@ public class Game implements Writable {
     private void print() {
         int i = 0;
         for (Integer j: level) {
-            System.out.println("level " + i + j);
+            System.out.println("level " + i + ":" + j);
         }
+        System.out.println("end");
     }
 
     private void addLevelFreq(List<Tier> tiers, String theme) {
@@ -120,7 +122,6 @@ public class Game implements Writable {
             i++;
         }
     }
-
 
     public String displayPlayInfo(int playIndex, int column) {
         String display;

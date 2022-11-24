@@ -34,15 +34,15 @@ public class GameTest {
         option = new Options("easy", Sky.LEVEL1);
         generatePlays(option);*/
 
-//        scores = new ArrayList<>();
-//        Options option = new Options("normal", Ocean.LEVEL1);
-//        generatePlays(game, scores, option);
-
-//        scores = new ArrayList<>();
-//        Options option1 = new Options("normal", Land.LEVEL1);
-//        generatePlays(game, scores, option1);
-
         scores = new ArrayList<>();
+        Options option = new Options("normal", Ocean.LEVEL1);
+        generatePlays(game, scores, option);
+
+        scores.clear();
+        Options option1 = new Options("normal", Land.LEVEL1);
+        generatePlays(game, scores, option1);
+
+        scores.clear();
         Options option2 = new Options("normal", Sky.LEVEL1);
         generatePlays(game, scores, option2);
 
@@ -62,13 +62,13 @@ public class GameTest {
     private void generatePlays(Game game, List<Double> scores, Options option) {
         for (int i = 0; i < 10; i++) {
             scores.add(10.0);
-            Play play = new Play(game, 1, scores, option);
+            Play play = new Play(game, 2, scores, option);
             game.addPlay(play);
         }
     }
 
     @Test
     public void test() {
-        HashMap<Ocean, Integer> achievementLevel = game.achievementStatistics();
+        game.achievementStatistics();
     }
 }
