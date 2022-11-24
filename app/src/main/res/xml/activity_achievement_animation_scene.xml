@@ -45,26 +45,68 @@
             android:scaleY="1" />
         <Constraint
             android:id="@+id/txtDificulty"
-            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="175dp"
             android:layout_height="71dp"
-            motion:layout_constraintTop_toBottomOf="@+id/backGroundLayout"
-            motion:layout_constraintHorizontal_bias="1.0"
+            android:visibility="invisible"
             motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="260dp"
-            android:visibility="gone"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintVertical_bias="0.923" />
+            motion:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            motion:transitionEasing="cubic(1,0,1,0)" />
         <Constraint
             android:id="@+id/btnReplay"
-            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"
-            motion:layout_constraintVertical_bias="0.238"
-            motion:layout_constraintTop_toBottomOf="@+id/txtDificulty"
+            motion:transitionEasing="cubic(1,0,1,0)"
             motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="292dp"
+            android:layout_marginRight="292dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="19dp" />
+        <Constraint
+            android:id="@+id/txtAchievement"
+            android:layout_width="376dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="428dp"
+            motion:transitionEasing="cubic(1,0,1,0)"
+            android:visibility="invisible"
+            android:layout_marginLeft="16dp" />
+        <Constraint
+            android:id="@+id/btnContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="148dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            motion:transitionEasing="cubic(1,0,1,0)"
+            android:layout_marginLeft="148dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="205dp"
+            android:layout_marginRight="205dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="731dp" />
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_editor_absoluteY="667dp"
+            android:id="@+id/btnOptions"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="298dp"
+            android:layout_marginLeft="298dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="19dp"
+            android:layout_marginRight="19dp"
+            android:visibility="gone"
             motion:transitionEasing="cubic(1,0,1,0)" />
     </ConstraintSet>
 
@@ -102,14 +144,15 @@
             android:scaleY="0" />
         <Constraint
             android:id="@+id/txtDificulty"
-            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="175dp"
             android:layout_height="71dp"
-            motion:layout_constraintTop_toBottomOf="@+id/backGroundLayout"
-            motion:layout_constraintHorizontal_bias="0.504"
+            android:visibility="visible"
+            motion:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
             motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"
-            android:visibility="visible" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            motion:transitionEasing="cubic(0,1,0,1)" />
         <Constraint
             android:id="@+id/btnReplay"
             motion:layout_constraintEnd_toEndOf="parent"
@@ -117,10 +160,49 @@
             android:layout_height="wrap_content"
             motion:layout_constraintBottom_toBottomOf="parent"
             android:visibility="visible"
-            motion:layout_constraintVertical_bias="0.894"
+            motion:layout_constraintVertical_bias="0.973"
             motion:layout_constraintTop_toBottomOf="@+id/txtDificulty"
             motion:layout_constraintStart_toStartOf="parent"
             motion:transitionEasing="cubic(0,1,0,1)"
             motion:layout_constraintHorizontal_bias="0.05" />
+        <Constraint
+            android:id="@+id/txtAchievement"
+            android:layout_width="376dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="428dp"
+            motion:transitionEasing="cubic(0,1,0,1)"
+            android:visibility="visible"
+            android:layout_marginLeft="16dp" />
+        <Constraint
+            android:id="@+id/btnContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="156dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:visibility="visible"
+            motion:transitionEasing="cubic(0,1,0,1)"
+            android:layout_marginLeft="156dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="145dp"
+            android:layout_marginRight="145dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            motion:layout_constraintHorizontal_bias="0.0" />
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnOptions"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="298dp"
+            android:layout_marginLeft="298dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="19dp"
+            android:layout_marginRight="19dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            motion:transitionEasing="cubic(0,1,0,1)" />
     </ConstraintSet>
 </MotionScene>

@@ -41,10 +41,19 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         TextView txtDifficulty = findViewById(R.id.txtDificulty);
         txtDifficulty.setText(difficulty);
 
+        TextView txtAchievement = findViewById(R.id.txtAchievement);
+        txtAchievement.setText(achievement);
+
         setIcon(achievement);
 
         View replayBtn = findViewById(R.id.btnReplay);
         replayBtn.setOnClickListener(v->onReplay());
+
+        View continueBtn = findViewById(R.id.btnContinue);
+        continueBtn.setOnClickListener(v -> onContinue());
+
+        View optionsBtn = findViewById(R.id.btnOptions);
+        optionsBtn.setOnClickListener(v -> onOptions());
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -66,14 +75,22 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             public void run() {
 
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
-//                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
-//                startActivity(intent);
-//                finish();
-//                replayBtn.setVisibility(View.VISIBLE);
 
             }
 
         },3000);
+
+    }
+
+    private void onOptions() {
+//        Intent i = OptionsActivity.optionsIntentPlay(AchievementAnimationActivity.this);
+//        startActivity(i);
+//        onStart();
+    }
+
+    private void onContinue() {
+
+        finish();
 
     }
 
@@ -89,18 +106,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         return intent;
     }
 
-    private void saveThemeSelected(String theme) {
-        SharedPreferences prefs = this.getSharedPreferences("theme", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("theme", theme);
-        editor.apply();
-    }
 
-    public static String getThemeSelected(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences("theme", MODE_PRIVATE);
-        String defaultTheme = "Ocean";
-        return prefs.getString("theme", defaultTheme);
-    }
 
     public void setIcon(String achievement) {
         ImageView img = findViewById(R.id.blueBug);
