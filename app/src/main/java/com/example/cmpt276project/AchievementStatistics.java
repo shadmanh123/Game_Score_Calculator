@@ -37,7 +37,6 @@ public class AchievementStatistics extends AppCompatActivity {
         populateText();
     }
 
-
     private void populateText() {
         TableLayout table = findViewById(R.id.tableForHistory);
         for (int row = 0; row < ROW_SIZE; row++) {
@@ -50,7 +49,6 @@ public class AchievementStatistics extends AppCompatActivity {
                 tableRow.addView(tv);
                 String tvText = fillInLevelText(col, row);
                 tv.setText(tvText);
-               // tv.setBackgroundColor(Color.parseColor("#CBF4F1"));
                 tv.setGravity(Gravity.CENTER);
             }
         }
@@ -61,16 +59,16 @@ public class AchievementStatistics extends AppCompatActivity {
         String text;
         switch(col) {
             case 0:
-                text = "Level " + lvlStats.get(row);
+                text = "Level " + (row + 1);
                 break;
             case 1:
-                text = "" + lvlStats.get(row);
+                text = "" + lvlStats.get(row + 1);
                 break;
             default:
                 text = "";
                 break;
         }
-        return "0";
+        return text;
     }
 
     public static Intent makeIntent(Context context, int gameIndex) {
