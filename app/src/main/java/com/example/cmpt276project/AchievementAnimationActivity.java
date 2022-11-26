@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.cmpt276project.model.tiers.Tier;
 /*
 animation class for display achievement lever and difficulty
  */
@@ -23,9 +25,13 @@ public class AchievementAnimationActivity extends AppCompatActivity {
     public static final String ACHIEVEMENT= "achievement of play";
     public static final String THEME = "theme of play";
     public static final String GAME_INDEX = "game index";
+    public static final String NEXT_ACHIEVEMENT_LEVEL = "next achievement level";
+    public static final String POINTS_AWAY = "points away from next achievement level";
     private String theme;
     private String achievement;
     private int gameIndex;
+    private String nextAchievementLevel;
+    private String pointsAway;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +41,16 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         achievement = intent.getStringExtra(ACHIEVEMENT);
         theme = intent.getStringExtra(THEME);
         gameIndex = intent.getIntExtra(GAME_INDEX, 0);
-
+        nextAchievementLevel = intent.getStringExtra(NEXT_ACHIEVEMENT_LEVEL);
+        pointsAway = intent.getStringExtra(POINTS_AWAY);
         TextView difficulty = findViewById(R.id.txtDificulty);
         difficulty.setText(theme);
 
         setIcon(achievement);
+
+        TextView nextAchievement = findViewById(R.id.txtNextAchievement);
+        nextAchievement.setText("The total score was "+pointsAway+" points away from the next achievement level "+
+                nextAchievementLevel+".");
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -65,14 +76,17 @@ public class AchievementAnimationActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },3000);
+        },5000);
     }
 
-    public static Intent makeIntent(Context context,int gameIndex, String achievement, String theme) {
+    public static Intent makeIntent(Context context,int gameIndex, String achievement, String theme,
+                                    String nextAchievementLevel, String pointsAway) {
         Intent intent = new Intent(context, AchievementAnimationActivity.class);
         intent.putExtra(ACHIEVEMENT, achievement);
         intent.putExtra(THEME, theme);
         intent.putExtra(GAME_INDEX, gameIndex);
+        intent.putExtra(NEXT_ACHIEVEMENT_LEVEL, nextAchievementLevel);
+        intent.putExtra(POINTS_AWAY, pointsAway);
         return intent;
     }
 

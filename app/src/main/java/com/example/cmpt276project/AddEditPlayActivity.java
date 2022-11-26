@@ -267,6 +267,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
             play.setOptions(option);
             play.setNumPlayers(totalPlayers);
             play.setScores(scores);
+            play.getNextAchievement();
+            play.getPointsAway();
         } else {
             play = new Play(game, totalPlayers, scores, option);
             game.addPlay(play);
@@ -277,7 +279,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
 
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, play.getAchievementScore(option.getTheme()), option.getDifficulty());
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
+                play.getAchievementScore(option.getTheme()), option.getDifficulty(),
+                play.getNextAchievement(), play.getPointsAway().toString());
         startActivity(animationIntent);
         finish();
     }
