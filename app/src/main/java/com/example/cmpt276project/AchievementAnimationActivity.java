@@ -49,8 +49,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         setIcon(achievement);
 
         TextView nextAchievement = findViewById(R.id.txtNextAchievement);
-        nextAchievement.setText("The total score was "+pointsAway+" points away from the next achievement level "+
-                nextAchievementLevel+".");
+        displayNextAchievementLevel(nextAchievement);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -77,6 +76,16 @@ public class AchievementAnimationActivity extends AppCompatActivity {
                 finish();
             }
         },5000);
+    }
+
+    private void displayNextAchievementLevel(TextView nextAchievement) {
+        if(nextAchievementLevel == null){
+            nextAchievement.setText("Congratulations on achieving the highest level!");
+        }
+        else {
+            nextAchievement.setText("The total score was " + pointsAway + " points away from the next achievement level " +
+                    nextAchievementLevel + ".");
+        }
     }
 
     public static Intent makeIntent(Context context,int gameIndex, String achievement, String theme,

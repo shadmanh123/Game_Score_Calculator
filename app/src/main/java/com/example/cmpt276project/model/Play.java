@@ -162,7 +162,7 @@ public class Play implements Writable {
         }
 
         Tier levelAchieved = null;
-
+// TODO: Fix bug when there is no next achievement level
         for (Tier tier: achievements.keySet()) {
             if (achievements.get(tier).equals(score)) {
                 pointsAway = (score + scoreInterval) - totalScore;
@@ -175,10 +175,6 @@ public class Play implements Writable {
                 levelAchieved = tier;
                 break;
             }
-//            else if(levelAchieved != null){
-//                nextAchievement = tier;
-//                break;
-//            }
         }
         return levelAchieved.getLevel();
     }
