@@ -12,9 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.cmpt276project.model.tiers.Tier;
 /*
 animation class for display achievement lever and difficulty
  */
@@ -80,7 +78,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
     private void displayNextAchievementLevel(TextView nextAchievement) {
         if(nextAchievementLevel == null){
-            nextAchievement.setText("Congratulations on achieving the highest level!");
+            nextAchievement.setText(R.string.highest_level_achieved_text);
         }
         else {
             nextAchievement.setText("The total score was " + pointsAway + " points away from the next achievement level " +

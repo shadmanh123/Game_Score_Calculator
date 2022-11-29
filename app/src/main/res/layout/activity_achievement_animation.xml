@@ -56,7 +56,7 @@
 
     <TextView
         android:id="@+id/txtNextAchievement"
-        android:layout_width="300dp"
+        android:layout_width="400dp"
         android:layout_height="150dp"
         android:layout_marginTop="100dp"
         android:text="The total score was y points away from the next achievement level of x"

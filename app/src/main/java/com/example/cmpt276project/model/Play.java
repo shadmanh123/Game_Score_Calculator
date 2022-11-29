@@ -29,7 +29,7 @@ public class Play implements Writable {
     private static Game game;
     private int numPlayers;
     private Double totalScore;
-    private String difficultyLevel;
+    private final String difficultyLevel;
     private static HashMap<Tier, Double> achievements;
     private static String tierString;
     private List<Double> scores;
@@ -162,7 +162,6 @@ public class Play implements Writable {
         }
 
         Tier levelAchieved = null;
-// TODO: Fix bug when there is no next achievement level
         for (Tier tier: achievements.keySet()) {
             if (achievements.get(tier).equals(score)) {
                 pointsAway = (score + scoreInterval) - totalScore;
