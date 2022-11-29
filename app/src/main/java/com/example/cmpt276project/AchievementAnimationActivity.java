@@ -47,8 +47,6 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         txtDifficulty.setText(difficulty);
         nextAchievementLevel = intent.getStringExtra(NEXT_ACHIEVEMENT_LEVEL);
         pointsAway = intent.getStringExtra(POINTS_AWAY);
-        TextView difficulty = findViewById(R.id.txtDificulty);
-        difficulty.setText(theme);
 
         setIcon(achievement);
 
@@ -78,10 +76,10 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             public void run() {
 
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
-//                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
-//                startActivity(intent);
-//                finish();
-//                replayBtn.setVisibility(View.VISIBLE);
+                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
+                startActivity(intent);
+                finish();
+                replayBtn.setVisibility(View.VISIBLE);
 
             }
         },5000);
