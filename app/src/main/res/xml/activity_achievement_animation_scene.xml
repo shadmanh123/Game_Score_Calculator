@@ -56,6 +56,17 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintVertical_bias="0.923" />
         <Constraint
+            android:id="@+id/btnReplay"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            motion:layout_constraintVertical_bias="0.238"
+            motion:layout_constraintTop_toBottomOf="@+id/txtDificulty"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:transitionEasing="cubic(1,0,1,0)" />
+        <Constraint
             android:layout_height="150dp"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -110,6 +121,18 @@
             motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="20dp"
             android:visibility="visible" />
+        <Constraint
+            android:id="@+id/btnReplay"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible"
+            motion:layout_constraintVertical_bias="0.894"
+            motion:layout_constraintTop_toBottomOf="@+id/txtDificulty"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:transitionEasing="cubic(0,1,0,1)"
+            motion:layout_constraintHorizontal_bias="0.05" />
         <Constraint
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="400dp"
