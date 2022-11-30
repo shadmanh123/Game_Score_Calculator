@@ -237,6 +237,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         try {
             numScore = Double.parseDouble(name);
         } catch (NumberFormatException e) {
+            Toast.makeText(AddEditPlayActivity.this, "invalid input, score must be a number", Toast.LENGTH_LONG).show();
             return;
         }
         if(!editing){
@@ -255,7 +256,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
         });
 
         layout.addView(view);
-        Toast.makeText(AddEditPlayActivity.this, ""+getSum(), Toast.LENGTH_SHORT).show();
     }
 
     private double getSum(){
