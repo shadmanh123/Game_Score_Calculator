@@ -216,24 +216,28 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         final EditText name = view.findViewById(R.id.nameEdit);
 
+
         builder.setView(view);
         builder.setTitle("Enter name")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         addCard(name.getText().toString());
+                        name.setText("0");
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        name.setText("0");
 
                     }
                 })
                 .setNeutralButton("Insert lost data", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                            addCard(""+lostData.pop());
+                        addCard(""+lostData.pop());
+                        name.setText("0");
                     }
                 })
         ;
