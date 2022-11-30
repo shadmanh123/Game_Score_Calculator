@@ -1,6 +1,7 @@
 package com.example.cmpt276project;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.FragmentManager;
@@ -51,19 +54,19 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private JsonReader jsonReader;
     private GameManager gameManager;
     private Button enter;
-    private EditText etTotalPlayers;
 
     private int index;
     private boolean isEdit;
     private int playPosition;
 
 
-    private int numOfPlayers;
-
-    private ArrayAdapter<Double> adapter;
-
     private List<Double> tempMyPlayScores;
-    private List<Double> myScores;
+
+    Button add;
+    AlertDialog dialog;
+    LinearLayout layout;
+    ArrayList<Double> scores;
+    boolean editing;
 
 
     @Override
@@ -78,15 +81,25 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         jsonWriter = new JsonWriter(getApplicationContext());
         tempMyPlayScores = new ArrayList<>();
-        myScores = new ArrayList<>();
+        scores = new ArrayList<>();
+        add = findViewById(R.id.add);
+        layout = findViewById(R.id.container);
 
+        buildDialog();
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
         editGame();
 
-        etTotalPlayers = findViewById(R.id.etTotalPlayers);
-        etTotalPlayers.setText("" + tempMyPlayScores.size());
 
-        populateList();
-        populateListView();
+
+
+
+
     }
 
     private void editGame() {
@@ -94,55 +107,15 @@ public class AddEditPlayActivity extends AppCompatActivity {
             Play play = gameManager.getGame(index).getPlay(playPosition);
             for(int i = 0; i < play.getScoreSize(); i++) {
                 tempMyPlayScores.add(play.getScore(i));
+                scores.add(tempMyPlayScores.get(i));
             }
-        }
-    }
 
-    private void populateListView() {
-        adapter = new MyListAdapter();
-        ListView list = findViewById(R.id.playerList);
-        list.setAdapter(adapter);
-    }
-
-    private class MyListAdapter extends ArrayAdapter<Double>{
-        public MyListAdapter() {
-            super(AddEditPlayActivity.this, R.layout.playitemlayout, myScores);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View itemView = convertView;
-            if(itemView == null) {
-                itemView = getLayoutInflater().inflate(R.layout.playitemlayout, parent, false);
+            editing = true;
+            for(int i = 0; i < scores.size(); i++){
+                addCard(""+scores.get(i));
             }
-            TextView player = itemView.findViewById(R.id.txtPlayer);
-            player.setText("player " + (position + 1));
+            editing = false;
 
-            EditText score = itemView.findViewById(R.id.txtScore);
-            score.setText("" + myScores.get(position));
-            View saveBtn = itemView.findViewById(R.id.btnSave);
-            saveBtn.setOnClickListener(view -> {
-                double numScore;
-                try {
-                    numScore = Double.parseDouble(score.getText().toString().trim());
-                } catch (NumberFormatException e) {
-                    return;
-                }
-                tempMyPlayScores.set(position, numScore);
-                populateList();
-                adapter.notifyDataSetChanged();
-            });
-
-            score.addTextChangedListener(new inputScoreWatcher(position, saveBtn));
-
-            return itemView;
-        }
-    }
-
-    private void populateList() {
-        myScores.clear();
-        for(int i = 0; i < tempMyPlayScores.size(); i++){
-            myScores.add(tempMyPlayScores.get(i));
         }
     }
 
@@ -157,106 +130,33 @@ public class AddEditPlayActivity extends AppCompatActivity {
         back.setOnClickListener(v -> onBackClick());
 
         enter = findViewById(R.id.btnEnter);
-        etTotalPlayers = findViewById(R.id.etTotalPlayers);
+
         enter.setOnClickListener(v -> onRegisterClick());
-        etTotalPlayers.addTextChangedListener(inputTextWatcher);
+
 
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        gameManager = jsonReader.readFromJson();
-        populateList();
-        adapter.notifyDataSetChanged();
-    }
     private void onOptionsClick() {
         Intent i = OptionsActivity.optionsIntentPlay(AddEditPlayActivity.this);
         startActivity(i);
         onStart();
     }
 
-    private TextWatcher inputTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String players = etTotalPlayers.getText().toString().trim();
-            enter.setEnabled(!players.isEmpty() || players.equals("0"));
-
-            try {
-                numOfPlayers = Integer.parseInt(players);
-            } catch (NumberFormatException e) {
-                return;
-            }
-
-            updateTempPlayer();
-            onStart();
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
-
-    private void updateTempPlayer() {
-        if(numOfPlayers > tempMyPlayScores.size()){
-            for(int i = tempMyPlayScores.size(); i < numOfPlayers; i++){
-                tempMyPlayScores.add(0.0);
-            }
-        } else {
-            int i = tempMyPlayScores.size();
-            int j = numOfPlayers;
-            while(i != j) {
-                tempMyPlayScores.remove(tempMyPlayScores.size()-1);
-                i--;
-            }
-        }
-    }
-
-    public class inputScoreWatcher implements TextWatcher {
-        private View saveBtn;
-
-        public inputScoreWatcher(int position, View saveBtn){
-            super();
-            this.saveBtn = saveBtn;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            try {
-                Integer.parseInt(s.toString().trim());
-            } catch (NumberFormatException e) {
-                return;
-            }
-            saveBtn.setEnabled(true);
-        }
-        @Override
-        public void afterTextChanged(Editable s) {}
-    };
-
     private void onRegisterClick() {
         Game game = gameManager.getGame(index);
-        String players = etTotalPlayers.getText().toString();
-        int totalPlayers = Integer.parseInt(players);
+        int totalPlayers = scores.size();
         if(totalPlayers == 0) {
             Toast.makeText(this, "Total Number of Players must be greater than 0",
                     Toast.LENGTH_SHORT).show();
             return;
         }
 
-        List<Double> scores = new ArrayList<>();
-        for(int i = 0; i < tempMyPlayScores.size(); i++) {
-            double convert = tempMyPlayScores.get(i);
-            scores.add(convert);
+        List<Double> scoresSubmit = new ArrayList<>();
+        for(int i = 0; i < scores.size(); i++) {
+            double convert = scores.get(i);
+            scoresSubmit.add(convert);
         }
 
         Options option = getOptions();
@@ -266,9 +166,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
             play = gameManager.getGame(index).getPlay(playPosition);
             play.setOptions(option);
             play.setNumPlayers(totalPlayers);
-            play.setScores(scores);
+            play.setScores(scoresSubmit);
         } else {
-            play = new Play(game, totalPlayers, scores, option);
+            play = new Play(game, totalPlayers, scoresSubmit, option);
             game.addPlay(play);
         }
 
@@ -305,12 +205,65 @@ public class AddEditPlayActivity extends AppCompatActivity {
         return intent;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        myScores.clear();
-        populateList();
-        populateListView();
-        adapter.notifyDataSetChanged();
+    private void buildDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog, null);
+
+        final EditText name = view.findViewById(R.id.nameEdit);
+
+        builder.setView(view);
+        builder.setTitle("Enter name")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        addCard(name.getText().toString());
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        dialog = builder.create();
     }
+    private void addCard(String name) {
+        final View view = getLayoutInflater().inflate(R.layout.card, null);
+
+        TextView nameView = view.findViewById(R.id.name);
+        Button delete = view.findViewById(R.id.delete);
+        double numScore;
+        try {
+            numScore = Double.parseDouble(name);
+        } catch (NumberFormatException e) {
+            return;
+        }
+        if(!editing){
+            scores.add(numScore);
+        }
+
+        nameView.setText(""+numScore);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layout.removeView(view);
+                scores.remove(scores.indexOf(numScore));
+            }
+
+        });
+
+        layout.addView(view);
+        Toast.makeText(AddEditPlayActivity.this, ""+getSum(), Toast.LENGTH_SHORT).show();
+    }
+
+    private double getSum(){
+        double sum = 0;
+        for(int i = 0; i < scores.size(); i++){
+            sum+= scores.get(i);
+        }
+        return sum;
+    }
+
 }
