@@ -34,6 +34,8 @@ import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -81,6 +83,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
         gameManager = jsonReader.readFromJson();
         initialization();
         String name = gameManager.getGame(index).getName();
+        TextView title = findViewById(R.id.gameTitle);
+        title.setText(name);
 
         jsonWriter = new JsonWriter(getApplicationContext());
         tempMyPlayScores = new ArrayList<>();
