@@ -36,6 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * AddEditGameHistory: Class that allows game plays to be added
@@ -68,6 +69,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
     ArrayList<Double> scores;
     boolean editing;
 
+    Stack<Double> lostData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,21 +87,23 @@ public class AddEditPlayActivity extends AppCompatActivity {
         scores = new ArrayList<>();
         add = findViewById(R.id.add);
         layout = findViewById(R.id.container);
-
+        lostData = new Stack<Double>();
         buildDialog();
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.show();
+                if(lostData.isEmpty()){
+                    dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false);
+                }else{
+                    dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(true);
+                }
             }
         });
+
         editGame();
-
-
-
-
-
 
     }
 
@@ -224,9 +229,17 @@ public class AddEditPlayActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                });
+                })
+                .setNeutralButton("Insert lost data", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                            addCard(""+lostData.pop());
+                    }
+                })
+        ;
 
         dialog = builder.create();
+
     }
     private void addCard(String name) {
         final View view = getLayoutInflater().inflate(R.layout.card, null);
@@ -244,12 +257,14 @@ public class AddEditPlayActivity extends AppCompatActivity {
             scores.add(numScore);
         }
 
+
         nameView.setText(""+numScore);
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 layout.removeView(view);
+                lostData.push(scores.get(scores.indexOf(numScore)));
                 scores.remove(scores.indexOf(numScore));
             }
 
