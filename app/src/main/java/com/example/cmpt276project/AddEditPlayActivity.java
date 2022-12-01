@@ -99,9 +99,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.show();
-                if(lostData.isEmpty()){
+                if (lostData.isEmpty()) {
                     dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false);
-                }else{
+                } else {
                     dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(true);
                 }
             }
@@ -112,16 +112,16 @@ public class AddEditPlayActivity extends AppCompatActivity {
     }
 
     private void editGame() {
-        if(isEdit) {
+        if (isEdit) {
             Play play = gameManager.getGame(index).getPlay(playPosition);
-            for(int i = 0; i < play.getScoreSize(); i++) {
+            for (int i = 0; i < play.getScoreSize(); i++) {
                 tempMyPlayScores.add(play.getScore(i));
                 scores.add(tempMyPlayScores.get(i));
             }
 
             editing = true;
-            for(int i = 0; i < scores.size(); i++){
-                addCard(""+scores.get(i));
+            for (int i = 0; i < scores.size(); i++) {
+                addCard("" + scores.get(i));
             }
             editing = false;
 
@@ -142,7 +142,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         enter.setOnClickListener(v -> onRegisterClick());
 
-
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
     }
@@ -156,14 +155,14 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private void onRegisterClick() {
         Game game = gameManager.getGame(index);
         int totalPlayers = scores.size();
-        if(totalPlayers == 0) {
+        if (totalPlayers == 0) {
             Toast.makeText(this, "Total Number of Players must be greater than 0",
                     Toast.LENGTH_SHORT).show();
             return;
         }
 
         List<Double> scoresSubmit = new ArrayList<>();
-        for(int i = 0; i < scores.size(); i++) {
+        for (int i = 0; i < scores.size(); i++) {
             double convert = scores.get(i);
             scoresSubmit.add(convert);
         }
@@ -171,7 +170,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Options option = getOptions();
         Play play;
 
-        if(isEdit) {
+        if (isEdit) {
             play = gameManager.getGame(index).getPlay(playPosition);
             play.setOptions(option);
             play.setNumPlayers(totalPlayers);
@@ -186,7 +185,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
 
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, play.getAchievementScore(option.getTheme()), option.getDifficulty());
+        Tier theme = option.getTheme();
+        Tier tier = play.getAchievementScore(theme);
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this, index, tier.getLevel(), option.getDifficulty());
         startActivity(animationIntent);
         finish();
     }
@@ -240,7 +241,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
                 .setNeutralButton("Insert lost data", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addCard(""+lostData.pop());
+                        addCard("" + lostData.pop());
                         name.setText("0");
                     }
                 })
@@ -249,6 +250,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         dialog = builder.create();
 
     }
+
     private void addCard(String name) {
         final View view = getLayoutInflater().inflate(R.layout.card, null);
 
@@ -261,12 +263,12 @@ public class AddEditPlayActivity extends AppCompatActivity {
             Toast.makeText(AddEditPlayActivity.this, "invalid input, score must be a number", Toast.LENGTH_LONG).show();
             return;
         }
-        if(!editing){
+
+        if (!editing) {
             scores.add(numScore);
         }
 
-
-        nameView.setText(""+numScore);
+        nameView.setText("" + numScore);
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,10 +283,10 @@ public class AddEditPlayActivity extends AppCompatActivity {
         layout.addView(view);
     }
 
-    private double getSum(){
+    private double getSum() {
         double sum = 0;
-        for(int i = 0; i < scores.size(); i++){
-            sum+= scores.get(i);
+        for (int i = 0; i < scores.size(); i++) {
+            sum += scores.get(i);
         }
         return sum;
     }

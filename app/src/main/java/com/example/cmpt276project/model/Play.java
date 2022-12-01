@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Play: Class for a single play through that takes in the number of Players and Total Score achieved
@@ -29,9 +30,8 @@ public class Play implements Writable {
     private static Game game;
     private int numPlayers;
     private Double totalScore;
-    private String difficultyLevel;
+    private final String difficultyLevel;
     private static HashMap<Tier, Double> achievements;
-    private static String tierString;
     private List<Double> scores;
     private Options options;
 
@@ -40,11 +40,10 @@ public class Play implements Writable {
         Play.game = game;
         this.numPlayers = numPlayers;
         this.scores = scores;
-        this.totalScore = -1.0;
+        this.totalScore = calculateTotalScore();
         achievements = new HashMap<>();
         this.options = options;
         this.difficultyLevel = options.getDifficulty();
-        tierString = options.getThemeName();
     }
 
     public void setOptions(Options options) {
@@ -70,7 +69,7 @@ public class Play implements Writable {
     public double getScore(int i) { return scores.get(i); }
 
     // subdivide scores into 10 tiers
-    public static List<Double> getListOfAchievements(Game game, int numPlayers, String difficultyLevel, String theme, HashMap<Tier, Double> achievements) {
+    public static List<Double> getListOfAchievements(Game game, int numPlayers, String theme, String difficultyLevel, HashMap<Tier, Double> achievements) {
         List<Tier> tiers = getTierValues(theme);
         List<Double> scores = new ArrayList<>();
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficultyLevel);
@@ -113,8 +112,7 @@ public class Play implements Writable {
         return isLevel1;
     }
 
-    @Nullable
-    private static List<Tier> getTierValues(String theme) {
+    public static List<Tier> getTierValues(String theme) {
         List<Tier> tiers;
         switch (theme) {
             case "Land":
@@ -131,17 +129,13 @@ public class Play implements Writable {
     }
 
     // subdivide scores into 10 tiers
-    public String getAchievementScore(Tier tiers) {
-        getListOfAchievements(game, numPlayers, difficultyLevel, tiers.getClassName(), achievements);
+    public Tier getAchievementScore(Tier tiers) {
+        getListOfAchievements(game, numPlayers, tiers.getClassName(), difficultyLevel, achievements);
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double scoreInterval = (max - min) / NUM_TIERS_ABOVE_MIN;
         double score = max - scoreInterval;
         int i = 1;
-
-        if (totalScore == -1.0) {
-            this.totalScore = calculateTotalScore();
-        }
 
         while (score > totalScore) {
             i++;
@@ -162,12 +156,13 @@ public class Play implements Writable {
         Tier levelAchieved = null;
 
         for (Tier tier: achievements.keySet()) {
-            if (achievements.get(tier).equals(score)) {
+            if (Objects.equals(achievements.get(tier), score)) {
                 levelAchieved = tier;
                 break;
             }
         }
-        return levelAchieved.getLevel();
+
+        return levelAchieved;
     }
 
     public static double getDifficultyLevel(String difficultyLevel) {
@@ -189,8 +184,7 @@ public class Play implements Writable {
 
     public void setCreationDate(String creationDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy MMM dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(creationDate, formatter);
-        this.creationDate = dateTime;
+        this.creationDate = LocalDateTime.parse(creationDate, formatter);
     }
 
     public int getNumPlayers() {
@@ -212,7 +206,6 @@ public class Play implements Writable {
     public String getDifficultyLevel() {
         return options.getDifficulty();
     }
-
 
     @NonNull
     public static Tier getTier(String tierString) {
@@ -242,7 +235,7 @@ public class Play implements Writable {
         return json;
     }
 
-    private JSONArray scoresToJson() throws JSONException {
+    private JSONArray scoresToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Double s : scores) {

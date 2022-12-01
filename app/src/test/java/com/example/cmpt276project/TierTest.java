@@ -1,4 +1,4 @@
-package com.example.cmpt276project;
+/*package com.example.cmpt276project;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+*//**
  * Tier Test: holds coverage tests for the tiers
- */
+ *//*
 public class TierTest {
     Game testGame;
     Tier testOcean;
@@ -40,8 +40,8 @@ public class TierTest {
         Play play = new Play(testGame, 3, scores, testOption);
         assertEquals("Ocean", testOcean.getClassName());
         System.out.println(testOcean.getClassName());
-        String achievement = play.getAchievementScore(testOption.getTheme());
-        assertEquals("Giant Pacific Octopus", achievement);
+        Tier achievement = play.getAchievementScore();
+        assertEquals("Giant Pacific Octopus", achievement.getLevel());
     }
 
     @Test
@@ -54,8 +54,8 @@ public class TierTest {
         Play play = new Play(testGame, 3, scores, testOption);
         String tier = testOption.getThemeName();
         assertEquals("Land", tier);
-        String achievement = play.getAchievementScore(testOption.getTheme());
-        assertEquals("Chimpanzee", achievement);
+        Tier achievement = play.getAchievementScore();
+        assertEquals("Chimpanzee", achievement.getLevel());
     }
 
     @Test
@@ -68,7 +68,8 @@ public class TierTest {
         Play play = new Play(testGame, 3, scores, testOption);
         String tier = testOption.getThemeName();
         assertEquals("Sky", tier);
-        String achievement = play.getAchievementScore(testOption.getTheme());
-        assertEquals("Bald Eagle", achievement);
+        Tier achievement = play.getAchievementScore();
+        assertEquals("Bald Eagle", achievement.getLevel());
     }
-}
+
+}*/
