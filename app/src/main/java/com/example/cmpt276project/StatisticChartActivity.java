@@ -31,26 +31,10 @@ public class StatisticChartActivity extends AppCompatActivity {
         int index = getIntent().getIntExtra("index", 0);
 
         setOnClick(index);
+
+        //Todo: get bar graph and pie chart to show actual data
         setBarChart();
         setPieChart();
-    }
-
-    private void setPieChart() {
-        PieChart pieChart = (PieChart) findViewById(R.id.pieChart);
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        for (int i = 0; i < 10; i++){
-            float value = (float) (i*10.0);
-            PieEntry pieEntry= new PieEntry(i, value);
-            pieEntries.add(pieEntry);
-        }
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "other things");
-
-        pieChart.setData(new PieData(pieDataSet));
-        pieChart.animateY(5000);
-
-        pieChart.getDescription().setText("Other Things chart");
-        pieChart.getDescription().setTextColor(Color.BLUE);
     }
 
     private void setBarChart() {
@@ -74,6 +58,25 @@ public class StatisticChartActivity extends AppCompatActivity {
         barGraph.getDescription().setTextColor(Color.BLUE);
 
     }
+
+    private void setPieChart() {
+        PieChart pieChart = (PieChart) findViewById(R.id.pieChart);
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        for (int i = 0; i < 10; i++){
+            float value = (float) (i*10.0);
+            PieEntry pieEntry= new PieEntry(i, value);
+            pieEntries.add(pieEntry);
+        }
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "other things");
+
+        pieChart.setData(new PieData(pieDataSet));
+        pieChart.animateY(5000);
+
+        pieChart.getDescription().setText("Other Things chart");
+        pieChart.getDescription().setTextColor(Color.BLUE);
+    }
+
 
     private void setOnClick(int index) {
         Button table = findViewById(R.id.statsTable);
