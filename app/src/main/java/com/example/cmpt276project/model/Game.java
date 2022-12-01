@@ -16,7 +16,7 @@ public class Game implements Writable {
     private String name;
     private int minScore;
     private int maxScore;
-    private List<Play> plays;
+    private final List<Play> plays;
 
     public Game(String name, int minScore, int maxScore) {
         this.name = name;

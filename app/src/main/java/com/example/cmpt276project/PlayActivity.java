@@ -72,9 +72,9 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        adapter.notifyDataSetChanged();
         theList.clear();
         populateTheList();
-        adapter.notifyDataSetChanged();
         populateListView();
     }
 
@@ -90,7 +90,7 @@ public class PlayActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-
+    // TODO: Bug with achievement names
     private class MyListAdapter extends ArrayAdapter<Play> {
         public MyListAdapter() {
             super(PlayActivity.this, R.layout.play_item, theList);
@@ -105,8 +105,8 @@ public class PlayActivity extends AppCompatActivity {
             }
 
             Play play = theList.get(position);
-            TextView achievement = itemView.findViewById(R.id.playTier);
 
+            TextView achievement = itemView.findViewById(R.id.playTier);
             Tier theme = play.getOptions().getTheme();
             Tier tier = play.getAchievementScore(theme);
             achievement.setText("" + tier.getLevel());

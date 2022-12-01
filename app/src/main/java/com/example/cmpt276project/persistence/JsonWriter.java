@@ -26,7 +26,7 @@ public class JsonWriter {
     private static final String JSON_STORE = "gameManager.json";
     private static final int TAB = 4;
     private PrintWriter writer;
-    private Context context;
+    private final Context context;
 
     public JsonWriter(Context context) {
         this.context = context;

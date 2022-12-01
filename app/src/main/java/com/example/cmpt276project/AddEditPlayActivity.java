@@ -99,11 +99,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.show();
-                if (lostData.isEmpty()) {
-                    dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false);
-                } else {
-                    dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(true);
-                }
+                dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(!lostData.isEmpty());
             }
         });
 
@@ -275,7 +271,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 layout.removeView(view);
                 lostData.push(scores.get(scores.indexOf(numScore)));
-                scores.remove(scores.indexOf(numScore));
+                scores.remove(numScore);
             }
 
         });
