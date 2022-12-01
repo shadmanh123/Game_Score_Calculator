@@ -57,6 +57,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private JsonReader jsonReader;
     private GameManager gameManager;
     private Button enter;
+    private Button delete;
 
     private int index;
     private boolean isEdit;
@@ -120,7 +121,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
                 addCard("" + scores.get(i));
             }
             editing = false;
-
+            delete.setEnabled(true);
+        } else {
+            delete.setEnabled(false);
         }
     }
 
@@ -141,7 +144,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
 
-        Button delete = findViewById(R.id.btnDeletePlay);
+        delete = findViewById(R.id.btnDeletePlay);
         delete.setOnClickListener(v -> onDelete());
     }
 
