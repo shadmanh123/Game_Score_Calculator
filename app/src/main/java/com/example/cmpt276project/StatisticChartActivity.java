@@ -76,10 +76,10 @@ public class StatisticChartActivity extends AppCompatActivity {
     }
 
     private void setOnClick(int index) {
-//        Button table = findViewById(R.id.statsTable);
-//        table.setOnClickListener(v -> {
-//            finish();
-//        });
+        Button table = findViewById(R.id.statsTable);
+        table.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     public static Intent makeIntent(Context context, int gameIndex) {
