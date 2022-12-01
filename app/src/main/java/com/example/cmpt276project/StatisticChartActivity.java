@@ -20,9 +20,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class StatisticChartActivity extends AppCompatActivity {
+//Todo: add titles for achievement statistics xml page and statistics chart xml page
+// possibly for statistics chart page figure out how to get the page to scroll
 
-    //Initialize variable
+public class StatisticChartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

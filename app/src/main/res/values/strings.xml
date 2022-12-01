@@ -85,5 +85,6 @@
     <string name="of_times_earned"># of times earned</string>
     <string name="tables">Tables</string>
     <string name="histograms">Histograms</string>
+    <string name="table_view">Table View</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
