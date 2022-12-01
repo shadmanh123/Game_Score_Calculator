@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -65,18 +66,20 @@ public class PlayActivity extends AppCompatActivity {
     private void setUpGame(int index) {
         Game game = gameManager.getGame(index);
         checkEmptyState(game);
-//        populateButtons(game);
         onStart();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.notifyDataSetChanged();
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
         theList.clear();
         populateTheList();
         populateListView();
+        adapter.notifyDataSetChanged();
     }
+
 
     private void populateTheList() {
         Game game = gameManager.getGame(gameIndex);

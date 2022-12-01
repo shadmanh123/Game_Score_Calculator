@@ -140,6 +140,15 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         Button options = findViewById(R.id.optionsButton);
         options.setOnClickListener(v -> onOptionsClick());
+
+        Button delete = findViewById(R.id.btnDeletePlay);
+        delete.setOnClickListener(v -> onDelete());
+    }
+
+    private void onDelete() {
+        gameManager.getGame(index).deletePlay(playPosition);
+        jsonWriter.writeToJson(gameManager);
+        finish();
     }
 
     private void onOptionsClick() {
@@ -219,7 +228,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
 
         builder.setView(view);
-        builder.setTitle("Enter name")
+        builder.setTitle("Enter Score")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

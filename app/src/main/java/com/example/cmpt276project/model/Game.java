@@ -65,6 +65,8 @@ public class Game implements Writable {
         this.maxScore = maxScore;
     }
 
+    public void deletePlay(int index){plays.remove(index);}
+
     public String displayPlayInfo(int playIndex, int column) {
         String display;
         Play play = getPlay(playIndex);
