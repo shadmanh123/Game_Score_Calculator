@@ -18,18 +18,31 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import com.example.cmpt276project.model.Game;
+import com.example.cmpt276project.model.GameManager;
+import com.example.cmpt276project.persistence.JsonReader;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //Todo: add titles for achievement statistics xml page and statistics chart xml page
 // possibly for statistics chart page figure out how to get the page to scroll
 
 public class StatisticChartActivity extends AppCompatActivity {
+    private GameManager gameManager;
+    private JsonReader jsonReader;
+    private Game game;
+
+    private String[] levels = {"Level 1", "Level 2","Level 3","Level 4","Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic_chart);
         int index = getIntent().getIntExtra("index", 0);
+        jsonReader = new JsonReader(getApplicationContext());
+        gameManager = jsonReader.readFromJson();
+        game = gameManager.getGame(index);
 
         setOnClick(index);
 
@@ -43,14 +56,16 @@ public class StatisticChartActivity extends AppCompatActivity {
 
         //initializing array
         ArrayList<BarEntry> barEntries = new ArrayList<>();
+        HashMap<Integer, Integer> barLvlStats = game.achievementStatistics();
 
         for (int i = 0; i < 10; i++){
-            float value = (float) (i*10.0);
+            float value = (float) barLvlStats.get(i + 1);
+//            float value = (float) (i*10.0);
             BarEntry barEntry= new BarEntry(i, value);
             barEntries.add(barEntry);
         }
         BarDataSet barDataSet = new BarDataSet(barEntries, "things");
-//        barDataSet.setColor(ColorTemplate.COLORFUL_COLORS.length);
+//        barDataSet.setColor(ColorTemplate.COLORFUL_COLORS[1]);
 //        barDataSet.setDrawValues (false);
         barGraph.setData(new BarData(barDataSet));
         barGraph.animateY(5000);
@@ -62,14 +77,21 @@ public class StatisticChartActivity extends AppCompatActivity {
 
     private void setPieChart() {
         PieChart pieChart = (PieChart) findViewById(R.id.pieChart);
+        HashMap<Integer, Integer> pieLvlStats = game.achievementStatistics();
 
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         for (int i = 0; i < 10; i++){
-            float value = (float) (i*10.0);
+            float value = (float) pieLvlStats.get(i + 1);
             PieEntry pieEntry= new PieEntry(i, value);
             pieEntries.add(pieEntry);
         }
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "other things");
+        ArrayList<String> Level = new ArrayList<>();
+        for (int j= 0; j < 10; j++){
+            Level.add(levels[j]);
+        }
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Level Statistics");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(12);
 
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateY(5000);
@@ -77,6 +99,16 @@ public class StatisticChartActivity extends AppCompatActivity {
         pieChart.getDescription().setText("Other Things chart");
         pieChart.getDescription().setTextColor(Color.BLUE);
     }
+
+//    private void getGameStats(){
+//        HashMap<Integer, Integer> lvlStats = game.achievementStatistics();
+//
+//        for (int i = 0; i < 10; i++){
+//            float value = (float) lvlStats.get(i + 1);
+//            BarEntry barEntry= new BarEntry(i, value);
+//            barEntries.add(barEntry);
+//        }
+//    }
 
 
     private void setOnClick(int index) {
