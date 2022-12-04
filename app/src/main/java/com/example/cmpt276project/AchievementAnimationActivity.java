@@ -14,7 +14,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 /*
 animation class for display achievement lever and difficulty
  */
@@ -26,8 +26,13 @@ public class AchievementAnimationActivity extends AppCompatActivity {
     public static final String DIFFICULTY = "difficulty of play";
     public static final String GAME_INDEX = "game index";
     private String difficulty;
+    public static final String NEXT_ACHIEVEMENT_LEVEL = "next achievement level";
+    public static final String POINTS_AWAY = "points away from next achievement level";
+    private String theme;
     private String achievement;
     private int gameIndex;
+    private String nextAchievementLevel;
+    private String pointsAway;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +45,16 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
         TextView txtDifficulty = findViewById(R.id.txtDificulty);
         txtDifficulty.setText(difficulty);
+        nextAchievementLevel = intent.getStringExtra(NEXT_ACHIEVEMENT_LEVEL);
+        pointsAway = intent.getStringExtra(POINTS_AWAY);
 
         setIcon(achievement);
 
         View replayBtn = findViewById(R.id.btnReplay);
         replayBtn.setOnClickListener(v->onReplay());
+
+        TextView nextAchievement = findViewById(R.id.txtNextAchievement);
+        displayNextAchievementLevel(nextAchievement);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -64,26 +74,37 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             @Override
             public void run() {
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
-//                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
-//                startActivity(intent);
-//                finish();
-//                replayBtn.setVisibility(View.VISIBLE);
+                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
+                startActivity(intent);
+                finish();
+                replayBtn.setVisibility(View.VISIBLE);
 
             }
+        },5000);
+    }
 
-        },3000);
-
+    private void displayNextAchievementLevel(TextView nextAchievement) {
+        if(nextAchievementLevel == null){
+            nextAchievement.setText(R.string.highest_level_achieved_text);
+        }
+        else {
+            nextAchievement.setText("The total score was " + pointsAway + " points away from the next achievement level " +
+                    nextAchievementLevel + ".");
+        }
     }
 
     private void onReplay() {
         recreate();
     }
 
-    public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty) {
+    public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty,
+                                    String nextAchievementLevel, String pointsAway) {
         Intent intent = new Intent(context, AchievementAnimationActivity.class);
         intent.putExtra(ACHIEVEMENT, achievement);
         intent.putExtra("difficulty of play", difficulty);
         intent.putExtra(GAME_INDEX, gameIndex);
+        intent.putExtra(NEXT_ACHIEVEMENT_LEVEL, nextAchievementLevel);
+        intent.putExtra(POINTS_AWAY, pointsAway);
         return intent;
     }
 

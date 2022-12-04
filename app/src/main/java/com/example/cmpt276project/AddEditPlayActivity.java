@@ -27,6 +27,7 @@ import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     public static final String BOOL_IS_EDIT = "Index of Selected Game";
     public static final String INT_PLAY_POSITION = "Index of Selected play";
+
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -239,7 +242,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         }
         @Override
         public void afterTextChanged(Editable s) {}
-    };
+    }
 
     private void onRegisterClick() {
         Game game = gameManager.getGame(index);
@@ -265,6 +268,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
             play.setOptions(option);
             play.setNumPlayers(totalPlayers);
             play.setScores(scores);
+            play.getNextAchievement();
+            play.getPointsAway();
         } else {
             play = new Play(game, totalPlayers, scores, option);
             game.addPlay(play);
@@ -276,6 +281,10 @@ public class AddEditPlayActivity extends AppCompatActivity {
         startActivity(intent);
         Tier tier = play.getAchievementScore();
         Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, tier.getLevel(), option.getDifficulty());
+
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
+                play.getAchievementScore(option.getTheme()), option.getDifficulty(),
+                play.getNextAchievement(), decimalFormat.format(play.getPointsAway()));
         startActivity(animationIntent);
         finish();
     }

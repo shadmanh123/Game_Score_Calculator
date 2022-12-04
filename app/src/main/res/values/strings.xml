@@ -88,5 +88,6 @@
     <string name="table_view">Table View</string>
     <string name="histogram">Histogram</string>
     <string name="achievement_statistics">Achievement\n Statistics</string>
+    <string name="highest_level_achieved_text">Congratulations on achieving the highest level!</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

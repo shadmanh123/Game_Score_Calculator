@@ -33,6 +33,8 @@ public class Play implements Writable {
     private static HashMap<Tier, Double> achievements;
     private List<Double> scores;
     private Options options;
+    private String nextAchievement;
+    private double pointsAway;
 
     public Play(Game game, int numPlayers, List<Double> scores, Options options) {
         this.creationDate = LocalDateTime.now();
@@ -155,9 +157,16 @@ public class Play implements Writable {
         }
 
         Tier levelAchieved = null;
-
         for (Tier tier: achievements.keySet()) {
             if (Objects.equals(achievements.get(tier), score)) {
+            if (achievements.get(tier).equals(score)) {
+                pointsAway = (score + scoreInterval) - totalScore;
+                for(Tier category:achievements.keySet()){
+                    if(achievements.get(category).equals(score+scoreInterval)){
+                        nextAchievement = category.getLevel();
+                        break;
+                    }
+                }
                 levelAchieved = tier;
                 break;
             }
@@ -206,6 +215,14 @@ public class Play implements Writable {
 
     public String getDifficultyLevel() {
         return options.getDifficulty();
+    }
+
+    public String getNextAchievement() {
+        return nextAchievement;
+    }
+
+    public Double getPointsAway(){
+        return pointsAway;
     }
 
     @NonNull
