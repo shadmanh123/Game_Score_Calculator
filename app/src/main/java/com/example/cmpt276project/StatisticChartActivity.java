@@ -25,8 +25,6 @@ import com.example.cmpt276project.persistence.JsonReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//Todo: add titles for achievement statistics xml page and statistics chart xml page
-// possibly for statistics chart page figure out how to get the page to scroll
 
 public class StatisticChartActivity extends AppCompatActivity {
     private GameManager gameManager;
@@ -46,7 +44,6 @@ public class StatisticChartActivity extends AppCompatActivity {
 
         setOnClick(index);
 
-        //Todo: get bar graph and pie chart to show actual data
         setBarChart();
 //        setPieChart();
     }
@@ -64,13 +61,13 @@ public class StatisticChartActivity extends AppCompatActivity {
             BarEntry barEntry= new BarEntry(i, value);
             barEntries.add(barEntry);
         }
-        BarDataSet barDataSet = new BarDataSet(barEntries, "things");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "LEVELS");
 //        barDataSet.setColor(ColorTemplate.COLORFUL_COLORS[1]);
 //        barDataSet.setDrawValues (false);
         barGraph.setData(new BarData(barDataSet));
         barGraph.animateY(5000);
 
-        barGraph.getDescription().setText("Things chart");
+        barGraph.getDescription().setText("GAMES PLAYED");
         barGraph.getDescription().setTextColor(Color.BLUE);
 
     }

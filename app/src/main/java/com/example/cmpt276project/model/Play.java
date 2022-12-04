@@ -1,6 +1,7 @@
 package com.example.cmpt276project.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.cmpt276project.model.tiers.Land;
 import com.example.cmpt276project.model.tiers.Ocean;
@@ -156,13 +157,19 @@ public class Play implements Writable {
             }
         }
 
+        Tier levelAchieved = getLevel(scoreInterval, score);
+
+        return levelAchieved;
+    }
+
+    @Nullable
+    private Tier getLevel(double scoreInterval, double score) {
         Tier levelAchieved = null;
         for (Tier tier: achievements.keySet()) {
             if (Objects.equals(achievements.get(tier), score)) {
-            if (achievements.get(tier).equals(score)) {
                 pointsAway = (score + scoreInterval) - totalScore;
                 for(Tier category:achievements.keySet()){
-                    if(achievements.get(category).equals(score+scoreInterval)){
+                    if(achievements.get(category).equals(score + scoreInterval)){
                         nextAchievement = category.getLevel();
                         break;
                     }
@@ -171,7 +178,6 @@ public class Play implements Writable {
                 break;
             }
         }
-
         return levelAchieved;
     }
 

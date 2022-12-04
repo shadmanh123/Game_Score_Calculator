@@ -22,6 +22,7 @@ animation class for display achievement lever and difficulty
 public class AchievementAnimationActivity extends AppCompatActivity {
     private SoundPool soundPool;
     private int sound1;
+    public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     public static final String ACHIEVEMENT= "achievement of play";
     public static final String DIFFICULTY = "difficulty of play";
     public static final String GAME_INDEX = "game index";

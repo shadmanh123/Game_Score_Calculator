@@ -280,10 +280,10 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
         Tier tier = play.getAchievementScore();
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, tier.getLevel(), option.getDifficulty());
+//        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, tier.getLevel(), option.getDifficulty());
 
         Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
-                play.getAchievementScore(option.getTheme()), option.getDifficulty(),
+                tier.getLevel(), option.getDifficulty(),
                 play.getNextAchievement(), decimalFormat.format(play.getPointsAway()));
         startActivity(animationIntent);
         finish();
