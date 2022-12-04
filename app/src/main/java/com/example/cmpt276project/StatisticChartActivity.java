@@ -91,7 +91,7 @@ public class StatisticChartActivity extends AppCompatActivity {
         }
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Level Statistics");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+//        pieDataSet.setValueTextSize(12);
 
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateY(5000);
