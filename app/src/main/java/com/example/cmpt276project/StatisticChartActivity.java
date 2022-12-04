@@ -48,7 +48,7 @@ public class StatisticChartActivity extends AppCompatActivity {
 
         //Todo: get bar graph and pie chart to show actual data
         setBarChart();
-        setPieChart();
+//        setPieChart();
     }
 
     private void setBarChart() {
@@ -75,39 +75,29 @@ public class StatisticChartActivity extends AppCompatActivity {
 
     }
 
-    private void setPieChart() {
-        PieChart pieChart = (PieChart) findViewById(R.id.pieChart);
-        HashMap<Integer, Integer> pieLvlStats = game.achievementStatistics();
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        for (int i = 0; i < 10; i++){
-            float value = (float) pieLvlStats.get(i + 1);
-            PieEntry pieEntry= new PieEntry(i, value);
-            pieEntries.add(pieEntry);
-        }
-        ArrayList<String> Level = new ArrayList<>();
-        for (int j= 0; j < 10; j++){
-            Level.add(levels[j]);
-        }
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Level Statistics");
-        pieDataSet.setSliceSpace(2);
-//        pieDataSet.setValueTextSize(12);
-
-        pieChart.setData(new PieData(pieDataSet));
-        pieChart.animateY(5000);
-
-        pieChart.getDescription().setText("Other Things chart");
-        pieChart.getDescription().setTextColor(Color.BLUE);
-    }
-
-//    private void getGameStats(){
-//        HashMap<Integer, Integer> lvlStats = game.achievementStatistics();
+//    private void setPieChart() {
+//        PieChart pieChart = (PieChart) findViewById(R.id.pieChart);
+//        HashMap<Integer, Integer> pieLvlStats = game.achievementStatistics();
 //
+//        ArrayList<PieEntry> pieEntries = new ArrayList<>();
 //        for (int i = 0; i < 10; i++){
-//            float value = (float) lvlStats.get(i + 1);
-//            BarEntry barEntry= new BarEntry(i, value);
-//            barEntries.add(barEntry);
+//            float value = (float) pieLvlStats.get(i + 1);
+//            PieEntry pieEntry= new PieEntry(i, value);
+//            pieEntries.add(pieEntry);
 //        }
+//        ArrayList<String> Level = new ArrayList<>();
+//        for (int j= 0; j < 10; j++){
+//            Level.add(levels[j]);
+//        }
+//        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Level Statistics");
+//        pieDataSet.setSliceSpace(2);
+////        pieDataSet.setValueTextSize(12);
+//
+//        pieChart.setData(new PieData(pieDataSet));
+//        pieChart.animateY(5000);
+//
+//        pieChart.getDescription().setText("Other Things chart");
+//        pieChart.getDescription().setTextColor(Color.BLUE);
 //    }
 
 
