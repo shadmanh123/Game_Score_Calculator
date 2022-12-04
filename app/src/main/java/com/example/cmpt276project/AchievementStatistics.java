@@ -62,7 +62,8 @@ public class AchievementStatistics extends AppCompatActivity {
 
             for (int col = 0; col < COLUMN_SIZE; col++) {
                 TextView tv = new TextView(this);
-                tv.setTextSize(12);
+                tv.setTextSize(16);
+                tv.setPadding(0, 30,0, 30);
                 tableRow.addView(tv);
                 String tvText = fillInLevelText(col, row);
                 tv.setText(tvText);

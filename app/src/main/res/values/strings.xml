@@ -87,6 +87,6 @@
     <string name="histograms">Histograms</string>
     <string name="table_view">Table View</string>
     <string name="histogram">Histogram</string>
-    <string name="achievement_statistics">Achievement Statistics</string>
+    <string name="achievement_statistics">Achievement\n Statistics</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
