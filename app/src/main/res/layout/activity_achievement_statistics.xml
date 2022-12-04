@@ -23,6 +23,7 @@
 
     <TableLayout
         android:id="@+id/statisticTable"
+        android:padding="30dp"
         android:layout_width="412dp"
         android:layout_height="582dp"
         android:stretchColumns="*"
