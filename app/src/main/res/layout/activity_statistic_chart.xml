@@ -20,7 +20,7 @@
         android:id="@+id/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Achievement Statistics"
+        android:text="@string/achievement_statistics"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textStyle="bold" />
