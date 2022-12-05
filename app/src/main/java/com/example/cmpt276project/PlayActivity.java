@@ -149,6 +149,12 @@ public class PlayActivity extends AppCompatActivity {
             Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, index, false, -1);
             startActivity(intent);
         });
+
+        Button statistics = findViewById(R.id.btnStatistics);
+        statistics.setOnClickListener(v -> {
+            Intent sIntent = AchievementStatistics.makeIntent(this, index);
+            startActivity(sIntent);
+        });
     }
 
     private void checkEmptyState(Game game) {

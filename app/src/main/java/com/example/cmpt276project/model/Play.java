@@ -1,6 +1,7 @@
 package com.example.cmpt276project.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.cmpt276project.model.tiers.Land;
 import com.example.cmpt276project.model.tiers.Ocean;
@@ -33,6 +34,8 @@ public class Play implements Writable {
     private static HashMap<Tier, Double> achievements;
     private List<Double> scores;
     private Options options;
+    private String nextAchievement;
+    private double pointsAway;
 
     public Play(Game game, int numPlayers, List<Double> scores, Options options) {
         this.creationDate = LocalDateTime.now();
@@ -152,15 +155,27 @@ public class Play implements Writable {
             }
         }
 
-        Tier levelAchieved = null;
+        Tier levelAchieved = getLevel(scoreInterval, score);
 
+        return levelAchieved;
+    }
+
+    @Nullable
+    private Tier getLevel(double scoreInterval, double score) {
+        Tier levelAchieved = null;
         for (Tier tier: achievements.keySet()) {
             if (Objects.equals(achievements.get(tier), score)) {
+                pointsAway = (score + scoreInterval) - totalScore;
+                for(Tier category:achievements.keySet()){
+                    if(achievements.get(category).equals(score + scoreInterval)){
+                        nextAchievement = category.getLevel();
+                        break;
+                    }
+                }
                 levelAchieved = tier;
                 break;
             }
         }
-
         return levelAchieved;
     }
 
@@ -204,6 +219,14 @@ public class Play implements Writable {
 
     public String getDifficultyLevel() {
         return options.getDifficulty();
+    }
+
+    public String getNextAchievement() {
+        return nextAchievement;
+    }
+
+    public Double getPointsAway(){
+        return pointsAway;
     }
 
     @NonNull

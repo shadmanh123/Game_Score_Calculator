@@ -16,7 +16,7 @@
     <string name="delete_blerb">Are you sure you want to delete this game? Plays of this game will also be deleted.</string>
     <string name="credit_Info">
         \n
-        Welcome to the Game Score Collections App. This app was
+        Welcome to the Game Score Collections App by the Nitrogen Team. This app was
         created by Tiffanie, Sallin, Serena and Shadman.\n
         We have used resources from the following sources to make
         this game:\n
@@ -81,6 +81,14 @@
     <string name="clear_text_blerb" />
     <string name="clear_text">Are you sure you want to clear all your games?</string>
     <string name="tiers">Tiers</string>
+    <string name="level">Level</string>
+    <string name="of_times_earned"># of times earned</string>
+    <string name="tables">Tables</string>
+    <string name="histograms">Histograms</string>
+    <string name="table_view">Table View</string>
+    <string name="histogram">Histogram</string>
+    <string name="achievement_statistics">Achievement\n Statistics</string>
+    <string name="highest_level_achieved_text">Congratulations on achieving the highest level!</string>
     <string name="date">Date</string>
     <string name="achievement">Achievement</string>
     <string name="number_of_players">Number of Players:</string>

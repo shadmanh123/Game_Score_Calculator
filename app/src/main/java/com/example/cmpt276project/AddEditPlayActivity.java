@@ -33,6 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -49,6 +50,8 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
     public static final String BOOL_IS_EDIT = "Index of Selected Game";
     public static final String INT_PLAY_POSITION = "Index of Selected play";
+
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -157,6 +160,71 @@ public class AddEditPlayActivity extends AppCompatActivity {
         onStart();
     }
 
+    private TextWatcher inputTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String players = etTotalPlayers.getText().toString().trim();
+            enter.setEnabled(!players.isEmpty() || players.equals("0"));
+
+            try {
+                numOfPlayers = Integer.parseInt(players);
+            } catch (NumberFormatException e) {
+                return;
+            }
+
+            updateTempPlayer();
+            onStart();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    private void updateTempPlayer() {
+        if(numOfPlayers > tempMyPlayScores.size()){
+            for(int i = tempMyPlayScores.size(); i < numOfPlayers; i++){
+                tempMyPlayScores.add(0.0);
+            }
+        } else {
+            int i = tempMyPlayScores.size();
+            int j = numOfPlayers;
+            while(i != j) {
+                tempMyPlayScores.remove(tempMyPlayScores.size()-1);
+                i--;
+            }
+        }
+    }
+
+    public class inputScoreWatcher implements TextWatcher {
+        private View saveBtn;
+
+        public inputScoreWatcher(int position, View saveBtn){
+            super();
+            this.saveBtn = saveBtn;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try {
+                Integer.parseInt(s.toString().trim());
+            } catch (NumberFormatException e) {
+                return;
+            }
+            saveBtn.setEnabled(true);
+        }
+        @Override
+        public void afterTextChanged(Editable s) {}
+    }
+
     private void onRegisterClick() {
         Game game = gameManager.getGame(index);
         int totalPlayers = scores.size();
@@ -180,6 +248,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
             play.setOptions(option);
             play.setNumPlayers(totalPlayers);
             play.setScores(scoresSubmit);
+            play.setScores(scores);
+            play.getNextAchievement();
+            play.getPointsAway();
         } else {
             play = new Play(game, totalPlayers, scoresSubmit, option);
             game.addPlay(play);
@@ -193,6 +264,12 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Tier theme = option.getTheme();
         Tier tier = play.getAchievementScore(theme);
         Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this, index, tier.getLevel(), option.getDifficulty());
+        Tier tier = play.getAchievementScore();
+//        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, tier.getLevel(), option.getDifficulty());
+
+        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
+                tier.getLevel(), option.getDifficulty(),
+                play.getNextAchievement(), decimalFormat.format(play.getPointsAway()));
         startActivity(animationIntent);
         finish();
     }
