@@ -142,6 +142,7 @@ public class Game implements Writable {
                 break;
             case 3:
                 Tier theme = play.getOptions().getTheme();
+                System.out.println(theme.getClassName());
                 Tier tier = play.getAchievementScore(theme);
                 display = tier.getLevel();
                 break;

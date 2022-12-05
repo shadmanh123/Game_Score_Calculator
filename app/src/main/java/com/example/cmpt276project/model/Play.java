@@ -43,7 +43,6 @@ public class Play implements Writable {
         this.numPlayers = numPlayers;
         this.scores = scores;
         this.totalScore = calculateTotalScore();
-        achievements = new HashMap<>();
         this.options = options;
         this.difficultyLevel = options.getDifficulty();
     }
@@ -132,6 +131,7 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public Tier getAchievementScore(Tier tiers) {
+        achievements = new HashMap<>();
         getListOfAchievements(game, numPlayers, tiers.getClassName(), difficultyLevel, achievements);
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficultyLevel);
@@ -166,8 +166,8 @@ public class Play implements Writable {
         for (Tier tier: achievements.keySet()) {
             if (Objects.equals(achievements.get(tier), score)) {
                 pointsAway = (score + scoreInterval) - totalScore;
-                for(Tier category:achievements.keySet()){
-                    if(achievements.get(category).equals(score + scoreInterval)){
+                for(Tier category: achievements.keySet()){
+                    if(Objects.equals(achievements.get(category), score + scoreInterval)){
                         nextAchievement = category.getLevel();
                         break;
                     }
