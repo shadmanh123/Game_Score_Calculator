@@ -11,9 +11,9 @@
         android:id="@+id/listViewMain2"
         android:layout_width="274dp"
         android:layout_height="469dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="128dp"
         android:background="@drawable/gamecategorieslist"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,15 +21,15 @@
         android:id="@+id/PageTitle"
         android:layout_width="215dp"
         android:layout_height="37dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="100dp"
         android:background="@drawable/main_title"
         android:fontFamily="sans-serif"
         android:text="@string/game_options"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/listViewMain2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
@@ -47,15 +47,15 @@
         android:id="@+id/floatingBackButton4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:clickable="true"
         android:rotation="180"
         app:backgroundTint="#70B2D7"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976"
+        app:layout_constraintVertical_bias="0.99"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
     <RadioGroup
@@ -101,15 +101,14 @@
         android:id="@+id/Tiers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="204dp"
         android:backgroundTint="#71B3D8"
         android:text="Tiers"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintHorizontal_bias="0.99"
         app:layout_constraintStart_toEndOf="@+id/floatingBackButton4"
-        app:layout_constraintTop_toBottomOf="@+id/listViewMain2"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.99" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
