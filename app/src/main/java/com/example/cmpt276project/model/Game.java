@@ -80,7 +80,8 @@ public class Game implements Writable {
     public HashMap<Ocean, Integer> achievementStatistics() {
         List<Tier> tiers = new ArrayList<>();
         for (Play p: plays) {
-            Tier achievement = p.getAchievementScore();
+            Tier theme = p.getOptions().getTheme();
+            Tier achievement = p.getAchievementScore(theme);
             System.out.println(achievement.getLevel());
             tiers.add(achievement);
         }
