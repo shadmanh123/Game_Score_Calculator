@@ -22,6 +22,7 @@ animation class for display achievement lever and difficulty
 public class AchievementAnimationActivity extends AppCompatActivity {
     private SoundPool soundPool;
     private int sound1;
+    public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     public static final String ACHIEVEMENT= "achievement of play";
     public static final String DIFFICULTY = "difficulty of play";
     public static final String GAME_INDEX = "game index";
@@ -70,11 +71,9 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         }
 
         sound1 = soundPool.load(this, R.raw.win, 1);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
                 Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
                 startActivity(intent);
@@ -128,128 +127,97 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         img.setImageResource(R.drawable.whale);
         switch(achievement) {
             case "Blue Whale":
-                // code block
                 img.setImageResource(R.drawable.whale);
                 break;
             case "Great White Shark":
                 img.setImageResource(R.drawable.shark);
-                // code block
                 break;
             case "Colossal Squid":
                 img.setImageResource(R.drawable.squid);
-                // code block
                 break;
             case "Bottlenose Dolphin":
-                // code block
                 img.setImageResource(R.drawable.dolphing);
                 break;
             case "Lion's Mane Jellyfish":
                 img.setImageResource(R.drawable.jellyfish);
-                // code block
                 break;
             case "Giant Pacific Octopus":
                 img.setImageResource(R.drawable.octopus);
-                // code block
                 break;
             case "Peacock Mantis Shrimp":
                 img.setImageResource(R.drawable.shrimp);
-                // code block
                 break;
             case "Flamingo Tongue Snail":
                 img.setImageResource(R.drawable.snail);
-                // code block
                 break;
             case "Frogfish":
                 img.setImageResource(R.drawable.frogfish);
-                // code block
                 break;
             case "Blobfish":
                 img.setImageResource(R.drawable.blobfish);
-                // code block
                 break;
             case "African Bush Elephant":
                 img.setImageResource(R.drawable.elephant);
-                // code block
                 break;
             case "White Rhinoceros":
                 img.setImageResource(R.drawable.rhino);
-                // code block
                 break;
             case "Siberian Tiger":
                 img.setImageResource(R.drawable.tiger);
-                // code block
                 break;
             case "Impala Antelope":
                 img.setImageResource(R.drawable.antelope);
-                // code block
                 break;
             case "Red Kangaroo":
                 img.setImageResource(R.drawable.kangaroo);
-                // code block
                 break;
             case "Chimpanzee":
                 img.setImageResource(R.drawable.chimp);
-                // code block
                 break;
             case "Blue Peacock":
                 img.setImageResource(R.drawable.peacock);
-                // code block
                 break;
             case "Queensland Koala":
                 img.setImageResource(R.drawable.kowala);
-                // code block
                 break;
             case "Northern Flying Squirrel":
                 img.setImageResource(R.drawable.flyingsquirrel);
-                // code block
                 break;
             case "Etruscan shrew":
                 img.setImageResource(R.drawable.shrew);
-                // code block
                 break;
             case "Ruppell’s Griffon Vulture":
                 img.setImageResource(R.drawable.vulture);
-                // code block
                 break;
             case "Peregrine Falcon":
                 img.setImageResource(R.drawable.falcon);
-                // code block
                 break;
             case "Black Crowned Crane":
                 img.setImageResource(R.drawable.crane);
-                // code block
                 break;
             case "Whooper Swan":
                 img.setImageResource(R.drawable.swan);
-                // code block
                 break;
             case "Alpine Chough":
                 img.setImageResource(R.drawable.crow);
-                // code block
                 break;
             case "Bald Eagle":
                 img.setImageResource(R.drawable.eagle);
-                // code block
                 break;
             case "Barn Owl":
                 img.setImageResource(R.drawable.owl);
-                // code block
                 break;
             case "Little Brown Bat":
                 img.setImageResource(R.drawable.bat);
-                // code block
                 break;
             case "Red Carneau Pigeon":
                 img.setImageResource(R.drawable.pigeon);
-                // code block
                 break;
             case "Dorking Chicken":
                 img.setImageResource(R.drawable.chicken);
-                // code block
                 break;
             default:
                 break;
-                // code block
         }
 
     }

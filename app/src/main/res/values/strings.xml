@@ -81,6 +81,13 @@
     <string name="clear_text_blerb" />
     <string name="clear_text">Are you sure you want to clear all your games?</string>
     <string name="tiers">Tiers</string>
+    <string name="level">Level</string>
+    <string name="of_times_earned"># of times earned</string>
+    <string name="tables">Tables</string>
+    <string name="histograms">Histograms</string>
+    <string name="table_view">Table View</string>
+    <string name="histogram">Histogram</string>
+    <string name="achievement_statistics">Achievement\n Statistics</string>
     <string name="highest_level_achieved_text">Congratulations on achieving the highest level!</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

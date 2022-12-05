@@ -47,7 +47,6 @@ public class ClearFragment extends AppCompatDialogFragment {
                         getActivity().finish();
                         break;
 
-
                     case DialogInterface.BUTTON_NEGATIVE:
                         break;
                 }

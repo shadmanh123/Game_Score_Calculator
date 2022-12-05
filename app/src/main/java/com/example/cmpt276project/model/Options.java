@@ -9,11 +9,11 @@ import org.json.JSONObject;
  * Options: allows for choices of difficulty and theme for a particular play
  */
 public class Options {
-    //choosing the play difficulty level and the play theme
+    // choosing the play difficulty level and the play theme
     private String difficulty;
     private Tier theme;
 
-    //going to have default has normal difficulty and ocean theme - just since that was our original
+    // going to have default has normal difficulty and ocean theme - just since that was our original
     public Options(String difficulty, Tier theme) {
         this.difficulty = difficulty;
         this.theme = theme;
@@ -39,7 +39,6 @@ public class Options {
         JSONObject json = new JSONObject();
         json.put("Difficulty", difficulty);
         json.put("Theme", getThemeName());
-
         return json;
     }
 }
