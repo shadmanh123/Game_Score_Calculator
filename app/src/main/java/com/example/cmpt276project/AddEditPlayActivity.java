@@ -273,6 +273,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         } else {
             play = new Play(game, totalPlayers, scores, option);
             game.addPlay(play);
+            playPosition = gameManager.getGame(index).playSize()-1;
         }
 
         jsonWriter.writeToJson(gameManager);

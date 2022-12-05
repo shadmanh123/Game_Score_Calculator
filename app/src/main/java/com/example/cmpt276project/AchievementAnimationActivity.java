@@ -143,7 +143,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty,
-                                    String nextAchievementLevel, String pointsAway int playPosition) {
+                                    String nextAchievementLevel, String pointsAway, int playPosition) {
         Intent intent = new Intent(context, AchievementAnimationActivity.class);
         intent.putExtra(ACHIEVEMENT, achievement);
         intent.putExtra("difficulty of play", difficulty);
