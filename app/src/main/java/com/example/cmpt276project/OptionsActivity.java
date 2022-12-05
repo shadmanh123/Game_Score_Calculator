@@ -41,7 +41,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         String savedDiff = getDifficultySelected(this);
         String savedTheme = getThemeSelected(this);
-//        Toast.makeText(OptionsActivity.this, savedDiff + " + " + savedTheme, Toast.LENGTH_SHORT).show();
+
         FloatingActionButton back = findViewById(R.id.floatingBackButton4);
         back.setOnClickListener(v -> onBackClick());
 
@@ -149,9 +149,6 @@ public class OptionsActivity extends AppCompatActivity {
         NumPlayersFragment dialog = new NumPlayersFragment();
         dialog.setArguments(bundle);
         dialog.show(manager, "message");
-//        Intent i = TiersListActivity.tiersIntent(OptionsActivity.this);
-//        startActivity(i);
-//        onStart();
     }
 
     private void initializeJson() {

@@ -1,7 +1,6 @@
 package com.example.cmpt276project.model;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.cmpt276project.model.tiers.Land;
 import com.example.cmpt276project.model.tiers.Ocean;
