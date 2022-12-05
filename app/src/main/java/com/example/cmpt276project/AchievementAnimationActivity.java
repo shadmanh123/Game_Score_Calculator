@@ -16,13 +16,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.model.Options;
 import com.example.cmpt276project.model.Play;
 import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
+
 /*
 animation class for display achievement lever and difficulty
  */
@@ -36,12 +36,17 @@ public class AchievementAnimationActivity extends AppCompatActivity {
     public static final String PLAY_POSITION = "play index";
 
     private String difficulty;
+    public static final String NEXT_ACHIEVEMENT_LEVEL = "next achievement level";
+    public static final String POINTS_AWAY = "points away from next achievement level";
+    private String theme;
     private String achievement;
     private int gameIndex;
     private int playPosition;
     private GameManager gameManager;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private String nextAchievementLevel;
+    private String pointsAway;
 
 
     @Override
@@ -62,6 +67,8 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
         TextView txtDifficulty = findViewById(R.id.txtDificulty);
         txtDifficulty.setText(difficulty);
+        nextAchievementLevel = intent.getStringExtra(NEXT_ACHIEVEMENT_LEVEL);
+        pointsAway = intent.getStringExtra(POINTS_AWAY);
 
         TextView txtAchievement = findViewById(R.id.txtAchievement);
         txtAchievement.setText(achievement);
@@ -76,6 +83,9 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
         View optionsBtn = findViewById(R.id.btnOptions);
         optionsBtn.setOnClickListener(v -> onOptions());
+
+        TextView nextAchievement = findViewById(R.id.txtNextAchievement);
+        displayNextAchievementLevel(nextAchievement);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -97,11 +107,23 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             public void run() {
 
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
+                Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
+                startActivity(intent);
+                finish();
+                replayBtn.setVisibility(View.VISIBLE);
 
             }
+        },5000);
+    }
 
-        },3000);
-
+    private void displayNextAchievementLevel(TextView nextAchievement) {
+        if(nextAchievementLevel == null){
+            nextAchievement.setText(R.string.highest_level_achieved_text);
+        }
+        else {
+            nextAchievement.setText("The total score was " + pointsAway + " points away from the next achievement level " +
+                    nextAchievementLevel + ".");
+        }
     }
 
     private void onOptions() {
@@ -120,16 +142,17 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         recreate();
     }
 
-    public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty, int playPosition) {
+    public static Intent makeIntent(Context context,int gameIndex, String achievement, String difficulty,
+                                    String nextAchievementLevel, String pointsAway int playPosition) {
         Intent intent = new Intent(context, AchievementAnimationActivity.class);
         intent.putExtra(ACHIEVEMENT, achievement);
         intent.putExtra("difficulty of play", difficulty);
         intent.putExtra(GAME_INDEX, gameIndex);
+        intent.putExtra(NEXT_ACHIEVEMENT_LEVEL, nextAchievementLevel);
+        intent.putExtra(POINTS_AWAY, pointsAway);
         intent.putExtra(PLAY_POSITION, playPosition);
-
         return intent;
     }
-
     @Override
     public void recreate(){
         if (android.os.Build.VERSION.SDK_INT >=  11){
@@ -139,7 +162,6 @@ public class AchievementAnimationActivity extends AppCompatActivity {
             finish();
         }
     }
-
     @Override
     public void onResume(){
         super.onResume();
@@ -171,6 +193,19 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         Tier tier = Play.getTier(tierString);
         Options option = new Options(difficulty, tier);
         return option;
+    }
+
+    private void saveThemeSelected(String theme) {
+        SharedPreferences prefs = this.getSharedPreferences("theme", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("theme", theme);
+        editor.apply();
+    }
+
+    public static String getThemeSelected(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("theme", MODE_PRIVATE);
+        String defaultTheme = "Ocean";
+        return prefs.getString("theme", defaultTheme);
     }
 
     public void setIcon(String achievement) {
@@ -303,5 +338,6 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         }
 
     }
+
 
 }
