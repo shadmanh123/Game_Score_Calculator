@@ -5,6 +5,6 @@ package com.example.cmpt276project.model.tiers;
  */
 
 public interface Tier {
-    public String getLevel();
-    public String getClassName();
+    String getLevel();
+    String getClassName();
 }

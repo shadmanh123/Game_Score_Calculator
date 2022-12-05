@@ -52,7 +52,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     private void createDifficultyMenu() {
-        RadioGroup diffMenu = (RadioGroup) findViewById(R.id.difficultyOptions);
+        RadioGroup diffMenu = findViewById(R.id.difficultyOptions);
 
         String[] difficulty = getResources().getStringArray(R.array.difficulty);
         //creating the buttons
@@ -81,7 +81,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     private void createThemeMenu() {
-        RadioGroup themeMenu = (RadioGroup) findViewById(R.id.themeOptions);
+        RadioGroup themeMenu = findViewById(R.id.themeOptions);
 
         String[] themes = getResources().getStringArray(R.array.themes);
         //creating the buttons

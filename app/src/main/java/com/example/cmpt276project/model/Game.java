@@ -1,5 +1,6 @@
 package com.example.cmpt276project.model;
 
+import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.Writable;
 
 import org.json.JSONArray;
@@ -15,7 +16,7 @@ public class Game implements Writable {
     private String name;
     private int minScore;
     private int maxScore;
-    private List<Play> plays;
+    private final List<Play> plays;
 
     public Game(String name, int minScore, int maxScore) {
         this.name = name;
@@ -64,6 +65,8 @@ public class Game implements Writable {
         this.maxScore = maxScore;
     }
 
+    public void deletePlay(int index){plays.remove(index);}
+
     public String displayPlayInfo(int playIndex, int column) {
         String display;
         Play play = getPlay(playIndex);
@@ -78,8 +81,9 @@ public class Game implements Writable {
                 display = "" + play.getTotalScore();
                 break;
             case 3:
-                Options option = play.getOptions();
-                display = play.getAchievementScore(option.getTheme());
+                Tier theme = play.getOptions().getTheme();
+                Tier tier = play.getAchievementScore(theme);
+                display = tier.getLevel();
                 break;
             case 4:
                 display = play.getDifficultyLevel();

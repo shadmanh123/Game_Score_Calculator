@@ -51,7 +51,6 @@
         android:id="@+id/gameCategoriesList"
         android:layout_width="249dp"
         android:layout_height="402dp"
-
         android:isScrollContainer="true"
         android:keepScreenOn="true"
         android:visibility="visible"

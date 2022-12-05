@@ -82,5 +82,11 @@
     <string name="clear_text">Are you sure you want to clear all your games?</string>
     <string name="tiers">Tiers</string>
     <string name="highest_level_achieved_text">Congratulations on achieving the highest level!</string>
+    <string name="date">Date</string>
+    <string name="achievement">Achievement</string>
+    <string name="number_of_players">Number of Players:</string>
+    <string name="score">Score:</string>
+    <string name="difficulty">Difficulty:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

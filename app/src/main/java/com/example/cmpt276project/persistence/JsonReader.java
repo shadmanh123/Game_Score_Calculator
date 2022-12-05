@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 public class JsonReader {
 
     private static final String JSON_STORE = "gameManager.json";
-    private Context context;
+    private final Context context;
     GameManager gameManager;
 
     public JsonReader(Context context) {
