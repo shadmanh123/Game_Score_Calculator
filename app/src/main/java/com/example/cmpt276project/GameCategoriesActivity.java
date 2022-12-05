@@ -52,6 +52,7 @@ public class GameCategoriesActivity extends AppCompatActivity {
 
         initialize();
 
+
         getState();
         setUpOnClickListeners();
 

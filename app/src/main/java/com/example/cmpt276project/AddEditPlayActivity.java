@@ -45,9 +45,7 @@ import java.util.Stack;
 
 public class AddEditPlayActivity extends AppCompatActivity {
 
-    private static final String JSON_STORE = "gameManager.json";
     public static final String INDEX_OF_SELECTED_GAME = "Index";
-
     public static final String BOOL_IS_EDIT = "Index of Selected Game";
     public static final String INT_PLAY_POSITION = "Index of Selected play";
 
@@ -62,7 +60,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
     private int index;
     private boolean isEdit;
     private int playPosition;
-
 
     private List<Double> tempMyPlayScores;
 
@@ -92,13 +89,12 @@ public class AddEditPlayActivity extends AppCompatActivity {
         scores = new ArrayList<>();
         add = findViewById(R.id.add);
         layout = findViewById(R.id.container);
-        lostData = new Stack<Double>();
+        lostData = new Stack<>();
         buildDialog();
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dialog.show();
                 dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(!lostData.isEmpty());
             }
@@ -158,48 +154,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent i = OptionsActivity.optionsIntentPlay(AddEditPlayActivity.this);
         startActivity(i);
         onStart();
-    }
-
-    private TextWatcher inputTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String players = etTotalPlayers.getText().toString().trim();
-            enter.setEnabled(!players.isEmpty() || players.equals("0"));
-
-            try {
-                numOfPlayers = Integer.parseInt(players);
-            } catch (NumberFormatException e) {
-                return;
-            }
-
-            updateTempPlayer();
-            onStart();
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
-
-    private void updateTempPlayer() {
-        if(numOfPlayers > tempMyPlayScores.size()){
-            for(int i = tempMyPlayScores.size(); i < numOfPlayers; i++){
-                tempMyPlayScores.add(0.0);
-            }
-        } else {
-            int i = tempMyPlayScores.size();
-            int j = numOfPlayers;
-            while(i != j) {
-                tempMyPlayScores.remove(tempMyPlayScores.size()-1);
-                i--;
-            }
-        }
     }
 
     public class inputScoreWatcher implements TextWatcher {
@@ -263,10 +217,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         Tier theme = option.getTheme();
         Tier tier = play.getAchievementScore(theme);
-        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this, index, tier.getLevel(), option.getDifficulty());
-        Tier tier = play.getAchievementScore();
-//        Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index, tier.getLevel(), option.getDifficulty());
-
         Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
                 tier.getLevel(), option.getDifficulty(),
                 play.getNextAchievement(), decimalFormat.format(play.getPointsAway()));
