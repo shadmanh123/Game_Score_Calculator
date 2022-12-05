@@ -173,6 +173,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
         jsonWriter.writeToJson(gameManager);
 
         difficulty = OptionsActivity.getDifficultySelected(this);
+
         achievement = play.getAchievementScore(option.getTheme());
 
 //        Toast.makeText(AchievementAnimationActivity.this,OptionsActivity.getDifficultySelected(this), Toast.LENGTH_SHORT).show();
