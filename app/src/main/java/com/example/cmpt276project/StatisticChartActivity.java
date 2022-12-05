@@ -28,6 +28,7 @@ import java.util.HashMap;
 
 
 public class StatisticChartActivity extends AppCompatActivity {
+    public static final String INDEX_OF_SELECTED_GAME = "Index of Selected Game";
     private GameManager gameManager;
     private JsonReader jsonReader;
     private Game game;
@@ -38,7 +39,7 @@ public class StatisticChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic_chart);
-        int index = getIntent().getIntExtra("index", 0);
+        int index = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         jsonReader = new JsonReader(getApplicationContext());
         gameManager = jsonReader.readFromJson();
         game = gameManager.getGame(index);
@@ -108,7 +109,7 @@ public class StatisticChartActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context, int gameIndex) {
         Intent intent = new Intent(context, StatisticChartActivity.class);
-        intent.putExtra("index", gameIndex);
+        intent.putExtra(INDEX_OF_SELECTED_GAME, gameIndex);
         return intent;
     }
 }
