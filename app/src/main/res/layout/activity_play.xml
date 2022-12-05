@@ -14,11 +14,12 @@
         android:background="@drawable/rounded_corner"
         android:gravity="center"
         android:text="@string/history_title"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollableContent"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
 
     <Button
         android:id="@+id/btnNewGame"
@@ -26,6 +27,7 @@
         android:layout_height="55dp"
         android:backgroundTint="#71B3D8"
         android:backgroundTintMode="add"
+        android:gravity="center"
         android:text="@string/new_game_text"
         app:icon="@drawable/rounded_corner"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -65,13 +67,13 @@
     <ScrollView
         android:id="@+id/scrollableContent"
         android:layout_width="match_parent"
-        android:layout_height="548dp"
+        android:layout_height="518dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle"
+        app:layout_constraintVertical_bias="0.08">
 
         <TableLayout
             android:id="@+id/tableForHistory"
