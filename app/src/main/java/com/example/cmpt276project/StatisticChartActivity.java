@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+
 import com.example.cmpt276project.model.Game;
 import com.example.cmpt276project.model.GameManager;
 import com.example.cmpt276project.persistence.JsonReader;
@@ -49,7 +50,7 @@ public class StatisticChartActivity extends AppCompatActivity {
     }
 
     private void setBarChart() {
-        BarChart barGraph=  (BarChart) findViewById(R.id.barGraph);
+        BarChart barGraph =  (BarChart) findViewById(R.id.barGraph);
 
         //initializing array
         ArrayList<BarEntry> barEntries = new ArrayList<>();
@@ -72,30 +73,30 @@ public class StatisticChartActivity extends AppCompatActivity {
 
     }
 
-//    private void setPieChart() {
-//        PieChart pieChart = (PieChart) findViewById(R.id.pieChart);
-//        HashMap<Integer, Integer> pieLvlStats = game.achievementStatistics();
-//
-//        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-//        for (int i = 0; i < 10; i++){
-//            float value = (float) pieLvlStats.get(i + 1);
-//            PieEntry pieEntry= new PieEntry(i, value);
-//            pieEntries.add(pieEntry);
-//        }
-//        ArrayList<String> Level = new ArrayList<>();
-//        for (int j= 0; j < 10; j++){
-//            Level.add(levels[j]);
-//        }
-//        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Level Statistics");
-//        pieDataSet.setSliceSpace(2);
-////        pieDataSet.setValueTextSize(12);
-//
-//        pieChart.setData(new PieData(pieDataSet));
-//        pieChart.animateY(5000);
-//
-//        pieChart.getDescription().setText("Other Things chart");
-//        pieChart.getDescription().setTextColor(Color.BLUE);
-//    }
+    /*private void setPieChart() {
+        PieChart pieChart = (PieChart) findViewById(R.id.pieChart);
+        HashMap<Integer, Integer> pieLvlStats = game.achievementStatistics();
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        for (int i = 0; i < 10; i++){
+            float value = (float) pieLvlStats.get(i + 1);
+            PieEntry pieEntry= new PieEntry(i, value);
+            pieEntries.add(pieEntry);
+        }
+        ArrayList<String> Level = new ArrayList<>();
+        for (int j= 0; j < 10; j++){
+            Level.add(levels[j]);
+        }
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Level Statistics");
+        pieDataSet.setSliceSpace(2);
+//        pieDataSet.setValueTextSize(12);
+
+        pieChart.setData(new PieData(pieDataSet));
+        pieChart.animateY(5000);
+
+        pieChart.getDescription().setText("Other Things chart");
+        pieChart.getDescription().setTextColor(Color.BLUE);
+    }*/
 
 
     private void setOnClick(int index) {

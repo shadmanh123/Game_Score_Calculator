@@ -80,7 +80,6 @@ public class PlayActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-
     private void populateTheList() {
         Game game = gameManager.getGame(gameIndex);
         for (int i = 0; i < game.playSize(); i++) {
