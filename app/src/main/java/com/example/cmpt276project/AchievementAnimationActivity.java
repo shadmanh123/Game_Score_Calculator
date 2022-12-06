@@ -108,12 +108,10 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
                 soundPool.play(sound1, 1, 1, 0 , 0, 1);
                 Intent intent = PlayActivity.makeIntent(AchievementAnimationActivity.this, gameIndex);
-                startActivity(intent);
-                finish();
                 replayBtn.setVisibility(View.VISIBLE);
 
             }
-        },5000);
+        },2000);
     }
 
     private void displayNextAchievementLevel(TextView nextAchievement) {
