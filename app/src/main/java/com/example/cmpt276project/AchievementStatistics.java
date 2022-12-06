@@ -56,6 +56,8 @@ public class AchievementStatistics extends AppCompatActivity {
 
     private void populateText() {
         TableLayout table = findViewById(R.id.statisticTable);
+        HashMap<Integer, Integer> lvlStats = game.achievementStatistics();
+        String text;
         for (int row = 0; row < ROW_SIZE; row++) {
             TableRow tableRow = new TableRow(this);
             table.addView(tableRow);
@@ -65,7 +67,13 @@ public class AchievementStatistics extends AppCompatActivity {
                 tv.setTextSize(16);
                 tv.setPadding(0, 30,0, 30);
                 tableRow.addView(tv);
-                String tvText = fillInLevelText(col, row);
+                String tvText;
+                if (col == 1){
+                    tvText = "" + lvlStats.get(row + 1);
+                } else{
+                    tvText = "Level " + (row + 1);
+                }
+//                String tvText = fillInLevelText(col, row);
                 tv.setText(tvText);
                 tv.setGravity(Gravity.CENTER);
             }
@@ -79,9 +87,9 @@ public class AchievementStatistics extends AppCompatActivity {
             case 0:
                 text = "Level " + (row + 1);
                 break;
-            case 1:
-                text = "" + lvlStats.get(row + 1);
-                break;
+//            case 1:
+//                text = "" + lvlStats.get(row + 1);
+//                break;
             default:
                 text = "";
                 break;
