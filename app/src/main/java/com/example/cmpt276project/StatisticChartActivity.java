@@ -112,6 +112,7 @@ public class StatisticChartActivity extends AppCompatActivity {
         xAxis.setValueFormatter(formatter);
 
         barGraph.getXAxis().setGranularity(1);
+        barGraph.getXAxis().setTextColor(Color.GRAY);
         barGraph.getXAxis().setGranularityEnabled(true);
     }
 
