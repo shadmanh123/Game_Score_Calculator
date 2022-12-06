@@ -210,8 +210,6 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
                 play.getAchievementScore(option.getTheme()).getLevel(), option.getDifficulty(),
                 play.getNextAchievement(), decimalFormat.format(play.getPointsAway()), playPosition);
-                tier.getLevel(), option.getDifficulty(),
-                play.getNextAchievement(), decimalFormat.format(play.getPointsAway()));
         startActivity(animationIntent);
         finish();
     }
