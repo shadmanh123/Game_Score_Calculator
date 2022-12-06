@@ -1,5 +1,7 @@
 package com.example.cmpt276project;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -69,16 +71,16 @@ public class StatisticChartActivity extends AppCompatActivity {
         barGraph.animateY(5000);
 
         final ArrayList<Integer> colours = new ArrayList<>();
-        colours.add(Color.RED);
-        colours.add(Color.DKGRAY);
-        colours.add(Color.CYAN);
-        colours.add(Color.GREEN);
-        colours.add(Color.LTGRAY);
-        colours.add(Color.MAGENTA);
-        colours.add(Color.GRAY);
-        colours.add(Color.BLUE);
-        colours.add(Color.BLACK);
-        colours.add(Color.YELLOW);
+        colours.add(Color.parseColor("#0000ff")); //blue
+        colours.add(Color.parseColor("#0047ab")); //cobalt blue
+        colours.add(Color.parseColor("#6495ed")); //corn flower blue
+        colours.add(Color.parseColor("#6082b6")); //glaucous
+        colours.add(Color.parseColor("#a7c7e7")); //pastel blue
+        colours.add(Color.parseColor("#b6d0e2")); //powder blue
+        colours.add(Color.parseColor("#96ded1")); //robin egg blue
+        colours.add(Color.parseColor("#9fe2bf")); //seafoam green
+        colours.add(Color.parseColor("#40b5ad")); //verdigris
+        colours.add(Color.parseColor("#088f8f")); //blue green
 
         barDataSet.setColors(colours);
 
@@ -108,6 +110,9 @@ public class StatisticChartActivity extends AppCompatActivity {
 
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
+
+        barGraph.getXAxis().setGranularity(1);
+        barGraph.getXAxis().setGranularityEnabled(true);
     }
 
     /*private void setPieChart() {
