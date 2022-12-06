@@ -10,12 +10,14 @@ import android.widget.Button;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 
@@ -32,8 +34,6 @@ public class StatisticChartActivity extends AppCompatActivity {
     private GameManager gameManager;
     private JsonReader jsonReader;
     private Game game;
-
-    private String[] levels = {"Level 1", "Level 2","Level 3","Level 4","Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +63,59 @@ public class StatisticChartActivity extends AppCompatActivity {
             BarEntry barEntry= new BarEntry(i, value);
             barEntries.add(barEntry);
         }
-        BarDataSet barDataSet = new BarDataSet(barEntries, "LEVELS");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "NUMBER OF TIMES LEVEL WAS ACHIEVED");
 //        barDataSet.setColor(ColorTemplate.COLORFUL_COLORS[1]);
 //        barDataSet.setDrawValues (false);
+//
         barGraph.setData(new BarData(barDataSet));
         barGraph.animateY(5000);
 
-        barGraph.getDescription().setText("GAMES PLAYED");
-        barGraph.getDescription().setTextColor(Color.BLUE);
+//        barGraph.getDescription().setText("GAMES PLAYED");
+//        barGraph.getDescription().setTextColor(Color.BLUE);
+        final ArrayList<Integer> colours = new ArrayList<>();
+        colours.add(Color.RED);
+        colours.add(Color.DKGRAY);
+        colours.add(Color.CYAN);
+        colours.add(Color.GREEN);
+        colours.add(Color.LTGRAY);
+        colours.add(Color.MAGENTA);
+        colours.add(Color.GRAY);
+        colours.add(Color.BLUE);
+        colours.add(Color.BLACK);
+        colours.add(Color.YELLOW);
+
+        barDataSet.setColors(colours);
+
+        barGraph.getDescription().setEnabled(false);
+        final ArrayList<String> xAxisLabel = new ArrayList<>();
+        xAxisLabel.add("Level 1");
+        xAxisLabel.add("Level 2");
+        xAxisLabel.add("Level 3");
+        xAxisLabel.add("Level 4");
+        xAxisLabel.add("Level 5");
+        xAxisLabel.add("Level 6");
+        xAxisLabel.add("Level 7");
+        xAxisLabel.add("Level 8");
+        xAxisLabel.add("Level 9");
+        xAxisLabel.add("Level 10");
+
+
+        XAxis xAxis = barGraph.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+
+        ValueFormatter formatter = new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return xAxisLabel.get((int) value);
+            }
+        };
+
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+
+//        XAxis xAxis = barGraph.getXAxis();
+//        xAxis.setGranularity(1f);
+//        xAxis.setGranularityEnabled(true);
 
     }
 
