@@ -73,29 +73,12 @@ public class AchievementStatistics extends AppCompatActivity {
                 } else{
                     tvText = "Level " + (row + 1);
                 }
-//                String tvText = fillInLevelText(col, row);
                 tv.setText(tvText);
                 tv.setGravity(Gravity.CENTER);
             }
         }
     }
 
-    private String fillInLevelText(int col, int row) {
-        HashMap<Integer, Integer> lvlStats = game.achievementStatistics();
-        String text;
-        switch(col) {
-            case 0:
-                text = "Level " + (row + 1);
-                break;
-//            case 1:
-//                text = "" + lvlStats.get(row + 1);
-//                break;
-            default:
-                text = "";
-                break;
-        }
-        return text;
-    }
 
     public static Intent makeIntent(Context context, int gameIndex) {
         Intent intent = new Intent(context, AchievementStatistics.class);

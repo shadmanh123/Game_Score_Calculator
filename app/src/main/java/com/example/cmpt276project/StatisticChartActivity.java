@@ -59,19 +59,15 @@ public class StatisticChartActivity extends AppCompatActivity {
 
         for (int i = 0; i < 10; i++){
             float value = (float) barLvlStats.get(i + 1);
-//            float value = (float) (i*10.0);
             BarEntry barEntry= new BarEntry(i, value);
             barEntries.add(barEntry);
         }
         BarDataSet barDataSet = new BarDataSet(barEntries, "NUMBER OF TIMES LEVEL WAS ACHIEVED");
-//        barDataSet.setColor(ColorTemplate.COLORFUL_COLORS[1]);
 //        barDataSet.setDrawValues (false);
 //
         barGraph.setData(new BarData(barDataSet));
         barGraph.animateY(5000);
 
-//        barGraph.getDescription().setText("GAMES PLAYED");
-//        barGraph.getDescription().setTextColor(Color.BLUE);
         final ArrayList<Integer> colours = new ArrayList<>();
         colours.add(Color.RED);
         colours.add(Color.DKGRAY);
@@ -112,11 +108,6 @@ public class StatisticChartActivity extends AppCompatActivity {
 
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
-
-//        XAxis xAxis = barGraph.getXAxis();
-//        xAxis.setGranularity(1f);
-//        xAxis.setGranularityEnabled(true);
-
     }
 
     /*private void setPieChart() {
@@ -126,6 +117,7 @@ public class StatisticChartActivity extends AppCompatActivity {
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             float value = (float) pieLvlStats.get(i + 1);
+            float value = (float) (i*10.0);
             PieEntry pieEntry= new PieEntry(i, value);
             pieEntries.add(pieEntry);
         }
