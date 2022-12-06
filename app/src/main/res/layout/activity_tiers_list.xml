@@ -25,11 +25,11 @@
 
     <TextView
         android:id="@+id/listViewMain"
-        android:layout_width="322dp"
-        android:layout_height="510dp"
+        android:layout_width="324dp"
+        android:layout_height="4294967294dp"
         android:background="@drawable/gamecategorieslist"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/floatingBackButton5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PageTitle"
@@ -57,44 +57,54 @@
         android:layout_marginTop="24dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/tiersTable"
+        app:layout_constraintBottom_toTopOf="@+id/scrollableContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PageTitle" />
 
-    <TableLayout
-        android:id="@+id/tiersTable"
-        android:layout_width="309dp"
-        android:layout_height="430dp"
-        android:stretchColumns="*"
-        app:layout_constraintBottom_toBottomOf="@+id/listViewMain"
-        app:layout_constraintEnd_toEndOf="@+id/listViewMain"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintLeft_toLeftOf="@+id/listViewMain"
-        app:layout_constraintRight_toRightOf="@+id/listViewMain"
-        app:layout_constraintStart_toStartOf="@+id/listViewMain"
-        app:layout_constraintTop_toTopOf="@+id/listViewMain"
-        app:layout_constraintVertical_bias="0.712">
+    <ScrollView
+        android:id="@+id/scrollableContent"
+        android:layout_width="326dp"
+        android:layout_height="348dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PageTitle">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TableLayout
+            android:id="@+id/tiersTable"
+            android:layout_width="309dp"
+            android:layout_height="4294967294dp"
+            android:stretchColumns="*"
+            app:layout_constraintBottom_toTopOf="@+id/floatingBackButton5"
+            app:layout_constraintEnd_toEndOf="@+id/listViewMain"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintLeft_toLeftOf="@+id/listViewMain"
+            app:layout_constraintRight_toRightOf="@+id/listViewMain"
+            app:layout_constraintStart_toStartOf="@+id/listViewMain"
+            app:layout_constraintTop_toTopOf="@+id/listViewMain">
 
-            <TextView
-                android:background="#9EAAD5"
-                android:gravity="center"
-                android:padding="5dip"
-                android:text="Achievement \n Levels"
-                android:textColor="@color/white" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:background="#9EAAD5"
-                android:gravity="center"
-                android:padding="5dip"
-                android:text="Minimum Score \n Required"
-                android:textColor="@color/white" />
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:background="#9EAAD5"
+                    android:gravity="center"
+                    android:padding="5dip"
+                    android:text="Achievement \n Levels"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:background="#9EAAD5"
+                    android:gravity="center"
+                    android:padding="5dip"
+                    android:text="Minimum Score \n Required"
+                    android:textColor="@color/white" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

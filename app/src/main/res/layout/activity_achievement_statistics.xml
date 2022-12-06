@@ -21,72 +21,85 @@
         app:layout_constraintVertical_bias="0.958"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
-    <TableLayout
-        android:id="@+id/statisticTable"
-        android:layout_width="412dp"
-        android:layout_height="582dp"
-        android:gravity="center_horizontal"
-        android:paddingTop="15dp"
-        android:stretchColumns="*"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ScrollView
+        android:id="@+id/scrollableContent"
+        android:layout_width="match_parent"
+        android:layout_height="348dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/floatingBackButton2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57">
+        app:layout_constraintTop_toBottomOf="@+id/tableTitle">
 
-        <TableRow
+
+        <TableLayout
+            android:id="@+id/statisticTable"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="582dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="15dp"
+            android:stretchColumns="*"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.57">
 
-            <TextView
-                android:background="#9EAAD5"
-                android:gravity="center"
-                android:padding="5dip"
-                android:text="@string/level"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:background="#9EAAD5"
-                android:gravity="center"
-                android:padding="5dip"
-                android:text="@string/of_times_earned"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-        </TableRow>
+                <TextView
+                    android:background="#9EAAD5"
+                    android:gravity="center"
+                    android:padding="5dip"
+                    android:text="@string/level"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:background="#9EAAD5"
+                    android:gravity="center"
+                    android:padding="5dip"
+                    android:text="@string/of_times_earned"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </TableRow>
 
 
-    </TableLayout>
+        </TableLayout>
+    </ScrollView>
 
     <Button
-        android:id="@+id/statsCharts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#71B3D8"
-        android:text="@string/histograms"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.942"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.959" />
+android:backgroundTint="#71B3D8"
+android:id="@+id/statsCharts"
+android:layout_height="wrap_content"
+android:layout_width="wrap_content"
+android:text="@string/histograms"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.942"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.959" />
 
-    <TextView
-        android:id="@+id/tableTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/achievement_statistics"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/statisticTable"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<TextView
+android:gravity="center"
+android:id="@+id/tableTitle"
+android:layout_height="wrap_content"
+android:layout_width="wrap_content"
+android:text="@string/achievement_statistics"
+android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+android:textStyle="bold"
+app:layout_constraintBottom_toTopOf="@+id/statisticTable"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.497"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="1.0" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

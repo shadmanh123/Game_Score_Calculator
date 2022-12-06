@@ -60,9 +60,17 @@
         <a href="https://www.youtube.com/watch?v=fIWPSni7kUk">Sound Pool Tutorial</a>\n
         <a href="https://freesound.org/people/Unlistenable/sounds/391539/">Happy Sound</a>\n
         <a href="https://www.youtube.com/watch?v=icmQOZp4p6It=27s">Splash screen with Animations using Motion Layout</a>\n
+        <a href="https://developer.android.com/training/camera-deprecated/photobasics">Take Photos</a>\n
+        <a href="https://stackoverflow.com/questions/60027883/take-photo-in-android-app-and-save-it-into-gallery">Take Photos and Save to Gallery</a>\n
+        <a href="https://www.youtube.com/watch?time_continue=8v=YLUmfyGFjnUfeature=emb_logo">How to Display Image in ImageView</a>\n
+        <a href="https://www.youtube.com/watch?v=oLcxTunwaFk">How to Save Image to External Storage</a>\n
+        <a href="https://gamedevacademy.org/android-camera-access-tutorial/">How to Access Camera</a>\n
+        <a href="https://stackoverflow.com/questions/54275594/how-to-start-camera-from-fragment-in-android">How to Start Camera from Fragment</a>\n
+        <a href="https://www.youtube.com/watch?v=LjQmxg8xwGQ">Dynamic Views</a>\n
+        <a href="https://www.youtube.com/playlist?list=PLhPyEFL5u-i1Gz_U-msxrHuWsTHbmwp24">Android Camera and Photo App</a>\n
+        <a href="https://www.youtube.com/watch?v=pi1tq-bp7uA">Create Simple Bar Graph</a>\n
+        <a href="https://www.youtube.com/watch?v=dzZQNsHhqQst=416s">How to Implement Chart</a>
 
-        We would like to thank our special and cool alpha testers:\n
-        Alisha Dhillon and Sonia Dhillon
     </string>
     <string name="adding_tutorial_message">
         Just tap on the "New Game" button
