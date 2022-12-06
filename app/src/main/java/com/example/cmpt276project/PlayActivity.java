@@ -48,7 +48,7 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play1);
+        setContentView(R.layout.activity_play);
         gameIndex = getIntent().getIntExtra(INDEX_OF_SELECTED_GAME, 0);
         initialize();
         setUpGame(gameIndex);
@@ -66,10 +66,11 @@ public class PlayActivity extends AppCompatActivity {
     private void setUpGame(int index) {
         Game game = gameManager.getGame(index);
         checkEmptyState(game);
-        onStart();
+        populateButtons(game);
+//        onStart();
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         jsonReader = new JsonReader(getApplicationContext());
@@ -78,8 +79,7 @@ public class PlayActivity extends AppCompatActivity {
         populateTheList();
         populateListView();
         adapter.notifyDataSetChanged();
-    }
-
+    }*/
 
     private void populateTheList() {
         Game game = gameManager.getGame(gameIndex);
@@ -148,6 +148,12 @@ public class PlayActivity extends AppCompatActivity {
         newGame.setOnClickListener(v -> {
             Intent intent = AddEditPlayActivity.makeIntent(PlayActivity.this, index, false, -1);
             startActivity(intent);
+        });
+
+        Button statistics = findViewById(R.id.btnStatistics);
+        statistics.setOnClickListener(v -> {
+            Intent sIntent = AchievementStatistics.makeIntent(this, index);
+            startActivity(sIntent);
         });
     }
 

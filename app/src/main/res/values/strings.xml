@@ -16,7 +16,7 @@
     <string name="delete_blerb">Are you sure you want to delete this game? Plays of this game will also be deleted.</string>
     <string name="credit_Info">
         \n
-        Welcome to the Game Score Collections App. This app was
+        Welcome to the Game Score Collections App by the Nitrogen Team. This app was
         created by Tiffanie, Sallin, Serena and Shadman.\n
         We have used resources from the following sources to make
         this game:\n
@@ -60,15 +60,21 @@
         <a href="https://www.youtube.com/watch?v=fIWPSni7kUk">Sound Pool Tutorial</a>\n
         <a href="https://freesound.org/people/Unlistenable/sounds/391539/">Happy Sound</a>\n
         <a href="https://www.youtube.com/watch?v=icmQOZp4p6It=27s">Splash screen with Animations using Motion Layout</a>\n
+        <a href="https://developer.android.com/training/camera-deprecated/photobasics">Take Photos</a>\n
+        <a href="https://stackoverflow.com/questions/60027883/take-photo-in-android-app-and-save-it-into-gallery">Take Photos and Save to Gallery</a>\n
+        <a href="https://www.youtube.com/watch?time_continue=8v=YLUmfyGFjnUfeature=emb_logo">How to Display Image in ImageView</a>\n
+        <a href="https://www.youtube.com/watch?v=oLcxTunwaFk">How to Save Image to External Storage</a>\n
+        <a href="https://gamedevacademy.org/android-camera-access-tutorial/">How to Access Camera</a>\n
+        <a href="https://stackoverflow.com/questions/54275594/how-to-start-camera-from-fragment-in-android">How to Start Camera from Fragment</a>\n
+        <a href="https://www.youtube.com/watch?v=LjQmxg8xwGQ">Dynamic Views</a>\n
+        <a href="https://www.youtube.com/playlist?list=PLhPyEFL5u-i1Gz_U-msxrHuWsTHbmwp24">Android Camera and Photo App</a>\n
+        <a href="https://www.youtube.com/watch?v=pi1tq-bp7uA">Create Simple Bar Graph</a>\n
+        <a href="https://www.youtube.com/watch?v=dzZQNsHhqQst=416s">How to Implement Chart</a>
 
-        We would like to thank our special and cool alpha testers:\n
-        Alisha Dhillon and Sonia Dhillon
     </string>
     <string name="adding_tutorial_message">
-        On this screen, we will add a play of a
-        game. Just tap on the "New Game" button
-        and input the number of players and total
-        score followed by tapping "Enter" button.\n
+        Just tap on the "New Game" button
+        and input the score for each player followed by tapping "Enter" button.\n
         Tap anywhere to continue.
     </string>
     <string name="empty_game_manager_text">Your Game Manager is empty! Click here to add a game configuration!</string>
@@ -81,12 +87,21 @@
     <string name="clear_text_blerb" />
     <string name="clear_text">Are you sure you want to clear all your games?</string>
     <string name="tiers">Tiers</string>
+    <string name="level">Level</string>
+    <string name="of_times_earned"># of times earned</string>
+    <string name="tables">Tables</string>
+    <string name="histograms">Histograms</string>
+    <string name="table_view">Table View</string>
+    <string name="histogram">Histogram</string>
+    <string name="achievement_statistics">Achievement\n Statistics</string>
+    <string name="highest_level_achieved_text">Congratulations on achieving the highest level!</string>
     <string name="highest_level_achieved_text">Congratulations on achieving the highest level!</string>
     <string name="date">Date</string>
     <string name="achievement">Achievement</string>
     <string name="number_of_players">Number of Players:</string>
     <string name="score">Score:</string>
     <string name="difficulty">Difficulty:</string>
+    <string name="add">Add</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

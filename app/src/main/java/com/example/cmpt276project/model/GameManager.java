@@ -1,6 +1,5 @@
 package com.example.cmpt276project.model;
 
-import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.Writable;
 
 import org.json.JSONArray;

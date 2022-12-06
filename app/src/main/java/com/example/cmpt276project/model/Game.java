@@ -1,6 +1,10 @@
 package com.example.cmpt276project.model;
 
 import com.example.cmpt276project.model.tiers.Tier;
+import com.example.cmpt276project.model.tiers.Land;
+import com.example.cmpt276project.model.tiers.Ocean;
+import com.example.cmpt276project.model.tiers.Sky;
+import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.Writable;
 
 import org.json.JSONArray;
@@ -8,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 /**
  * Game: Class of a single game that contains the play history
@@ -17,12 +23,18 @@ public class Game implements Writable {
     private int minScore;
     private int maxScore;
     private final List<Play> plays;
+    private List<Integer> level;
 
     public Game(String name, int minScore, int maxScore) {
         this.name = name;
         this.minScore = minScore;
         this.maxScore = maxScore;
-        plays = new ArrayList<>();
+        this.plays = new ArrayList<>();
+        this.level = new ArrayList<>();
+    }
+
+    public List<Play> getPlays() {
+        return plays;
     }
 
     public int playSize() {
@@ -65,6 +77,54 @@ public class Game implements Writable {
         this.maxScore = maxScore;
     }
 
+    public HashMap<Integer, Integer> achievementStatistics() {
+        List<Tier> tiers = new ArrayList<>();
+        for (Play p: plays) {
+            Tier theme = p.getOptions().getTheme();
+            Tier achievement = p.getAchievementScore(theme);
+            System.out.println(achievement.getLevel());
+            tiers.add(achievement);
+        }
+
+        for (Ocean ocean : Ocean.values()) {
+            level.add(Collections.frequency(tiers, ocean));
+        }
+        print();
+
+        addLevelFreq(tiers, Land.LEVEL1.getClassName());
+        print();
+
+        addLevelFreq(tiers, Sky.LEVEL1.getClassName());
+        print();
+
+        HashMap<Integer, Integer> statistics = new HashMap<>();
+
+        int lvl = 10;
+        for (int i = 0; i < 10; i++) {
+            statistics.put(lvl, level.get(i));
+            lvl--;
+        }
+
+        return statistics;
+    }
+
+    private void print() {
+        int i = 0;
+        for (Integer j: level) {
+            System.out.println("level " + i + ":" + j);
+        }
+        System.out.println("end");
+    }
+
+    private void addLevelFreq(List<Tier> tiers, String theme) {
+        int i = 0;
+        for (Tier tier : Play.getTierValues(theme)) {
+            int lvl = level.get(i) + Collections.frequency(tiers, tier);
+            level.set(i, lvl);
+            i++;
+        }
+    }
+
     public void deletePlay(int index){plays.remove(index);}
 
     public String displayPlayInfo(int playIndex, int column) {
@@ -82,6 +142,7 @@ public class Game implements Writable {
                 break;
             case 3:
                 Tier theme = play.getOptions().getTheme();
+                System.out.println(theme.getClassName());
                 Tier tier = play.getAchievementScore(theme);
                 display = tier.getLevel();
                 break;

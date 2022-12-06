@@ -18,11 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cmpt276project.model.Game;
@@ -33,6 +30,9 @@ import com.example.cmpt276project.model.tiers.Tier;
 import com.example.cmpt276project.persistence.JsonReader;
 import com.example.cmpt276project.persistence.JsonWriter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import org.w3c.dom.Text;
 import java.util.ArrayList;
@@ -46,9 +46,7 @@ import java.util.Stack;
 
 public class AddEditPlayActivity extends AppCompatActivity {
 
-    private static final String JSON_STORE = "gameManager.json";
     public static final String INDEX_OF_SELECTED_GAME = "Index";
-
     public static final String BOOL_IS_EDIT = "Index of Selected Game";
     public static final String INT_PLAY_POSITION = "Index of Selected play";
 
@@ -98,13 +96,12 @@ public class AddEditPlayActivity extends AppCompatActivity {
         scores = new ArrayList<>();
         add = findViewById(R.id.add);
         layout = findViewById(R.id.container);
-        lostData = new Stack<Double>();
+        lostData = new Stack<>();
         buildDialog();
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dialog.show();
                 dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(!lostData.isEmpty());
             }
@@ -193,6 +190,9 @@ public class AddEditPlayActivity extends AppCompatActivity {
             play.setOptions(option);
             play.setNumPlayers(totalPlayers);
             play.setScores(scoresSubmit);
+            play.setScores(scores);
+            play.getNextAchievement();
+            play.getPointsAway();
         } else {
             play = new Play(game, totalPlayers, scoresSubmit, option);
             game.addPlay(play);
@@ -203,11 +203,15 @@ public class AddEditPlayActivity extends AppCompatActivity {
 
         Intent intent = PlayActivity.makeIntent(AddEditPlayActivity.this, index);
         startActivity(intent);
+
         Tier theme = option.getTheme();
 
+        Tier tier = play.getAchievementScore(theme);
         Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
                 play.getAchievementScore(option.getTheme()).getLevel(), option.getDifficulty(),
                 play.getNextAchievement(), decimalFormat.format(play.getPointsAway()), playPosition);
+                tier.getLevel(), option.getDifficulty(),
+                play.getNextAchievement(), decimalFormat.format(play.getPointsAway()));
         startActivity(animationIntent);
         finish();
     }
