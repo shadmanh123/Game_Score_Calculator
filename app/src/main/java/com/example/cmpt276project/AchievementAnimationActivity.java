@@ -174,7 +174,7 @@ public class AchievementAnimationActivity extends AppCompatActivity {
 
         difficulty = OptionsActivity.getDifficultySelected(this);
 
-        achievement = play.getAchievementScore(option.getTheme());
+        achievement = play.getAchievementScore(option.getTheme()).getLevel();
 
 //        Toast.makeText(AchievementAnimationActivity.this,OptionsActivity.getDifficultySelected(this), Toast.LENGTH_SHORT).show();
 

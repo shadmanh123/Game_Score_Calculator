@@ -32,7 +32,6 @@ public class Play implements Writable {
     private Double totalScore;
     private final String difficultyLevel;
     private static HashMap<Tier, Double> achievements;
-    private static String tierString;
     private List<Double> scores;
     private Options options;
     private String nextAchievement;
@@ -44,10 +43,8 @@ public class Play implements Writable {
         this.numPlayers = numPlayers;
         this.scores = scores;
         this.totalScore = calculateTotalScore();
-        achievements = new HashMap<>();
         this.options = options;
         this.difficultyLevel = options.getDifficulty();
-        tierString = options.getThemeName();
     }
 
     public void setOptions(Options options) {
@@ -134,6 +131,7 @@ public class Play implements Writable {
 
     // subdivide scores into 10 tiers
     public Tier getAchievementScore(Tier tiers) {
+        achievements = new HashMap<>();
         getListOfAchievements(game, numPlayers, tiers.getClassName(), difficultyLevel, achievements);
         double max = game.getMaxScore() * numPlayers * getDifficultyLevel(difficultyLevel);
         double min = game.getMinScore() * numPlayers * getDifficultyLevel(difficultyLevel);
@@ -157,15 +155,27 @@ public class Play implements Writable {
             }
         }
 
-        Tier levelAchieved = null;
+        Tier levelAchieved = getLevel(scoreInterval, score);
 
+        return levelAchieved;
+    }
+
+    @Nullable
+    private Tier getLevel(double scoreInterval, double score) {
+        Tier levelAchieved = null;
         for (Tier tier: achievements.keySet()) {
             if (Objects.equals(achievements.get(tier), score)) {
+                pointsAway = (score + scoreInterval) - totalScore;
+                for(Tier category: achievements.keySet()){
+                    if(Objects.equals(achievements.get(category), score + scoreInterval)){
+                        nextAchievement = category.getLevel();
+                        break;
+                    }
+                }
                 levelAchieved = tier;
                 break;
             }
         }
-
         return levelAchieved;
     }
 
@@ -211,6 +221,13 @@ public class Play implements Writable {
         return options.getDifficulty();
     }
 
+    public String getNextAchievement() {
+        return nextAchievement;
+    }
+
+    public Double getPointsAway(){
+        return pointsAway;
+    }
 
     @NonNull
     public static Tier getTier(String tierString) {

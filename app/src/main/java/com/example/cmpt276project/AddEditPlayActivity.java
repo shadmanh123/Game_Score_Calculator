@@ -196,6 +196,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         } else {
             play = new Play(game, totalPlayers, scoresSubmit, option);
             game.addPlay(play);
+            playPosition = gameManager.getGame(index).playSize()-1;
         }
 
         jsonWriter.writeToJson(gameManager);
@@ -205,7 +206,7 @@ public class AddEditPlayActivity extends AppCompatActivity {
         Tier theme = option.getTheme();
 
         Intent animationIntent = AchievementAnimationActivity.makeIntent(AddEditPlayActivity.this,index,
-                play.getAchievementScore(option.getTheme()), option.getDifficulty(),
+                play.getAchievementScore(option.getTheme()).getLevel(), option.getDifficulty(),
                 play.getNextAchievement(), decimalFormat.format(play.getPointsAway()), playPosition);
         startActivity(animationIntent);
         finish();
