@@ -65,10 +65,8 @@
         Alisha Dhillon and Sonia Dhillon
     </string>
     <string name="adding_tutorial_message">
-        On this screen, we will add a play of a
-        game. Just tap on the "New Game" button
-        and input the number of players and total
-        score followed by tapping "Enter" button.\n
+        Just tap on the "New Game" button
+        and input the score for each player followed by tapping "Enter" button.\n
         Tap anywhere to continue.
     </string>
     <string name="empty_game_manager_text">Your Game Manager is empty! Click here to add a game configuration!</string>
